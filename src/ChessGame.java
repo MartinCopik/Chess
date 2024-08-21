@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ChessGame extends JFrame{
-    JFrame chessGame;
+    static JFrame chessGame;
 
     ChessGame(){
         Toolkit tk = Toolkit.getDefaultToolkit();

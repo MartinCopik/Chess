@@ -39,6 +39,9 @@ public class Move {
         newSquareSpot.emptyPiecePanel.add(figureToMove.pieceLabel);
 
         figureToMove.pieceFirstMove = false;
+        if (figureToMove instanceof Pawn){
+            new PromotionWindow(figureToMove);
+        }
     }
 
     private static void discardingThePiece(Piece newSquareSpot){
