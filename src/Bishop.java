@@ -5,7 +5,7 @@ public class Bishop extends Piece {
     int value = 3;
 
     public Bishop(Color bishopColor, ImageIcon bishopImage) {
-        super(bishopColor);
+        super(bishopColor, bishopImage);
         super.pieceImageIcon = bishopImage;
     }
 

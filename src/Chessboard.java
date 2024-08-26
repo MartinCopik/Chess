@@ -14,6 +14,10 @@ public class Chessboard  {
         return arrayBoard;
     }
 
+    public static Piece getEmptySquare(int row, int colum){
+        return arrayBoard[row][colum][0];
+    }
+
     private void boardInitialization(){
         for (int row = 0; row  < arrayBoard.length; row ++){
             for (int colum = 0; colum < arrayBoard.length; colum++){
@@ -77,7 +81,7 @@ public class Chessboard  {
     }
 
     private void scaleImageOfPiece(Piece piece){
-         Image scaledImage = piece.pieceImageIcon.getImage().getScaledInstance(arrayBoard[0][0][0].emptyPiecePanel.getWidth(), arrayBoard[0][0][0].emptyPiecePanel.getHeight(),Image.SCALE_SMOOTH);
+         Image scaledImage = piece.pieceImageIcon.getImage().getScaledInstance(arrayBoard[0][0][0].emptyPiecePanel.getWidth()/2, arrayBoard[0][0][0].emptyPiecePanel.getHeight()/2,Image.SCALE_SMOOTH);
          piece.pieceImageIcon = new ImageIcon(scaledImage);
          piece.pieceLabel.setIcon(piece.pieceImageIcon);
 
@@ -86,10 +90,10 @@ public class Chessboard  {
     private void setPieceImages(){
 
             for (int colum = 0; colum < arrayBoard.length; colum++){
-                scaleImageOfPiece(arrayBoard[0][colum][1]);
-                scaleImageOfPiece(arrayBoard[1][colum][1]);
-                scaleImageOfPiece(arrayBoard[6][colum][1]);
-                scaleImageOfPiece(arrayBoard[7][colum][1]);
+//                scaleImageOfPiece(arrayBoard[0][colum][1]);
+//                scaleImageOfPiece(arrayBoard[1][colum][1]);
+//                scaleImageOfPiece(arrayBoard[6][colum][1]);
+//                scaleImageOfPiece(arrayBoard[7][colum][1]);
 
                 arrayBoard[0][colum][0].emptyPiecePanel.add(arrayBoard[0][colum][1].pieceLabel);
                 arrayBoard[1][colum][0].emptyPiecePanel.add(arrayBoard[1][colum][1].pieceLabel);

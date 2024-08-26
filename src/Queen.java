@@ -6,7 +6,7 @@ public class Queen extends Piece {
     int value = 9;
 
     public Queen(Color queenColor, ImageIcon queenImage) {
-        super(queenColor);
+        super(queenColor, queenImage);
         super.pieceImageIcon = queenImage;
     }
 

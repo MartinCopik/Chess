@@ -5,7 +5,7 @@ public class Knight extends Piece {
     int value = 3;
 
     public Knight(Color knightColor, ImageIcon knightImage){
-        super(knightColor);
+        super(knightColor,knightImage);
         super.pieceImageIcon = knightImage;
     }
 

@@ -4,7 +4,7 @@ import java.awt.*;
 public class King extends Piece {
 
     public King(Color kingColor, ImageIcon kingImage) {
-        super(kingColor);
+        super(kingColor,kingImage);
         super.pieceImageIcon = kingImage;
     }
 

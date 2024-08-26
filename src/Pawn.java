@@ -5,8 +5,17 @@ public class Pawn extends Piece{
     int value = 1;
 
     public Pawn(Color pawnColor, ImageIcon pawnImage) {
-        super(pawnColor);
+        super(pawnColor,pawnImage);
         super.pieceImageIcon = pawnImage;
+    }
+
+    void readyToBePromoted(){
+        setActualPositionOfPiece(this);
+        if (getRowPosition() == 0 || getRowPosition() == 7){
+            new PromotionWindow(this);
+            Move.discardingThePiece(Chessboard.getEmptySquare(this.getRowPosition(), this.getColumPosition()));
+            Chessboard.panelBoard.repaint();
+        }
     }
 
     void checkColourOfPawn(Piece pawnToCheck){

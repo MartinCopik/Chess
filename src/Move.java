@@ -33,18 +33,19 @@ public class Move {
         return false;
     }
 
-    private static void movingThePiece(Piece newSquareSpot){
+     static void movingThePiece(Piece newSquareSpot){
         Chessboard.arrayBoard[figureToMove.getRowPosition()][figureToMove.getColumPosition()][1] = null;
         Chessboard.arrayBoard[newSquareSpot.getRowPosition()][newSquareSpot.getColumPosition()][1] = figureToMove;
         newSquareSpot.emptyPiecePanel.add(figureToMove.pieceLabel);
 
         figureToMove.pieceFirstMove = false;
         if (figureToMove instanceof Pawn){
-            new PromotionWindow(figureToMove);
+            ((Pawn) figureToMove).readyToBePromoted();
+//            new PromotionWindow(figureToMove);
         }
     }
 
-    private static void discardingThePiece(Piece newSquareSpot){
+     static void discardingThePiece(Piece newSquareSpot){
         Chessboard.arrayDiscardedPieces.add(Chessboard.arrayBoard[newSquareSpot.getRowPosition()][newSquareSpot.getColumPosition()][1]);
         Chessboard.arrayBoard[newSquareSpot.getRowPosition()][newSquareSpot.getColumPosition()][1] = null;
         newSquareSpot.emptyPiecePanel.removeAll();

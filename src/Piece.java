@@ -17,20 +17,28 @@ public class Piece implements MouseListener {
     boolean pieceIsSelected = false;
     boolean pieceFirstMove = true;
 
-    public Piece(Color pieceColor){
+    public Piece(Color pieceColor, ImageIcon pieceImageIcon){
         this.pieceColor = pieceColor;
         this.pieceLabel = new JLabel();
         this.pieceLabel.addMouseListener(this);
-
+        this.pieceImageIcon = pieceImageIcon;
+        scaleImageOfPiece();
     }
 
     public Piece(Color emptyPieceColor, int rowPosition, int columPosition){
         this.pieceColor = emptyPieceColor;
         this.emptyPiecePanel = new JPanel();
-        this.emptyPiecePanel.setSize(160,120);
+        this.emptyPiecePanel.setSize(ChessGame.width/8,ChessGame.height/8);
         this.emptyPiecePanel.addMouseListener(this);
         this.rowPosition = rowPosition;
         this.columPosition = columPosition;
+    }
+
+    private void scaleImageOfPiece(){
+        Image scaledImage = this.pieceImageIcon.getImage().getScaledInstance(Chessboard.arrayBoard[0][0][0].emptyPiecePanel.getWidth()/2, Chessboard.arrayBoard[0][0][0].emptyPiecePanel.getHeight()/2,Image.SCALE_SMOOTH);
+        this.pieceImageIcon = new ImageIcon(scaledImage);
+        this.pieceLabel.setIcon(this.pieceImageIcon);
+
     }
 
     boolean isAnyPieceSelected(){

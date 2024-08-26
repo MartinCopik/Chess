@@ -13,7 +13,6 @@ public class EmptyPiece extends Piece{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("clicked from emptyPiece");
         if (this.emptyPiecePanel.getBackground() == Color.GREEN){
             Move.makeCleanMove(this);
         } else if (this.emptyPiecePanel.getBackground() == Color.RED) {
