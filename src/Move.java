@@ -41,7 +41,6 @@ public class Move {
         figureToMove.pieceFirstMove = false;
         if (figureToMove instanceof Pawn){
             ((Pawn) figureToMove).readyToBePromoted();
-//            new PromotionWindow(figureToMove);
         }
     }
 

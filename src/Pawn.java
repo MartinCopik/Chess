@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Pawn extends Piece{
-    int value = 1;
 
     public Pawn(Color pawnColor, ImageIcon pawnImage) {
         super(pawnColor,pawnImage);

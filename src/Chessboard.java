@@ -80,20 +80,9 @@ public class Chessboard  {
         }
     }
 
-    private void scaleImageOfPiece(Piece piece){
-         Image scaledImage = piece.pieceImageIcon.getImage().getScaledInstance(arrayBoard[0][0][0].emptyPiecePanel.getWidth()/2, arrayBoard[0][0][0].emptyPiecePanel.getHeight()/2,Image.SCALE_SMOOTH);
-         piece.pieceImageIcon = new ImageIcon(scaledImage);
-         piece.pieceLabel.setIcon(piece.pieceImageIcon);
-
-    }
-
     private void setPieceImages(){
 
             for (int colum = 0; colum < arrayBoard.length; colum++){
-//                scaleImageOfPiece(arrayBoard[0][colum][1]);
-//                scaleImageOfPiece(arrayBoard[1][colum][1]);
-//                scaleImageOfPiece(arrayBoard[6][colum][1]);
-//                scaleImageOfPiece(arrayBoard[7][colum][1]);
 
                 arrayBoard[0][colum][0].emptyPiecePanel.add(arrayBoard[0][colum][1].pieceLabel);
                 arrayBoard[1][colum][0].emptyPiecePanel.add(arrayBoard[1][colum][1].pieceLabel);

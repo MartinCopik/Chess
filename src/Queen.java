@@ -3,7 +3,6 @@ import java.awt.*;
 
 
 public class Queen extends Piece {
-    int value = 9;
 
     public Queen(Color queenColor, ImageIcon queenImage) {
         super(queenColor, queenImage);

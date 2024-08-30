@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Bishop extends Piece {
-    int value = 3;
 
     public Bishop(Color bishopColor, ImageIcon bishopImage) {
         super(bishopColor, bishopImage);
