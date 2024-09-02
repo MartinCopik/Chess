@@ -5,8 +5,8 @@ import java.awt.*;
 public class Rook extends Piece{
     int value = 5;
 
-    public Rook(Color rookColor, ImageIcon rookImage) {
-        super(rookColor, rookImage);
+    public Rook(Color rookColor, ImageIcon rookImage, int rowPosition, int columPosition) {
+        super(rookColor, rookImage, rowPosition, columPosition);
         super.pieceImageIcon = rookImage;
     }
 

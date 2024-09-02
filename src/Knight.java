@@ -4,8 +4,8 @@ import java.awt.*;
 public class Knight extends Piece {
     int value = 3;
 
-    public Knight(Color knightColor, ImageIcon knightImage){
-        super(knightColor,knightImage);
+    public Knight(Color knightColor, ImageIcon knightImage, int rowPosition, int columPosition){
+        super(knightColor,knightImage, rowPosition, columPosition);
         super.pieceImageIcon = knightImage;
     }
 

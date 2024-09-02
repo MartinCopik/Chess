@@ -17,25 +17,26 @@ public class Piece implements MouseListener {
     boolean pieceIsSelected = false;
     boolean pieceFirstMove = true;
 
-    public Piece(Color pieceColor, ImageIcon pieceImageIcon){
+    public Piece(Color pieceColor, ImageIcon pieceImageIcon, int rowPosition, int columPosition){
         this.pieceColor = pieceColor;
         this.pieceLabel = new JLabel();
         this.pieceLabel.addMouseListener(this);
         this.pieceImageIcon = pieceImageIcon;
         scaleImageOfPiece();
+        this.rowPosition = rowPosition;
+        this.columPosition = columPosition;
     }
 
     public Piece(Color emptyPieceColor, int rowPosition, int columPosition){
         this.pieceColor = emptyPieceColor;
         this.emptyPiecePanel = new JPanel();
-        this.emptyPiecePanel.setSize(ChessGame.width/8,ChessGame.height/8);
         this.emptyPiecePanel.addMouseListener(this);
         this.rowPosition = rowPosition;
         this.columPosition = columPosition;
     }
 
     private void scaleImageOfPiece(){
-        Image scaledImage = this.pieceImageIcon.getImage().getScaledInstance(Chessboard.arrayBoard[0][0][0].emptyPiecePanel.getWidth()/2, Chessboard.arrayBoard[0][0][0].emptyPiecePanel.getHeight()/2,Image.SCALE_SMOOTH);
+        Image scaledImage = this.pieceImageIcon.getImage().getScaledInstance(EmptyPiece.width/2, EmptyPiece.height/2,Image.SCALE_SMOOTH);
         this.pieceImageIcon = new ImageIcon(scaledImage);
         this.pieceLabel.setIcon(this.pieceImageIcon);
 
@@ -62,6 +63,14 @@ public class Piece implements MouseListener {
                 }
             }
         }
+    }
+    public  void squareIsUnderAttack(Player  attackingPlayer){
+        for (Piece piece : attackingPlayer.playerPieces){
+            piece.showMovePossibilities();
+        }
+//        attackingPlayer.leftRook.showMovePossibilities();
+//        attackingPlayer.rightRook.showMovePossibilities();
+////        attackingPlayer.leftKnight
     }
 
     public int getRowPosition() {
