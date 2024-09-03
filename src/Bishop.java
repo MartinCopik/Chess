@@ -3,8 +3,8 @@ import java.awt.*;
 
 public class Bishop extends Piece {
 
-    public Bishop(Color bishopColor, ImageIcon bishopImage) {
-        super(bishopColor, bishopImage);
+    public Bishop(Color bishopColor, ImageIcon bishopImage, int rowPosition, int columPosition) {
+        super(bishopColor, bishopImage, rowPosition, columPosition);
         super.pieceImageIcon = bishopImage;
     }
 

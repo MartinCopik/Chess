@@ -3,9 +3,23 @@ import java.awt.*;
 
 public class King extends Piece {
 
-    public King(Color kingColor, ImageIcon kingImage) {
-        super(kingColor,kingImage);
+    public King(Color kingColor, ImageIcon kingImage, int rowPosition, int columPosition) {
+        super(kingColor,kingImage, rowPosition, columPosition);
         super.pieceImageIcon = kingImage;
+    }
+
+    void castling(){
+        if (this.pieceFirstMove && Chessboard.whitePlayer.rightRook.pieceFirstMove){
+            System.out.println("jop rook2 je na mieste");
+            if (!positionIsTaken(this.rowPosition, this.columPosition+1) && !positionIsTaken(this.rowPosition, this.columPosition+2)){
+                System.out.println("this " + this);
+                System.out.println("policka su prazdne");
+                System.out.println(this.rowPosition + " row a colum " + this.columPosition);
+
+                squareIsUnderAttack(Chessboard.blackPlayer);
+            }
+//            impossibleMove(rowPosition, columPosition+2);
+        }
     }
 
     void kingMoveDiagonallyUpLeft(){
@@ -38,6 +52,8 @@ public class King extends Piece {
 
     @Override
     public void showMovePossibilities(){
+        castling();
+
         kingMoveUp();
         kingMoveDown();
         kingMoveRight();

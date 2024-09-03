@@ -3,8 +3,8 @@ import java.awt.*;
 
 public class Pawn extends Piece{
 
-    public Pawn(Color pawnColor, ImageIcon pawnImage) {
-        super(pawnColor,pawnImage);
+    public Pawn(Color pawnColor, ImageIcon pawnImage, int rowPosition, int columPosition) {
+        super(pawnColor,pawnImage, rowPosition, columPosition);
         super.pieceImageIcon = pawnImage;
     }
 

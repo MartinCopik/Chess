@@ -4,8 +4,8 @@ import java.awt.*;
 
 public class Queen extends Piece {
 
-    public Queen(Color queenColor, ImageIcon queenImage) {
-        super(queenColor, queenImage);
+    public Queen(Color queenColor, ImageIcon queenImage, int rowPosition, int columPosition) {
+        super(queenColor, queenImage, rowPosition, columPosition);
         super.pieceImageIcon = queenImage;
     }
 

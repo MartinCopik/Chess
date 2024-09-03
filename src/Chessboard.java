@@ -7,8 +7,12 @@ public class Chessboard  {
     public static JPanel panelBoard;
     static JPanel discardedPieces;
 
+    static Player whitePlayer;
+    static Player blackPlayer;
+
     public static Piece[][][] arrayBoard = new Piece[8][8][2];
     public static ArrayList<Piece> arrayDiscardedPieces = new ArrayList<>();
+
 
     public static Piece[][][] getArrayBoard() {
         return arrayBoard;
@@ -33,43 +37,34 @@ public class Chessboard  {
             }
         }
     }
+    static void setStartPointOfPiece(Piece piece){
+        arrayBoard[piece.rowPosition][piece.columPosition][1] = piece;
+        arrayBoard[piece.rowPosition][piece.columPosition][0].emptyPiecePanel.add(piece.pieceLabel);
+    }
 
-    private void setStartPointOfPieces(){
-         arrayBoard[0][0][1] = new Rook(Color.BLACK,new ImageIcon("blackRook.png"));
-         arrayBoard[0][1][1] = new Knight(Color.BLACK, new ImageIcon("blackKnight.png"));
-         arrayBoard[0][2][1] = new Bishop(Color.BLACK, new ImageIcon("blackBishop.png"));
-         arrayBoard[0][3][1] = new Queen(Color.BLACK, new ImageIcon("blackQueen.png"));
-         arrayBoard[0][4][1] = new King(Color.BLACK, new ImageIcon("blackKing.png"));
-         arrayBoard[0][5][1] = new Bishop(Color.BLACK, new ImageIcon("blackBishop.png"));
-         arrayBoard[0][6][1] = new Knight(Color.BLACK, new ImageIcon("blackKnight.png"));
-         arrayBoard[0][7][1] = new Rook(Color.BLACK, new ImageIcon("blackRook.png"));
+    private void setStartPointOfPlayer(Player player){
+        setStartPointOfPiece(player.leftRook);
+        setStartPointOfPiece(player.rightRook);
+        setStartPointOfPiece(player.leftKnight);
+        setStartPointOfPiece(player.rightKnigt);
+        setStartPointOfPiece(player.leftBishop);
+        setStartPointOfPiece(player.rightBishop);
+        setStartPointOfPiece(player.queen);
+        setStartPointOfPiece(player.king);
 
-         arrayBoard[1][0][1] = new Pawn(Color.BLACK, new ImageIcon("blackPawn.png"));
-         arrayBoard[1][1][1] = new Pawn(Color.BLACK, new ImageIcon("blackPawn.png"));
-         arrayBoard[1][2][1] = new Pawn(Color.BLACK, new ImageIcon("blackPawn.png"));
-         arrayBoard[1][3][1] = new Pawn(Color.BLACK, new ImageIcon("blackPawn.png"));
-         arrayBoard[1][4][1] = new Pawn(Color.BLACK, new ImageIcon("blackPawn.png"));
-         arrayBoard[1][5][1] = new Pawn(Color.BLACK, new ImageIcon("blackPawn.png"));
-         arrayBoard[1][6][1] = new Pawn(Color.BLACK, new ImageIcon("blackPawn.png"));
-         arrayBoard[1][7][1] = new Pawn(Color.BLACK, new ImageIcon("blackPawn.png"));
+        setStartPointOfPiece(player.pawn0);
+        setStartPointOfPiece(player.pawn1);
+        setStartPointOfPiece(player.pawn2);
+        setStartPointOfPiece(player.pawn3);
+        setStartPointOfPiece(player.pawn4);
+        setStartPointOfPiece(player.pawn5);
+        setStartPointOfPiece(player.pawn6);
+        setStartPointOfPiece(player.pawn7);
+    }
 
-        arrayBoard[7][0][1]= new Rook(Color.WHITE, new ImageIcon("whiteRook.png"));
-        arrayBoard[7][1][1]= new Knight(Color.WHITE, new ImageIcon("whiteKnight.png"));
-        arrayBoard[7][2][1]= new Bishop(Color.WHITE, new ImageIcon("whiteBishop.png"));
-        arrayBoard[7][3][1]= new Queen(Color.WHITE, new ImageIcon("whiteQueen.png"));
-        arrayBoard[7][4][1]= new King(Color.WHITE, new ImageIcon("whiteKing.png"));
-        arrayBoard[7][5][1]= new Bishop(Color.WHITE, new ImageIcon("whiteBishop.png"));
-        arrayBoard[7][6][1]= new Knight(Color.WHITE, new ImageIcon("whiteKnight.png"));
-        arrayBoard[7][7][1]= new Rook(Color.WHITE, new ImageIcon("whiteRook.png"));
-
-        arrayBoard[6][0][1] = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"));
-        arrayBoard[6][1][1] = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"));
-        arrayBoard[6][2][1] = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"));
-        arrayBoard[6][3][1] = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"));
-        arrayBoard[6][4][1] = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"));
-        arrayBoard[6][5][1] = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"));
-        arrayBoard[6][6][1] = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"));
-        arrayBoard[6][7][1] = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"));
+    private void setStartPointOfPlayers(){
+        setStartPointOfPlayer(whitePlayer);
+        setStartPointOfPlayer(blackPlayer);
     }
 
     private void addEmptyPiecesToFrame(){
@@ -79,18 +74,7 @@ public class Chessboard  {
             }
         }
     }
-
-    private void setPieceImages(){
-
-            for (int colum = 0; colum < arrayBoard.length; colum++){
-
-                arrayBoard[0][colum][0].emptyPiecePanel.add(arrayBoard[0][colum][1].pieceLabel);
-                arrayBoard[1][colum][0].emptyPiecePanel.add(arrayBoard[1][colum][1].pieceLabel);
-                arrayBoard[6][colum][0].emptyPiecePanel.add(arrayBoard[6][colum][1].pieceLabel);
-                arrayBoard[7][colum][0].emptyPiecePanel.add(arrayBoard[7][colum][1].pieceLabel);
-            }
-
-    }
+    
     public static void setColors(){
         for (int row = 0; row < arrayBoard.length; row++){
             for (int colum = 0; colum < arrayBoard.length; colum++){
@@ -109,10 +93,10 @@ public class Chessboard  {
         discardedPieces.setLayout(new GridLayout());
 
         boardInitialization();
-        setStartPointOfPieces();
+        whitePlayer = new Player(Color.WHITE);
+        blackPlayer = new Player(Color.BLACK);
+        setStartPointOfPlayers();
         addEmptyPiecesToFrame();
-
-        setPieceImages();
     }
 }
 

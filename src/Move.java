@@ -34,10 +34,11 @@ public class Move {
     }
 
      static void movingThePiece(Piece newSquareSpot){
-        Chessboard.arrayBoard[figureToMove.getRowPosition()][figureToMove.getColumPosition()][1] = null;
-        Chessboard.arrayBoard[newSquareSpot.getRowPosition()][newSquareSpot.getColumPosition()][1] = figureToMove;
-        newSquareSpot.emptyPiecePanel.add(figureToMove.pieceLabel);
+         Chessboard.arrayBoard[figureToMove.getRowPosition()][figureToMove.getColumPosition()][1] = null;
+         Chessboard.arrayBoard[newSquareSpot.getRowPosition()][newSquareSpot.getColumPosition()][1] = figureToMove;
+         newSquareSpot.emptyPiecePanel.add(figureToMove.pieceLabel);
 
+         figureToMove.setActualPositionOfPiece(figureToMove);
         figureToMove.pieceFirstMove = false;
         if (figureToMove instanceof Pawn){
             ((Pawn) figureToMove).readyToBePromoted();
@@ -56,7 +57,6 @@ public class Move {
         movingThePiece(newSquareSpot);
 
         moveCounter++;
-//        figureToMove.pieceFirstMove = false;
         figureToMove = null;
 
         Chessboard.setColors();
