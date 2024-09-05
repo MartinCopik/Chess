@@ -1,11 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.util.HashMap;
 
 public class EmptyPiece extends Piece{
 
     static int width = ChessGame.width/8;
     static int height = ChessGame.height/8;
+    static HashMap <Piece,Color> attackedSquares = new HashMap<>();
     boolean isAttacked = false;
 
     public EmptyPiece( Color emptyPieceColor, int rowPosition, int columPosition) {
@@ -26,6 +28,11 @@ public class EmptyPiece extends Piece{
             Chessboard.setColors();
             Move.figureToMove = null;
         }
+    }
+
+    static void setAttackedSquares(Piece attackedSquare, Color colorOfAttackingPlayer){
+        attackedSquares.put(attackedSquare,colorOfAttackingPlayer);
+//        System.out.println(attackedSquares);
     }
 
 //    public  Piece squareIsUnderAttack(Piece pieceAttacking){

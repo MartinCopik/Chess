@@ -11,12 +11,13 @@ public class King extends Piece {
     void castling(){
         if (this.pieceFirstMove && Chessboard.whitePlayer.rightRook.pieceFirstMove){
             System.out.println("jop rook2 je na mieste");
+            squareIsUnderAttack(Chessboard.blackPlayer);
             if (!positionIsTaken(this.rowPosition, this.columPosition+1) && !positionIsTaken(this.rowPosition, this.columPosition+2)){
                 System.out.println("this " + this);
                 System.out.println("policka su prazdne");
                 System.out.println(this.rowPosition + " row a colum " + this.columPosition);
 
-                squareIsUnderAttack(Chessboard.blackPlayer);
+
             }
 //            impossibleMove(rowPosition, columPosition+2);
         }

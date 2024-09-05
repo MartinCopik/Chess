@@ -16,6 +16,7 @@ public class Piece implements MouseListener {
 
     boolean pieceIsSelected = false;
     boolean pieceFirstMove = true;
+    boolean pieceMove = false;
 
     public Piece(Color pieceColor, ImageIcon pieceImageIcon, int rowPosition, int columPosition){
         this.pieceColor = pieceColor;
@@ -67,6 +68,7 @@ public class Piece implements MouseListener {
     public  void squareIsUnderAttack(Player  attackingPlayer){
         for (Piece piece : attackingPlayer.playerPieces){
             piece.showMovePossibilities();
+            System.out.println(piece);
         }
 //        attackingPlayer.leftRook.showMovePossibilities();
 //        attackingPlayer.rightRook.showMovePossibilities();
@@ -111,17 +113,32 @@ public class Piece implements MouseListener {
             return true;
         }
         if (positionIsTaken(rowToCheck, columToCheck) && pieceIsAttacking(this, rowToCheck, columToCheck)){
-            Chessboard.getArrayBoard()[rowToCheck][columToCheck][0].emptyPiecePanel.setBackground(Color.pink);
-            if (Move.figureToMove != null){
-                Chessboard.getArrayBoard()[rowToCheck][columToCheck][0].emptyPiecePanel.setBackground(Color.red);
+            //cize na policko prebieha utok, takze tu by sa mohla setovat HashMapa
+            EmptyPiece.setAttackedSquares(Chessboard.getEmptySquare(rowToCheck,columToCheck), this.pieceColor);
+
+            if (this.pieceMove){
+                Chessboard.getArrayBoard()[rowToCheck][columToCheck][0].emptyPiecePanel.setBackground(Color.gray);
+                if (Move.figureToMove != null){
+                    Chessboard.getArrayBoard()[rowToCheck][columToCheck][0].emptyPiecePanel.setBackground(Color.green);
+                }
             }
+//            Chessboard.getArrayBoard()[rowToCheck][columToCheck][0].emptyPiecePanel.setBackground(Color.pink);
+//            if (Move.figureToMove != null){
+//                Chessboard.getArrayBoard()[rowToCheck][columToCheck][0].emptyPiecePanel.setBackground(Color.red);
+//            }
             return true;
         } else if (positionIsTaken(rowToCheck, columToCheck) && !pieceIsAttacking(this, rowToCheck, columToCheck)) {
+            //na policku je figurka od rovnakeho hraca, cize nebude sa setovat HashMapa
             return true;
         } else if (!positionIsTaken(rowToCheck, columToCheck)) {
-            Chessboard.getArrayBoard()[rowToCheck][columToCheck][0].emptyPiecePanel.setBackground(Color.gray);
-            if (Move.figureToMove != null){
-                Chessboard.getArrayBoard()[rowToCheck][columToCheck][0].emptyPiecePanel.setBackground(Color.green);
+            //policko je prazdne cize na policko je utocene, cize moze sa setnut HashMapa
+            EmptyPiece.setAttackedSquares(Chessboard.getEmptySquare(rowToCheck,columToCheck), this.pieceColor);
+
+            if (this.pieceMove){
+                Chessboard.getArrayBoard()[rowToCheck][columToCheck][0].emptyPiecePanel.setBackground(Color.gray);
+                if (Move.figureToMove != null){
+                    Chessboard.getArrayBoard()[rowToCheck][columToCheck][0].emptyPiecePanel.setBackground(Color.green);
+                }
             }
             return false;
         }
@@ -135,6 +152,7 @@ public class Piece implements MouseListener {
             Chessboard.setColors();
         }
         if (Move.rightColorToMakeMove(this)){
+            this.pieceMove = true;
             setActualPositionOfPiece(this);
             Move.setFigureToMove(this);
             showMovePossibilities();
@@ -155,6 +173,7 @@ public class Piece implements MouseListener {
     @Override
     public void mouseEntered(MouseEvent e) {
         if (Move.rightColorToMakeMove(this) && !isAnyPieceSelected()){
+            this.pieceMove = true;
             setActualPositionOfPiece(this);
             showMovePossibilities();
         }
@@ -162,6 +181,7 @@ public class Piece implements MouseListener {
 
     @Override
     public void mouseExited(MouseEvent e) {
+        this.pieceMove = false;
         if (!isAnyPieceSelected()){
             Chessboard.setColors();
         }
