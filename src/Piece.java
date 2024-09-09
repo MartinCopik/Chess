@@ -65,14 +65,10 @@ public class Piece implements MouseListener {
             }
         }
     }
-    public  void squareIsUnderAttack(Player  attackingPlayer){
+    static void setAttackedSquares(Player  attackingPlayer){
         for (Piece piece : attackingPlayer.playerPieces){
             piece.showMovePossibilities();
-            System.out.println(piece);
         }
-//        attackingPlayer.leftRook.showMovePossibilities();
-//        attackingPlayer.rightRook.showMovePossibilities();
-////        attackingPlayer.leftKnight
     }
 
     public int getRowPosition() {
@@ -113,33 +109,26 @@ public class Piece implements MouseListener {
             return true;
         }
         if (positionIsTaken(rowToCheck, columToCheck) && pieceIsAttacking(this, rowToCheck, columToCheck)){
-            //cize na policko prebieha utok, takze tu by sa mohla setovat HashMapa
-            EmptyPiece.setAttackedSquares(Chessboard.getEmptySquare(rowToCheck,columToCheck), this.pieceColor);
-
             if (this.pieceMove){
                 Chessboard.getArrayBoard()[rowToCheck][columToCheck][0].emptyPiecePanel.setBackground(Color.gray);
                 if (Move.figureToMove != null){
                     Chessboard.getArrayBoard()[rowToCheck][columToCheck][0].emptyPiecePanel.setBackground(Color.green);
                 }
+                return true;
             }
-//            Chessboard.getArrayBoard()[rowToCheck][columToCheck][0].emptyPiecePanel.setBackground(Color.pink);
-//            if (Move.figureToMove != null){
-//                Chessboard.getArrayBoard()[rowToCheck][columToCheck][0].emptyPiecePanel.setBackground(Color.red);
-//            }
+            EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck,columToCheck), this.pieceColor);
             return true;
         } else if (positionIsTaken(rowToCheck, columToCheck) && !pieceIsAttacking(this, rowToCheck, columToCheck)) {
-            //na policku je figurka od rovnakeho hraca, cize nebude sa setovat HashMapa
             return true;
         } else if (!positionIsTaken(rowToCheck, columToCheck)) {
-            //policko je prazdne cize na policko je utocene, cize moze sa setnut HashMapa
-            EmptyPiece.setAttackedSquares(Chessboard.getEmptySquare(rowToCheck,columToCheck), this.pieceColor);
-
             if (this.pieceMove){
                 Chessboard.getArrayBoard()[rowToCheck][columToCheck][0].emptyPiecePanel.setBackground(Color.gray);
                 if (Move.figureToMove != null){
                     Chessboard.getArrayBoard()[rowToCheck][columToCheck][0].emptyPiecePanel.setBackground(Color.green);
                 }
+                return false;
             }
+            EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck,columToCheck), this.pieceColor);
             return false;
         }
         return false;

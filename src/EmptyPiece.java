@@ -8,7 +8,6 @@ public class EmptyPiece extends Piece{
     static int width = ChessGame.width/8;
     static int height = ChessGame.height/8;
     static HashMap <Piece,Color> attackedSquares = new HashMap<>();
-    boolean isAttacked = false;
 
     public EmptyPiece( Color emptyPieceColor, int rowPosition, int columPosition) {
         super(emptyPieceColor, rowPosition, columPosition);
@@ -30,12 +29,12 @@ public class EmptyPiece extends Piece{
         }
     }
 
-    static void setAttackedSquares(Piece attackedSquare, Color colorOfAttackingPlayer){
-        attackedSquares.put(attackedSquare,colorOfAttackingPlayer);
-//        System.out.println(attackedSquares);
+    @Override
+    public void mouseEntered(MouseEvent e) {
     }
 
-//    public  Piece squareIsUnderAttack(Piece pieceAttacking){
-//        return pieceAttacking;
-//    }
+    static void arrangementOfAttackedSquares(Piece attackedSquare, Color colorOfAttackingPlayer){
+        attackedSquares.put(attackedSquare,colorOfAttackingPlayer);
+    }
+
 }

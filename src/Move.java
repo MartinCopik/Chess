@@ -26,8 +26,10 @@ public class Move {
 
     public static boolean rightColorToMakeMove(Piece pieceToMakeMove){
         if (moveCounter%2 == 0 && pieceToMakeMove.pieceColor.equals(Color.WHITE)){
+            Piece.setAttackedSquares(Chessboard.blackPlayer);
             return true;
         } else if (moveCounter%2 == 1 && pieceToMakeMove.pieceColor.equals(Color.BLACK)){
+            Piece.setAttackedSquares(Chessboard.whitePlayer);
             return true;
         }
         return false;
@@ -39,10 +41,10 @@ public class Move {
          newSquareSpot.emptyPiecePanel.add(figureToMove.pieceLabel);
 
          figureToMove.setActualPositionOfPiece(figureToMove);
-        figureToMove.pieceFirstMove = false;
-        if (figureToMove instanceof Pawn){
+         figureToMove.pieceFirstMove = false;
+         if (figureToMove instanceof Pawn){
             ((Pawn) figureToMove).readyToBePromoted();
-        }
+         }
     }
 
      static void discardingThePiece(Piece newSquareSpot){
