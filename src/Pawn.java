@@ -42,14 +42,14 @@ public class Pawn extends Piece{
     }
 
     void pawnMoveUp(){
-        if (this.pieceFirstMove){
+        if (this.pieceFirstMove && !positionIsTaken(this.getRowPosition()-1, this.getColumPosition())){
             impossibleMove(this.getRowPosition()-2, this.getColumPosition());
         }
         impossibleMove(this.getRowPosition()-1, this.getColumPosition());
     }
 
     void pawnMoveDown(){
-        if (this.pieceFirstMove){
+        if (this.pieceFirstMove && !positionIsTaken(this.getRowPosition()+1, this.getColumPosition())){
             impossibleMove(this.getRowPosition()+2, this.getColumPosition());
         }
         impossibleMove(this.getRowPosition()+1, this.getColumPosition());

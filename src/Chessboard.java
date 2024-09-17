@@ -46,9 +46,9 @@ public class Chessboard  {
         setStartPointOfPiece(player.leftRook);
         setStartPointOfPiece(player.rightRook);
         setStartPointOfPiece(player.leftKnight);
-        setStartPointOfPiece(player.rightKnigt);
+//        setStartPointOfPiece(player.rightKnigt);
         setStartPointOfPiece(player.leftBishop);
-        setStartPointOfPiece(player.rightBishop);
+//        setStartPointOfPiece(player.rightBishop);
         setStartPointOfPiece(player.queen);
         setStartPointOfPiece(player.king);
 

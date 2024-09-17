@@ -67,6 +67,8 @@ public class Piece implements MouseListener {
     }
     static void setAttackedSquares(Player  attackingPlayer){
         for (Piece piece : attackingPlayer.playerPieces){
+//            System.out.println("piece row and colum " + piece.rowPosition + " " + piece.columPosition);
+//            System.out.println(piece);
             piece.showMovePossibilities();
         }
     }

@@ -41,9 +41,9 @@ public class Player {
         playerPieces.add(leftRook = new Rook(playerColor, new ImageIcon(this.stringPlayerColor + "Rook.png"), mainLineUP, 0));
         playerPieces.add(rightRook = new Rook(playerColor, new ImageIcon(this.stringPlayerColor + "Rook.png"), mainLineUP, 7));
         playerPieces.add(leftKnight = new Knight(playerColor, new ImageIcon(this.stringPlayerColor + "Knight.png"), mainLineUP, 1));
-        playerPieces.add(rightKnigt = new Knight(playerColor, new ImageIcon(this.stringPlayerColor + "Knight.png"), mainLineUP, 6));
+//        playerPieces.add(rightKnigt = new Knight(playerColor, new ImageIcon(this.stringPlayerColor + "Knight.png"), mainLineUP, 6));
         playerPieces.add(leftBishop = new Bishop(playerColor, new ImageIcon(this.stringPlayerColor + "Bishop.png"), mainLineUP, 2));
-        playerPieces.add(rightBishop = new Bishop(playerColor, new ImageIcon(this.stringPlayerColor + "Bishop.png"), mainLineUP, 5));
+//        playerPieces.add(rightBishop = new Bishop(playerColor, new ImageIcon(this.stringPlayerColor + "Bishop.png"), mainLineUP, 5));
         playerPieces.add(queen = new Queen(playerColor, new ImageIcon(this.stringPlayerColor + "Queen.png"), mainLineUP, 3));
         playerPieces.add(king = new King(playerColor, new ImageIcon(this.stringPlayerColor + "King.png"), mainLineUP, 4));
 

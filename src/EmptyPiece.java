@@ -37,4 +37,11 @@ public class EmptyPiece extends Piece{
         attackedSquares.put(attackedSquare,colorOfAttackingPlayer);
     }
 
+    static boolean isSquareUnderAttack(int rowToCheck, int columToCheck, Color colorOfAttackingPlayer){
+        if (attackedSquares.get(Chessboard.getEmptySquare(rowToCheck, columToCheck)).equals(colorOfAttackingPlayer)){
+            return true;
+        }
+        return false;
+    }
+
 }
