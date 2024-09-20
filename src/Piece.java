@@ -67,8 +67,6 @@ public class Piece implements MouseListener {
     }
     static void setAttackedSquares(Player  attackingPlayer){
         for (Piece piece : attackingPlayer.playerPieces){
-//            System.out.println("piece row and colum " + piece.rowPosition + " " + piece.columPosition);
-//            System.out.println(piece);
             piece.showMovePossibilities();
         }
     }
@@ -112,9 +110,9 @@ public class Piece implements MouseListener {
         }
         if (positionIsTaken(rowToCheck, columToCheck) && pieceIsAttacking(this, rowToCheck, columToCheck)){
             if (this.pieceMove){
-                Chessboard.getArrayBoard()[rowToCheck][columToCheck][0].emptyPiecePanel.setBackground(Color.gray);
+                Chessboard.getArrayBoard()[rowToCheck][columToCheck][0].emptyPiecePanel.setBackground(Color.pink);
                 if (Move.figureToMove != null){
-                    Chessboard.getArrayBoard()[rowToCheck][columToCheck][0].emptyPiecePanel.setBackground(Color.green);
+                    Chessboard.getArrayBoard()[rowToCheck][columToCheck][0].emptyPiecePanel.setBackground(Color.RED);
                 }
                 return true;
             }

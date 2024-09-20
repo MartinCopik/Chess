@@ -45,11 +45,11 @@ public class Chessboard  {
     private void setStartPointOfPlayer(Player player){
         setStartPointOfPiece(player.leftRook);
         setStartPointOfPiece(player.rightRook);
-        setStartPointOfPiece(player.leftKnight);
+//        setStartPointOfPiece(player.leftKnight);
 //        setStartPointOfPiece(player.rightKnigt);
-        setStartPointOfPiece(player.leftBishop);
+//        setStartPointOfPiece(player.leftBishop);
 //        setStartPointOfPiece(player.rightBishop);
-        setStartPointOfPiece(player.queen);
+//        setStartPointOfPiece(player.queen);
         setStartPointOfPiece(player.king);
 
         setStartPointOfPiece(player.pawn0);
@@ -60,6 +60,8 @@ public class Chessboard  {
         setStartPointOfPiece(player.pawn5);
         setStartPointOfPiece(player.pawn6);
         setStartPointOfPiece(player.pawn7);
+
+        setStartPointOfPiece(player.specialQueen);
     }
 
     private void setStartPointOfPlayers(){

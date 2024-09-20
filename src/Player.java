@@ -25,6 +25,8 @@ public class Player {
     Pawn pawn6;
     Pawn pawn7;
 
+    Queen specialQueen;
+
     ArrayList<Piece> playerPieces = new ArrayList<Piece>();
 
     Player(Color playerColor){
@@ -40,11 +42,11 @@ public class Player {
 
         playerPieces.add(leftRook = new Rook(playerColor, new ImageIcon(this.stringPlayerColor + "Rook.png"), mainLineUP, 0));
         playerPieces.add(rightRook = new Rook(playerColor, new ImageIcon(this.stringPlayerColor + "Rook.png"), mainLineUP, 7));
-        playerPieces.add(leftKnight = new Knight(playerColor, new ImageIcon(this.stringPlayerColor + "Knight.png"), mainLineUP, 1));
+//        playerPieces.add(leftKnight = new Knight(playerColor, new ImageIcon(this.stringPlayerColor + "Knight.png"), mainLineUP, 1));
 //        playerPieces.add(rightKnigt = new Knight(playerColor, new ImageIcon(this.stringPlayerColor + "Knight.png"), mainLineUP, 6));
-        playerPieces.add(leftBishop = new Bishop(playerColor, new ImageIcon(this.stringPlayerColor + "Bishop.png"), mainLineUP, 2));
+//        playerPieces.add(leftBishop = new Bishop(playerColor, new ImageIcon(this.stringPlayerColor + "Bishop.png"), mainLineUP, 2));
 //        playerPieces.add(rightBishop = new Bishop(playerColor, new ImageIcon(this.stringPlayerColor + "Bishop.png"), mainLineUP, 5));
-        playerPieces.add(queen = new Queen(playerColor, new ImageIcon(this.stringPlayerColor + "Queen.png"), mainLineUP, 3));
+//        playerPieces.add(queen = new Queen(playerColor, new ImageIcon(this.stringPlayerColor + "Queen.png"), mainLineUP, 3));
         playerPieces.add(king = new King(playerColor, new ImageIcon(this.stringPlayerColor + "King.png"), mainLineUP, 4));
 
         playerPieces.add(pawn0 = new Pawn(playerColor, new ImageIcon(this.stringPlayerColor + "Pawn.png"), pawnLineUp, 0));
@@ -55,5 +57,12 @@ public class Player {
         playerPieces.add(pawn5 = new Pawn(playerColor, new ImageIcon(this.stringPlayerColor + "Pawn.png"), pawnLineUp, 5));
         playerPieces.add(pawn6 = new Pawn(playerColor, new ImageIcon(this.stringPlayerColor + "Pawn.png"), pawnLineUp, 6));
         playerPieces.add(pawn7 = new Pawn(playerColor, new ImageIcon(this.stringPlayerColor + "Pawn.png"), pawnLineUp, 7));
+
+        if (playerColor == Color.BLACK){
+            playerPieces.add(specialQueen = new Queen(playerColor, new ImageIcon(this.stringPlayerColor + "Queen.png"), mainLineUP+3, 3));
+        }else {
+            playerPieces.add(specialQueen = new Queen(playerColor, new ImageIcon(this.stringPlayerColor + "Queen.png"), mainLineUP-4, 5));
+
+        }
     }
 }

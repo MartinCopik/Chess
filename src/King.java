@@ -3,40 +3,67 @@ import java.awt.*;
 
 public class King extends Piece {
 
+    Piece castledKing;
+
     public King(Color kingColor, ImageIcon kingImage, int rowPosition, int columPosition) {
         super(kingColor,kingImage, rowPosition, columPosition);
         super.pieceImageIcon = kingImage;
     }
-    void castling(){
+//    boolean kingIsInCheck(){
+//
+//    }
+
+    Color checkAttackingColor(Piece king){
+        if (king.pieceColor.equals(Color.WHITE)){
+            return Color.BLACK;
+        }else {
+            return Color.WHITE;
+        }
+    }
+    void setCastling(){
         if (this.pieceColor.equals(Color.WHITE)){
-            settingCastling(Color.BLACK);
+            possibleSmallCastling(Color.BLACK);
+            possibleBigCastling(Color.BLACK);
         } else {
-            settingCastling(Color.WHITE);
+            possibleSmallCastling(Color.WHITE);
+            possibleBigCastling(Color.WHITE);
         }
     }
 
-    void settingCastling(Color attackingColor){
+    boolean possibleSmallCastling(Color attackingColor){
         if (this.pieceFirstMove && Chessboard.getArrayBoard()[this.rowPosition][this.columPosition+3][1].pieceFirstMove){
 
-//            squareIsUnderAttack(Chessboard.blackPlayer);
-            if (!positionIsTaken(this.rowPosition, this.columPosition+1) && !positionIsTaken(this.rowPosition, this.columPosition+2)){
-//                System.out.println("this " + this);
-//                System.out.println("policka su prazdne");
-//                System.out.println(this.rowPosition + " row a colum " + this.columPosition);
-//                System.out.println("check if contains is used rightly "+EmptyPiece.attackedSquares.getOrDefault(Chessboard.getEmptySquare(2,0),Color.WHITE));
-//                System.out.println("check if contains is used rightly "+EmptyPiece.attackedSquares.getOrDefault(Chessboard.getEmptySquare(2,0),Color.BLACK));
-//                System.out.println("check if contains is used rightly "+EmptyPiece.attackedSquares.getOrDefault(Chessboard.getEmptySquare(2,0),null));
+            if (!positionIsTaken(this.rowPosition, this.columPosition+1)
+                    && !positionIsTaken(this.rowPosition, this.columPosition+2)){
+
                 if (!EmptyPiece.isSquareUnderAttack(this.rowPosition,this.columPosition+1, attackingColor)
                         && !EmptyPiece.isSquareUnderAttack(this.rowPosition,this.columPosition+2, attackingColor)){
-                    System.out.println("king may do a small castling");
-                    System.out.println(this.pieceColor);
-                    System.out.println(this.rowPosition + " " +this.columPosition);
+                    Chessboard.getArrayBoard()[this.rowPosition][this.columPosition+2][0].emptyPiecePanel.setBackground(Color.gray);
+                    if (Move.figureToMove != null){
+                        Chessboard.getArrayBoard()[this.rowPosition][this.columPosition+2][0].emptyPiecePanel.setBackground(Color.green);
+                    }
+                    return true;
                 }
-
-
             }
-//            impossibleMove(rowPosition, columPosition+2);
-        }
+        }return false;
+    }
+    boolean possibleBigCastling(Color attackingColor){
+        if (this.pieceFirstMove && Chessboard.getArrayBoard()[this.rowPosition][this.columPosition-4][1].pieceFirstMove){
+
+            if (!positionIsTaken(this.rowPosition, this.columPosition-1)
+                    && !positionIsTaken(this.rowPosition, this.columPosition-2)
+                    && !positionIsTaken(this.rowPosition, this.columPosition-3)){
+
+                if (!EmptyPiece.isSquareUnderAttack(this.rowPosition,this.columPosition-1, attackingColor)
+                        && !EmptyPiece.isSquareUnderAttack(this.rowPosition,this.columPosition-2, attackingColor)){
+                    Chessboard.getArrayBoard()[this.rowPosition][this.columPosition-2][0].emptyPiecePanel.setBackground(Color.gray);
+                    if (Move.figureToMove != null){
+                        Chessboard.getArrayBoard()[this.rowPosition][this.columPosition-2][0].emptyPiecePanel.setBackground(Color.green);
+                    }
+                    return true;
+                }
+            }
+        }return false;
     }
 
     void kingMoveDiagonallyUpLeft(){
@@ -69,7 +96,9 @@ public class King extends Piece {
 
     @Override
     public void showMovePossibilities(){
-        castling();
+        if (this.pieceMove){
+            setCastling();
+        }
 
         kingMoveUp();
         kingMoveDown();

@@ -41,10 +41,24 @@ public class Move {
          newSquareSpot.emptyPiecePanel.add(figureToMove.pieceLabel);
 
          figureToMove.setActualPositionOfPiece(figureToMove);
-         figureToMove.pieceFirstMove = false;
+
          if (figureToMove instanceof Pawn){
             ((Pawn) figureToMove).readyToBePromoted();
          }
+         if (figureToMove instanceof King && figureToMove.pieceFirstMove){
+             if (newSquareSpot == Chessboard.getEmptySquare(figureToMove.rowPosition, 6)){
+                 //bolo zakliknute policko na malu rosadu
+                 //cize treba zavolat presun figurky na vezu
+                 figureToMove = Chessboard.getArrayBoard()[figureToMove.rowPosition][7][1];
+                 movingThePiece(Chessboard.getEmptySquare(figureToMove.rowPosition, 5));
+             } else if (newSquareSpot == Chessboard.getEmptySquare(figureToMove.rowPosition, 2)) {
+                 //the square for big castling was clicked
+                 //make move for the left rook
+                 figureToMove = Chessboard.getArrayBoard()[figureToMove.rowPosition][0][1];
+                 movingThePiece(Chessboard.getEmptySquare(figureToMove.rowPosition, 3));
+             }
+         }
+         figureToMove.pieceFirstMove = false;
     }
 
      static void discardingThePiece(Piece newSquareSpot){
