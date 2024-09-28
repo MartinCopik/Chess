@@ -80,10 +80,10 @@ public class Pawn extends Piece{
                 }
                 return;
             }
-            EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck, columToCheck), this.pieceColor);
+            EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck, columToCheck), this);
         } else if (!positionIsTaken(rowToCheck, columToCheck)) {
             if (!this.pieceMove){
-                EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck, columToCheck), this.pieceColor);
+                EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck, columToCheck), this);
             }
         }
     }
@@ -92,6 +92,15 @@ public class Pawn extends Piece{
     boolean impossibleMove(int rowToCheck, int columToCheck) {
         if (isOutOfBorder(rowToCheck, columToCheck)){
             return true;
+        }
+        if (this.pieceMove){
+            if (creationOfSelfCheck(this, this.rowPosition, this.columPosition)){
+                Chessboard.getArrayBoard()[this.rowPosition][this.columPosition][1] = this;
+                EmptyPiece.attackedSquares.clear();
+                System.out.println("king will be in check, with this piece cannot be moved!!!");
+                System.out.println("from pawn ");
+                return true;
+            }
         }
         if (!positionIsTaken(rowToCheck, columToCheck)){
             if (this.pieceMove){

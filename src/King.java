@@ -4,6 +4,7 @@ import java.awt.*;
 public class King extends Piece {
 
     Piece castledKing;
+    Player castlingPlayer;
 
     public King(Color kingColor, ImageIcon kingImage, int rowPosition, int columPosition) {
         super(kingColor,kingImage, rowPosition, columPosition);
@@ -12,32 +13,43 @@ public class King extends Piece {
 //    boolean kingIsInCheck(){
 //
 //    }
+    boolean kingIsInCheck(){
+        if (EmptyPiece.isSquareUnderAttack(this.rowPosition, this.columPosition, setAttackingColor())){
+            System.out.println("king is under attack!!!!");
+            return true;
+        }
+        return false;
+    }
 
-    Color checkAttackingColor(Piece king){
-        if (king.pieceColor.equals(Color.WHITE)){
+    Color setAttackingColor(){
+        if (this.pieceColor.equals(Color.WHITE)){
+            castlingPlayer = Chessboard.whitePlayer;
             return Color.BLACK;
         }else {
+            castlingPlayer = Chessboard.blackPlayer;
             return Color.WHITE;
         }
     }
     void setCastling(){
-        if (this.pieceColor.equals(Color.WHITE)){
-            possibleSmallCastling(Color.BLACK);
-            possibleBigCastling(Color.BLACK);
-        } else {
-            possibleSmallCastling(Color.WHITE);
-            possibleBigCastling(Color.WHITE);
-        }
+        possibleSmallCastling(setAttackingColor());
+        possibleBigCastling(setAttackingColor());
+//        if (this.pieceColor.equals(Color.WHITE)){
+//            possibleSmallCastling(Color.BLACK);
+//            possibleBigCastling(Color.BLACK);
+//        } else {
+//            possibleSmallCastling(Color.WHITE);
+//            possibleBigCastling(Color.WHITE);
+//        }
     }
 
     boolean possibleSmallCastling(Color attackingColor){
-        if (this.pieceFirstMove && Chessboard.getArrayBoard()[this.rowPosition][this.columPosition+3][1].pieceFirstMove){
+        if (this.pieceFirstMove && castlingPlayer.rightRook.pieceFirstMove){
 
             if (!positionIsTaken(this.rowPosition, this.columPosition+1)
                     && !positionIsTaken(this.rowPosition, this.columPosition+2)){
 
                 if (!EmptyPiece.isSquareUnderAttack(this.rowPosition,this.columPosition+1, attackingColor)
-                        && !EmptyPiece.isSquareUnderAttack(this.rowPosition,this.columPosition+2, attackingColor)){
+                        || !EmptyPiece.isSquareUnderAttack(this.rowPosition,this.columPosition+2, attackingColor)){
                     Chessboard.getArrayBoard()[this.rowPosition][this.columPosition+2][0].emptyPiecePanel.setBackground(Color.gray);
                     if (Move.figureToMove != null){
                         Chessboard.getArrayBoard()[this.rowPosition][this.columPosition+2][0].emptyPiecePanel.setBackground(Color.green);
@@ -48,14 +60,14 @@ public class King extends Piece {
         }return false;
     }
     boolean possibleBigCastling(Color attackingColor){
-        if (this.pieceFirstMove && Chessboard.getArrayBoard()[this.rowPosition][this.columPosition-4][1].pieceFirstMove){
+        if (this.pieceFirstMove && castlingPlayer.leftRook.pieceFirstMove){
 
             if (!positionIsTaken(this.rowPosition, this.columPosition-1)
                     && !positionIsTaken(this.rowPosition, this.columPosition-2)
                     && !positionIsTaken(this.rowPosition, this.columPosition-3)){
 
                 if (!EmptyPiece.isSquareUnderAttack(this.rowPosition,this.columPosition-1, attackingColor)
-                        && !EmptyPiece.isSquareUnderAttack(this.rowPosition,this.columPosition-2, attackingColor)){
+                        || !EmptyPiece.isSquareUnderAttack(this.rowPosition,this.columPosition-2, attackingColor)){
                     Chessboard.getArrayBoard()[this.rowPosition][this.columPosition-2][0].emptyPiecePanel.setBackground(Color.gray);
                     if (Move.figureToMove != null){
                         Chessboard.getArrayBoard()[this.rowPosition][this.columPosition-2][0].emptyPiecePanel.setBackground(Color.green);
@@ -96,9 +108,6 @@ public class King extends Piece {
 
     @Override
     public void showMovePossibilities(){
-        if (this.pieceMove){
-            setCastling();
-        }
 
         kingMoveUp();
         kingMoveDown();
@@ -108,5 +117,10 @@ public class King extends Piece {
         kingMoveDiagonallyUpRight();
         kingMoveDiagonallyDownLeft();
         kingMoveDiagonallyDownRight();
+
+        if (this.pieceMove ){
+//            kingIsInCheck();
+            setCastling();
+        }
     }
 }

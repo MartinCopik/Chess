@@ -85,6 +85,18 @@ public class Piece implements MouseListener {
 
     public void showMovePossibilities(){
     }
+    boolean creationOfSelfCheck(Piece pieceToBeMoved, int rowPosition, int columPosition){
+        Chessboard.getArrayBoard()[rowPosition][columPosition][1] = null;
+        if (pieceToBeMoved.pieceColor.equals(Color.WHITE)){
+            setAttackedSquares(Chessboard.blackPlayer);
+            Chessboard.getArrayBoard()[rowPosition][columPosition][1] = pieceToBeMoved;
+            return Chessboard.whitePlayer.king.kingIsInCheck();
+        }else {
+            setAttackedSquares(Chessboard.whitePlayer);
+            Chessboard.getArrayBoard()[rowPosition][columPosition][1] = pieceToBeMoved;
+            return Chessboard.blackPlayer.king.kingIsInCheck();
+        }
+    }
 
     boolean isOutOfBorder(int rowToCheck, int columToCheck){
         if (rowToCheck <0 || columToCheck <0 || rowToCheck > Chessboard.getArrayBoard().length-1 || columToCheck > Chessboard.getArrayBoard().length-1){
@@ -108,6 +120,14 @@ public class Piece implements MouseListener {
         if (isOutOfBorder(rowToCheck,columToCheck)){
             return true;
         }
+        if (this.pieceMove){
+            if (creationOfSelfCheck(this, this.rowPosition, this.columPosition)){
+//                Chessboard.getArrayBoard()[this.rowPosition][this.columPosition][1] = this;
+                EmptyPiece.attackedSquares.clear();
+                System.out.println("king will be in check, with this piece cannot be moved!!!");
+                return true;
+            }
+        }
         if (positionIsTaken(rowToCheck, columToCheck) && pieceIsAttacking(this, rowToCheck, columToCheck)){
             if (this.pieceMove){
                 Chessboard.getArrayBoard()[rowToCheck][columToCheck][0].emptyPiecePanel.setBackground(Color.pink);
@@ -116,7 +136,7 @@ public class Piece implements MouseListener {
                 }
                 return true;
             }
-            EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck,columToCheck), this.pieceColor);
+            EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck,columToCheck), this);
             return true;
         } else if (positionIsTaken(rowToCheck, columToCheck) && !pieceIsAttacking(this, rowToCheck, columToCheck)) {
             return true;
@@ -128,7 +148,7 @@ public class Piece implements MouseListener {
                 }
                 return false;
             }
-            EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck,columToCheck), this.pieceColor);
+            EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck,columToCheck), this);
             return false;
         }
         return false;

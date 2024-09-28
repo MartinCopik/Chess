@@ -26,6 +26,7 @@ public class Player {
     Pawn pawn7;
 
     Queen specialQueen;
+    Queen specialQueen2;
 
     ArrayList<Piece> playerPieces = new ArrayList<Piece>();
 
@@ -64,5 +65,11 @@ public class Player {
             playerPieces.add(specialQueen = new Queen(playerColor, new ImageIcon(this.stringPlayerColor + "Queen.png"), mainLineUP-4, 5));
 
         }
+//        if (playerColor == Color.BLACK){
+//            playerPieces.add(specialQueen2 = new Queen(playerColor, new ImageIcon(this.stringPlayerColor + "Queen.png"), mainLineUP+1, 3));
+//        }else {
+//            playerPieces.add(specialQueen2 = new Queen(playerColor, new ImageIcon(this.stringPlayerColor + "Queen.png"), mainLineUP-1, 3));
+//
+//        }
     }
 }

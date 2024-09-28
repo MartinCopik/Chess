@@ -26,16 +26,20 @@ public class Move {
 
     public static boolean rightColorToMakeMove(Piece pieceToMakeMove){
         if (moveCounter%2 == 0 && pieceToMakeMove.pieceColor.equals(Color.WHITE)){
-            Piece.setAttackedSquares(Chessboard.blackPlayer);
+//            Piece.setAttackedSquares(Chessboard.blackPlayer);
             return true;
         } else if (moveCounter%2 == 1 && pieceToMakeMove.pieceColor.equals(Color.BLACK)){
-            Piece.setAttackedSquares(Chessboard.whitePlayer);
+//            Piece.setAttackedSquares(Chessboard.whitePlayer);
             return true;
         }
         return false;
     }
 
      static void movingThePiece(Piece newSquareSpot){
+//        if (figureToMove instanceof Pawn ){
+//            System.out.println("spravne ukonci pohyb");
+//            return;
+//        }
          Chessboard.arrayBoard[figureToMove.getRowPosition()][figureToMove.getColumPosition()][1] = null;
          Chessboard.arrayBoard[newSquareSpot.getRowPosition()][newSquareSpot.getColumPosition()][1] = figureToMove;
          newSquareSpot.emptyPiecePanel.add(figureToMove.pieceLabel);
