@@ -6,13 +6,12 @@ public class King extends Piece {
     Piece castledKing;
     Player castlingPlayer;
 
-    public King(Color kingColor, ImageIcon kingImage, int rowPosition, int columPosition) {
-        super(kingColor,kingImage, rowPosition, columPosition);
+    public King(Player player, Color kingColor, ImageIcon kingImage, int rowPosition, int columPosition) {
+        super(player, kingColor, kingImage, rowPosition, columPosition);
         super.pieceImageIcon = kingImage;
     }
-//    boolean kingIsInCheck(){
-//
-//    }
+    boolean kingIsInCheck;
+
     boolean kingIsInCheck(){
         if (EmptyPiece.isSquareUnderAttack(this.rowPosition, this.columPosition, setAttackingColor())){
             System.out.println("king is under attack!!!!");
@@ -79,31 +78,31 @@ public class King extends Piece {
     }
 
     void kingMoveDiagonallyUpLeft(){
-        impossibleMove(rowPosition-1, columPosition-1);
+        impossibleMove(player,rowPosition-1, columPosition-1);
     }
 
     void kingMoveDiagonallyUpRight(){
-        impossibleMove(rowPosition-1,columPosition+1);
+        impossibleMove(player,rowPosition-1,columPosition+1);
     }
     void kingMoveDiagonallyDownLeft(){
-        impossibleMove(rowPosition+1, columPosition-1);
+        impossibleMove(player,rowPosition+1, columPosition-1);
     }
     void kingMoveDiagonallyDownRight(){
-        impossibleMove(rowPosition+1, columPosition+1);
+        impossibleMove(player,rowPosition+1, columPosition+1);
     }
 
     void kingMoveUp(){
-        impossibleMove(rowPosition-1, columPosition);
+        impossibleMove(player,rowPosition-1, columPosition);
     }
 
     void kingMoveDown(){
-        impossibleMove(rowPosition+1, columPosition);
+        impossibleMove(player,rowPosition+1, columPosition);
     }
     void kingMoveLeft(){
-        impossibleMove(rowPosition, columPosition-1);
+        impossibleMove(player,rowPosition, columPosition-1);
     }
     void kingMoveRight(){
-        impossibleMove(rowPosition, columPosition+1);
+        impossibleMove(player,rowPosition, columPosition+1);
     }
 
     @Override
@@ -118,7 +117,7 @@ public class King extends Piece {
         kingMoveDiagonallyDownLeft();
         kingMoveDiagonallyDownRight();
 
-        if (this.pieceMove ){
+        if (this.pieceMove && !this.kingIsInCheck ){
 //            kingIsInCheck();
             setCastling();
         }

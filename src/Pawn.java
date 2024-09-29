@@ -3,8 +3,8 @@ import java.awt.*;
 
 public class Pawn extends Piece{
 
-    public Pawn(Color pawnColor, ImageIcon pawnImage, int rowPosition, int columPosition) {
-        super(pawnColor,pawnImage, rowPosition, columPosition);
+    public Pawn(Player player, Color pawnColor, ImageIcon pawnImage, int rowPosition, int columPosition) {
+        super(player, pawnColor,pawnImage, rowPosition, columPosition);
         super.pieceImageIcon = pawnImage;
     }
 
@@ -43,16 +43,16 @@ public class Pawn extends Piece{
 
     void pawnMoveUp(){
         if (this.pieceFirstMove && !positionIsTaken(this.getRowPosition()-1, this.getColumPosition())){
-            impossibleMove(this.getRowPosition()-2, this.getColumPosition());
+            impossibleMove(player,this.getRowPosition()-2, this.getColumPosition());
         }
-        impossibleMove(this.getRowPosition()-1, this.getColumPosition());
+        impossibleMove(player,this.getRowPosition()-1, this.getColumPosition());
     }
 
     void pawnMoveDown(){
         if (this.pieceFirstMove && !positionIsTaken(this.getRowPosition()+1, this.getColumPosition())){
-            impossibleMove(this.getRowPosition()+2, this.getColumPosition());
+            impossibleMove(player,this.getRowPosition()+2, this.getColumPosition());
         }
-        impossibleMove(this.getRowPosition()+1, this.getColumPosition());
+        impossibleMove(player,this.getRowPosition()+1, this.getColumPosition());
     }
 
     void pawnMoveDiagonallyUpLeft(){
@@ -89,7 +89,7 @@ public class Pawn extends Piece{
     }
 
     @Override
-    boolean impossibleMove(int rowToCheck, int columToCheck) {
+    boolean impossibleMove(Player player, int rowToCheck, int columToCheck) {
         if (isOutOfBorder(rowToCheck, columToCheck)){
             return true;
         }

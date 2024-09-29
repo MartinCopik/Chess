@@ -7,6 +7,8 @@ public class Piece implements MouseListener {
 
     protected Color pieceColor;
     ImageIcon pieceImageIcon;
+    Player player;
+
 
     int rowPosition;
     int columPosition;
@@ -18,7 +20,8 @@ public class Piece implements MouseListener {
     boolean pieceFirstMove = true;
     boolean pieceMove = false;
 
-    public Piece(Color pieceColor, ImageIcon pieceImageIcon, int rowPosition, int columPosition){
+    public Piece(Player player, Color pieceColor, ImageIcon pieceImageIcon, int rowPosition, int columPosition){
+        this.player = player;
         this.pieceColor = pieceColor;
         this.pieceLabel = new JLabel();
         this.pieceLabel.addMouseListener(this);
@@ -98,6 +101,35 @@ public class Piece implements MouseListener {
         }
     }
 
+    boolean checkIfCheckIsMade(Piece pieceToMakeCheck){
+        setAttackedSquares(pieceToMakeCheck.player);
+        if (pieceToMakeCheck.pieceColor.equals(Color.WHITE)){
+            if (Chessboard.blackPlayer.king.kingIsInCheck()){
+                Chessboard.blackPlayer.king.kingIsInCheck = true;
+                return true;
+            }
+        }else {
+            if (Chessboard.whitePlayer.king.kingIsInCheck()){
+                Chessboard.whitePlayer.king.kingIsInCheck = true;
+                return true;
+            }
+        }
+        return false;
+//        if (pieceToMakeCheck.pieceColor.equals(Color.WHITE)){
+//            setAttackedSquares(Chessboard.whitePlayer);
+//            if (Chessboard.blackPlayer.king.kingIsInCheck()){
+//                Chessboard.blackPlayer.king.kingIsInCheck = true;
+//                return true;
+//            }return false;
+//        }else {
+//            setAttackedSquares(Chessboard.blackPlayer);
+//            if (Chessboard.whitePlayer.king.kingIsInCheck()){
+//                Chessboard.whitePlayer.king.kingIsInCheck = true;
+//                return true;
+//            }return false;
+//        }
+    }
+
     boolean isOutOfBorder(int rowToCheck, int columToCheck){
         if (rowToCheck <0 || columToCheck <0 || rowToCheck > Chessboard.getArrayBoard().length-1 || columToCheck > Chessboard.getArrayBoard().length-1){
             return true;
@@ -116,11 +148,11 @@ public class Piece implements MouseListener {
         }
         return false;
     }
-    boolean impossibleMove(int rowToCheck, int columToCheck){
+    boolean impossibleMove(Player player, int rowToCheck, int columToCheck){
         if (isOutOfBorder(rowToCheck,columToCheck)){
             return true;
         }
-        if (this.pieceMove){
+        if (this.pieceMove && !player.king.kingIsInCheck){
             if (creationOfSelfCheck(this, this.rowPosition, this.columPosition)){
 //                Chessboard.getArrayBoard()[this.rowPosition][this.columPosition][1] = this;
                 EmptyPiece.attackedSquares.clear();
@@ -181,6 +213,12 @@ public class Piece implements MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
+        if (this instanceof King){
+            System.out.println(((King) this).player +" this is the player");
+        }
+
+
+
         if (Move.rightColorToMakeMove(this) && !isAnyPieceSelected()){
             this.pieceMove = true;
             setActualPositionOfPiece(this);

@@ -10,6 +10,7 @@ public class PromotionWindow  implements ActionListener {
     JButton bishopButton;
     JButton queenButton;
     Piece pieceToBePromoted;
+    Player promotingPlayer;
 
     PromotionWindow(Piece pawnToBePromoted){
         ChessGame.chessGame.setVisible(false);
@@ -42,16 +43,16 @@ public class PromotionWindow  implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == rookButton) {
-            promotePiece(new Rook(pieceToBePromoted.getPieceColor(), new ImageIcon(colorToBePromoted()+"Rook.png"), pieceToBePromoted.getRowPosition(), pieceToBePromoted.getColumPosition()));
+            promotePiece(new Rook(setPromotingPlayer(), pieceToBePromoted.getPieceColor(), new ImageIcon(colorToBePromoted()+"Rook.png"), pieceToBePromoted.getRowPosition(), pieceToBePromoted.getColumPosition()));
         }
         if (e.getSource() == knightButton) {
-            promotePiece(new Knight(pieceToBePromoted.getPieceColor(), new ImageIcon(colorToBePromoted()+"Knight.png"), pieceToBePromoted.getRowPosition(), pieceToBePromoted.getColumPosition()));
+            promotePiece(new Knight(setPromotingPlayer(), pieceToBePromoted.getPieceColor(), new ImageIcon(colorToBePromoted()+"Knight.png"), pieceToBePromoted.getRowPosition(), pieceToBePromoted.getColumPosition()));
         }
         if (e.getSource() == bishopButton) {
-            promotePiece(new Bishop(pieceToBePromoted.getPieceColor(), new ImageIcon(colorToBePromoted()+"Bishop.png"), pieceToBePromoted.getRowPosition(), pieceToBePromoted.getColumPosition()));
+            promotePiece(new Bishop(setPromotingPlayer(), pieceToBePromoted.getPieceColor(), new ImageIcon(colorToBePromoted()+"Bishop.png"), pieceToBePromoted.getRowPosition(), pieceToBePromoted.getColumPosition()));
         }
         if (e.getSource() == queenButton) {
-            promotePiece(new Queen(pieceToBePromoted.getPieceColor(), new ImageIcon(colorToBePromoted()+"Queen.png"), pieceToBePromoted.getRowPosition(), pieceToBePromoted.getColumPosition()));
+            promotePiece(new Queen(setPromotingPlayer(), pieceToBePromoted.getPieceColor(), new ImageIcon(colorToBePromoted()+"Queen.png"), pieceToBePromoted.getRowPosition(), pieceToBePromoted.getColumPosition()));
         }
         promotionWindow.dispose();
         ChessGame.chessGame.setVisible(true);
@@ -61,6 +62,10 @@ public class PromotionWindow  implements ActionListener {
         if (this.pieceToBePromoted.pieceColor == Color.BLACK){
             return "black";
         }else return "white";
+    }
+
+    Player setPromotingPlayer(){
+        return this.pieceToBePromoted.player;
     }
 
     void promotePiece(Piece newPiece){

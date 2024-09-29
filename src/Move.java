@@ -45,6 +45,7 @@ public class Move {
          newSquareSpot.emptyPiecePanel.add(figureToMove.pieceLabel);
 
          figureToMove.setActualPositionOfPiece(figureToMove);
+         figureToMove.checkIfCheckIsMade(figureToMove);
 
          if (figureToMove instanceof Pawn){
             ((Pawn) figureToMove).readyToBePromoted();
