@@ -93,7 +93,7 @@ public class Pawn extends Piece{
         if (isOutOfBorder(rowToCheck, columToCheck)){
             return true;
         }
-        if (this.pieceMove){
+        if (this.pieceMove && !player.king.kingIsInCheck){
             if (creationOfSelfCheck(this, this.rowPosition, this.columPosition)){
                 Chessboard.getArrayBoard()[this.rowPosition][this.columPosition][1] = this;
                 EmptyPiece.attackedSquares.clear();

@@ -102,7 +102,8 @@ public class Piece implements MouseListener {
     }
 
     boolean checkIfCheckIsMade(Piece pieceToMakeCheck){
-        setAttackedSquares(pieceToMakeCheck.player);
+        pieceToMakeCheck.showMovePossibilities();
+//        setAttackedSquares(pieceToMakeCheck.player);
         if (pieceToMakeCheck.pieceColor.equals(Color.WHITE)){
             if (Chessboard.blackPlayer.king.kingIsInCheck()){
                 Chessboard.blackPlayer.king.kingIsInCheck = true;
@@ -128,6 +129,20 @@ public class Piece implements MouseListener {
 //                return true;
 //            }return false;
 //        }
+    }
+    boolean whoToDefendTheKing(Piece kingAttackingPiece){
+        if (kingAttackingPiece.pieceColor.equals(Color.white)){
+            setAttackedSquares(Chessboard.blackPlayer);
+            if (EmptyPiece.isSquareUnderAttack(kingAttackingPiece.rowPosition, kingAttackingPiece.columPosition, Chessboard.blackPlayer.king.pieceColor)){
+                return true;
+            }
+        }else {
+            setAttackedSquares(Chessboard.whitePlayer);
+            if (EmptyPiece.isSquareUnderAttack(kingAttackingPiece.rowPosition, kingAttackingPiece.columPosition, Chessboard.whitePlayer.king.pieceColor)){
+                return true;
+            }
+        }
+        return false;
     }
 
     boolean isOutOfBorder(int rowToCheck, int columToCheck){
