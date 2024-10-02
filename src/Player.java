@@ -6,6 +6,7 @@ public class Player {
     String stringPlayerColor;
     int pawnLineUp;
     int mainLineUP;
+    Piece pieceAttackingKing;
 
     Rook leftRook;
     Rook rightRook;

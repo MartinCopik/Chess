@@ -26,10 +26,19 @@ public class Move {
 
     public static boolean rightColorToMakeMove(Piece pieceToMakeMove){
         if (moveCounter%2 == 0 && pieceToMakeMove.pieceColor.equals(Color.WHITE)){
-//            Piece.setAttackedSquares(Chessboard.blackPlayer);
+            EmptyPiece.attackedSquares.clear();
+            Piece.setAttackedSquares(Chessboard.blackPlayer);
+            pieceToMakeMove.player.king.kingIsInCheck();
             return true;
         } else if (moveCounter%2 == 1 && pieceToMakeMove.pieceColor.equals(Color.BLACK)){
-//            Piece.setAttackedSquares(Chessboard.whitePlayer);
+            if (moveCounter == 3){
+                System.out.println("now");
+            }
+            EmptyPiece.attackedSquares.clear();
+            Piece.setAttackedSquares(Chessboard.whitePlayer);
+            if (pieceToMakeMove.player.king.kingIsInCheck()){
+                System.out.println("black king is in check at the start of his move !!!!!!");
+            }
             return true;
         }
         return false;
@@ -45,7 +54,10 @@ public class Move {
          newSquareSpot.emptyPiecePanel.add(figureToMove.pieceLabel);
 
          figureToMove.setActualPositionOfPiece(figureToMove);
-         figureToMove.checkIfCheckIsMade(figureToMove);
+         if (figureToMove.checkIfCheckIsMade(figureToMove)){
+             //toto sa zavola prakticky vzdy, cize vzdy sa ukazu figurky hraca ktory prave urobil tah
+
+         }
 
          if (figureToMove instanceof Pawn){
             ((Pawn) figureToMove).readyToBePromoted();
@@ -67,6 +79,10 @@ public class Move {
     }
 
      static void discardingThePiece(Piece newSquareSpot){
+
+        if (figureToMove.player.king.kingIsInCheck){
+            System.out.println("from discarding the piece king is in check");
+        }
         Chessboard.arrayDiscardedPieces.add(Chessboard.arrayBoard[newSquareSpot.getRowPosition()][newSquareSpot.getColumPosition()][1]);
         Chessboard.arrayBoard[newSquareSpot.getRowPosition()][newSquareSpot.getColumPosition()][1] = null;
         newSquareSpot.emptyPiecePanel.removeAll();

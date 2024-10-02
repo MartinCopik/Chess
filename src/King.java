@@ -14,8 +14,18 @@ public class King extends Piece {
 
     boolean kingIsInCheck(){
         if (EmptyPiece.isSquareUnderAttack(this.rowPosition, this.columPosition, setAttackingColor())){
+            kingIsInCheck = true;
             System.out.println("king is under attack!!!!");
             return true;
+        }
+        kingIsInCheck = false;
+        return false;
+    }
+    boolean cleanMoveForKing(int rowToCheck, int columToCheck){
+        if (!isOutOfBorder(rowToCheck, columToCheck)){
+            if (!EmptyPiece.isSquareUnderAttack(rowToCheck, columToCheck, setAttackingColor())){
+                return true;
+            }
         }
         return false;
     }
@@ -48,11 +58,8 @@ public class King extends Piece {
                     && !positionIsTaken(this.rowPosition, this.columPosition+2)){
 
                 if (!EmptyPiece.isSquareUnderAttack(this.rowPosition,this.columPosition+1, attackingColor)
-                        || !EmptyPiece.isSquareUnderAttack(this.rowPosition,this.columPosition+2, attackingColor)){
-                    Chessboard.getArrayBoard()[this.rowPosition][this.columPosition+2][0].emptyPiecePanel.setBackground(Color.gray);
-                    if (Move.figureToMove != null){
-                        Chessboard.getArrayBoard()[this.rowPosition][this.columPosition+2][0].emptyPiecePanel.setBackground(Color.green);
-                    }
+                        && !EmptyPiece.isSquareUnderAttack(this.rowPosition,this.columPosition+2, attackingColor)){
+                    EmptyPiece.markTheSquareForMove(Chessboard.getEmptySquare(this.rowPosition, this.columPosition+2));
                     return true;
                 }
             }
@@ -66,11 +73,8 @@ public class King extends Piece {
                     && !positionIsTaken(this.rowPosition, this.columPosition-3)){
 
                 if (!EmptyPiece.isSquareUnderAttack(this.rowPosition,this.columPosition-1, attackingColor)
-                        || !EmptyPiece.isSquareUnderAttack(this.rowPosition,this.columPosition-2, attackingColor)){
-                    Chessboard.getArrayBoard()[this.rowPosition][this.columPosition-2][0].emptyPiecePanel.setBackground(Color.gray);
-                    if (Move.figureToMove != null){
-                        Chessboard.getArrayBoard()[this.rowPosition][this.columPosition-2][0].emptyPiecePanel.setBackground(Color.green);
-                    }
+                        && !EmptyPiece.isSquareUnderAttack(this.rowPosition,this.columPosition-2, attackingColor)){
+                    EmptyPiece.markTheSquareForMove(Chessboard.getEmptySquare(this.rowPosition, this.columPosition-2));
                     return true;
                 }
             }
@@ -78,31 +82,47 @@ public class King extends Piece {
     }
 
     void kingMoveDiagonallyUpLeft(){
-        impossibleMove(player,rowPosition-1, columPosition-1);
+        if (cleanMoveForKing(rowPosition-1, columPosition-1)){
+            impossibleMove(player,rowPosition-1, columPosition-1);
+        }
     }
 
     void kingMoveDiagonallyUpRight(){
-        impossibleMove(player,rowPosition-1,columPosition+1);
+        if (cleanMoveForKing(rowPosition-1,columPosition+1)){
+            impossibleMove(player,rowPosition-1,columPosition+1);
+        }
     }
     void kingMoveDiagonallyDownLeft(){
-        impossibleMove(player,rowPosition+1, columPosition-1);
+        if (cleanMoveForKing(rowPosition+1,columPosition-1)){
+            impossibleMove(player,rowPosition+1, columPosition-1);
+        }
     }
     void kingMoveDiagonallyDownRight(){
-        impossibleMove(player,rowPosition+1, columPosition+1);
+        if (cleanMoveForKing(rowPosition+1,columPosition+1)){
+            impossibleMove(player,rowPosition+1, columPosition+1);
+        }
     }
 
     void kingMoveUp(){
-        impossibleMove(player,rowPosition-1, columPosition);
+        if (cleanMoveForKing(rowPosition-1,columPosition)){
+            impossibleMove(player,rowPosition-1, columPosition);
+        }
     }
 
     void kingMoveDown(){
-        impossibleMove(player,rowPosition+1, columPosition);
+        if (cleanMoveForKing(rowPosition+1, columPosition)){
+            impossibleMove(player,rowPosition+1, columPosition);
+        }
     }
     void kingMoveLeft(){
-        impossibleMove(player,rowPosition, columPosition-1);
+        if (cleanMoveForKing(rowPosition,columPosition-1)){
+            impossibleMove(player,rowPosition, columPosition-1);
+        }
     }
     void kingMoveRight(){
-        impossibleMove(player,rowPosition, columPosition+1);
+        if (cleanMoveForKing(rowPosition, columPosition+1)){
+            impossibleMove(player,rowPosition, columPosition+1);
+        }
     }
 
     @Override

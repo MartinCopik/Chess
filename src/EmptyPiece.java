@@ -17,6 +17,19 @@ public class EmptyPiece extends Piece{
         super.emptyPiecePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
 
+    static void markTheSquareForAttack(Piece emptyPieceToMark){
+        emptyPieceToMark.emptyPiecePanel.setBackground(Color.pink);
+        if (Move.figureToMove != null){
+            emptyPieceToMark.emptyPiecePanel.setBackground(Color.RED);
+        }
+    }
+    static void markTheSquareForMove(Piece emptyPieceToMark){
+        emptyPieceToMark.emptyPiecePanel.setBackground(Color.gray);
+        if (Move.figureToMove != null){
+            emptyPieceToMark.emptyPiecePanel.setBackground(Color.green);
+        }
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
         if (this.emptyPiecePanel.getBackground() == Color.GREEN){

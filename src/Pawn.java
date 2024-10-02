@@ -72,12 +72,14 @@ public class Pawn extends Piece{
         if (isOutOfBorder(rowToCheck, columToCheck)){
             return;
         }
+        if (player.king.kingIsInCheck && this.pieceMove){
+            if (Chessboard.getArrayBoard()[rowToCheck][columToCheck][1] == player.pieceAttackingKing){
+                EmptyPiece.markTheSquareForAttack(Chessboard.getEmptySquare(rowToCheck, columToCheck));
+            }
+        }
         if (positionIsTaken(rowToCheck, columToCheck) && pieceIsAttacking(this, rowToCheck, columToCheck)){
-            if (this.pieceMove){
-                Chessboard.arrayBoard[rowToCheck][columToCheck][0].emptyPiecePanel.setBackground(Color.pink);
-                if (Move.figureToMove != null){
-                    Chessboard.arrayBoard[rowToCheck][columToCheck][0].emptyPiecePanel.setBackground(Color.red);
-                }
+            if (this.pieceMove && !player.king.kingIsInCheck){
+                EmptyPiece.markTheSquareForAttack(Chessboard.getEmptySquare(rowToCheck, columToCheck));
                 return;
             }
             EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck, columToCheck), this);
@@ -103,11 +105,8 @@ public class Pawn extends Piece{
             }
         }
         if (!positionIsTaken(rowToCheck, columToCheck)){
-            if (this.pieceMove){
-                Chessboard.arrayBoard[rowToCheck][columToCheck][0].emptyPiecePanel.setBackground(Color.gray);
-                if (Move.figureToMove != null){
-                    Chessboard.arrayBoard[rowToCheck][columToCheck][0].emptyPiecePanel.setBackground(Color.green);
-                }
+            if (this.pieceMove && !player.king.kingIsInCheck){
+                EmptyPiece.markTheSquareForMove(Chessboard.getEmptySquare(rowToCheck, columToCheck));
             }
             return true;
         }
