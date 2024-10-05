@@ -3,6 +3,8 @@ import java.awt.*;
 
 public class Pawn extends Piece{
 
+   static boolean promoted;
+
     public Pawn(Player player, Color pawnColor, ImageIcon pawnImage, int rowPosition, int columPosition) {
         super(player, pawnColor,pawnImage, rowPosition, columPosition);
         super.pieceImageIcon = pawnImage;
@@ -14,6 +16,7 @@ public class Pawn extends Piece{
             new PromotionWindow(this);
             Move.discardingThePiece(Chessboard.getEmptySquare(this.getRowPosition(), this.getColumPosition()));
             Chessboard.panelBoard.repaint();
+            promoted = true;
         }
     }
 
@@ -77,16 +80,16 @@ public class Pawn extends Piece{
                 EmptyPiece.markTheSquareForAttack(Chessboard.getEmptySquare(rowToCheck, columToCheck));
             }
         }
-        if (positionIsTaken(rowToCheck, columToCheck) && pieceIsAttacking(this, rowToCheck, columToCheck)){
-            if (this.pieceMove && !player.king.kingIsInCheck){
+        if (positionIsTaken(rowToCheck, columToCheck) && pieceIsAttacking(this, rowToCheck, columToCheck)) {
+            if (this.pieceMove && !player.king.kingIsInCheck) {
                 EmptyPiece.markTheSquareForAttack(Chessboard.getEmptySquare(rowToCheck, columToCheck));
                 return;
             }
             EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck, columToCheck), this);
-        } else if (!positionIsTaken(rowToCheck, columToCheck)) {
-            if (!this.pieceMove){
-                EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck, columToCheck), this);
-            }
+        }
+//        } else if (!positionIsTaken(rowToCheck, columToCheck)) {
+        if (!this.pieceMove){
+            EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck, columToCheck), this);
         }
     }
 

@@ -70,6 +70,8 @@ public class PromotionWindow  implements ActionListener {
 
     void promotePiece(Piece newPiece){
         Chessboard.setStartPointOfPiece(newPiece);
+        newPiece.player.playerPieces.add(newPiece);
+        newPiece.checkIfCheckIsMade(newPiece);
     }
 }
 

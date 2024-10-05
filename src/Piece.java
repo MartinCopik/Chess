@@ -70,6 +70,9 @@ public class Piece implements MouseListener {
     }
     static void setAttackedSquares(Player  attackingPlayer){
         for (Piece piece : attackingPlayer.playerPieces){
+            if (piece.player.specialQueen == piece && piece.player.specialQueen.pieceColor == Color.WHITE){
+                System.out.println("now");
+            }
             piece.showMovePossibilities();
         }
     }
@@ -89,6 +92,9 @@ public class Piece implements MouseListener {
     public void showMovePossibilities(){
     }
     boolean creationOfSelfCheck(Piece pieceToBeMoved, int rowPosition, int columPosition){
+        if (this instanceof  King){
+            System.out.println("fs");
+        }
         Chessboard.getArrayBoard()[rowPosition][columPosition][1] = null;
         if (pieceToBeMoved.pieceColor.equals(Color.WHITE)){
             setAttackedSquares(Chessboard.blackPlayer);
@@ -157,7 +163,7 @@ public class Piece implements MouseListener {
         if (isOutOfBorder(rowToCheck,columToCheck)){
             return true;
         }
-        if (this.pieceMove && !player.king.kingIsInCheck && !(this instanceof King)){
+        if (this.pieceMove && !player.king.kingIsInCheck){
             if (creationOfSelfCheck(this, this.rowPosition, this.columPosition)){
                 EmptyPiece.attackedSquares.clear();
                 return true;
@@ -165,9 +171,6 @@ public class Piece implements MouseListener {
         }
         if (player.king.kingIsInCheck && this.pieceMove){
             if (Chessboard.getArrayBoard()[rowToCheck][columToCheck][1] == player.pieceAttackingKing){
-                if (this instanceof King){
-                    System.out.println("kral ide vyhodit figurku");
-                }
                 EmptyPiece.markTheSquareForAttack(Chessboard.getEmptySquare(rowToCheck, columToCheck));
             }
         }
@@ -185,7 +188,7 @@ public class Piece implements MouseListener {
             return true;
         } else if (!positionIsTaken(rowToCheck, columToCheck)) {
             if (this.pieceMove){
-                if (!player.king.kingIsInCheck){
+                if (!player.king.kingIsInCheck || this instanceof King){
                     EmptyPiece.markTheSquareForMove(Chessboard.getEmptySquare(rowToCheck, columToCheck));
                 }
                 return false;

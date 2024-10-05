@@ -31,7 +31,7 @@ public class Move {
             pieceToMakeMove.player.king.kingIsInCheck();
             return true;
         } else if (moveCounter%2 == 1 && pieceToMakeMove.pieceColor.equals(Color.BLACK)){
-            if (moveCounter == 3){
+            if (Pawn.promoted){
                 System.out.println("now");
             }
             EmptyPiece.attackedSquares.clear();
@@ -84,8 +84,20 @@ public class Move {
             System.out.println("from discarding the piece king is in check");
         }
         Chessboard.arrayDiscardedPieces.add(Chessboard.arrayBoard[newSquareSpot.getRowPosition()][newSquareSpot.getColumPosition()][1]);
-        Chessboard.arrayBoard[newSquareSpot.getRowPosition()][newSquareSpot.getColumPosition()][1] = null;
-        newSquareSpot.emptyPiecePanel.removeAll();
+
+//         System.out.println("before change to null " + Chessboard.arrayBoard[newSquareSpot.getRowPosition()][newSquareSpot.getColumPosition()][1]);
+//         System.out.println("before change to null " + Chessboard.arrayBoard[newSquareSpot.getRowPosition()][newSquareSpot.getColumPosition()][1].player.playerPieces);
+//         System.out.println("before change to null " + Chessboard.arrayBoard[newSquareSpot.getRowPosition()][newSquareSpot.getColumPosition()][1].player.specialQueen);
+
+         Chessboard.arrayBoard[newSquareSpot.getRowPosition()][newSquareSpot.getColumPosition()][1].player.playerPieces.
+                 remove(Chessboard.arrayBoard[newSquareSpot.getRowPosition()][newSquareSpot.getColumPosition()][1]);
+
+
+//         System.out.println("after change to null " + Chessboard.arrayBoard[newSquareSpot.getRowPosition()][newSquareSpot.getColumPosition()][1]);
+////         System.out.println("after change to null " + Chessboard.arrayBoard[newSquareSpot.getRowPosition()][newSquareSpot.getColumPosition()][1].player.playerPieces);
+//         System.out.println("after change to null " + Chessboard.arrayBoard[newSquareSpot.getRowPosition()][newSquareSpot.getColumPosition()][1].player.specialQueen);
+
+         newSquareSpot.emptyPiecePanel.removeAll();
 
     }
 

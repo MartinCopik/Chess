@@ -5,6 +5,7 @@ public class King extends Piece {
 
     Piece castledKing;
     Player castlingPlayer;
+    Player attackingPlayer;
 
     public King(Player player, Color kingColor, ImageIcon kingImage, int rowPosition, int columPosition) {
         super(player, kingColor, kingImage, rowPosition, columPosition);
@@ -22,10 +23,17 @@ public class King extends Piece {
         return false;
     }
     boolean cleanMoveForKing(int rowToCheck, int columToCheck){
+        setAttackingColor();
         if (!isOutOfBorder(rowToCheck, columToCheck)){
+            Chessboard.arrayBoard[this.rowPosition][this.columPosition][1] = null;
+            if (this.pieceMove){
+                setAttackedSquares(attackingPlayer);
+            }
             if (!EmptyPiece.isSquareUnderAttack(rowToCheck, columToCheck, setAttackingColor())){
+                Chessboard.arrayBoard[this.rowPosition][this.columPosition][1] = this;
                 return true;
             }
+            Chessboard.arrayBoard[this.rowPosition][this.columPosition][1] = this;
         }
         return false;
     }
@@ -33,9 +41,11 @@ public class King extends Piece {
     Color setAttackingColor(){
         if (this.pieceColor.equals(Color.WHITE)){
             castlingPlayer = Chessboard.whitePlayer;
+            attackingPlayer = Chessboard.blackPlayer;
             return Color.BLACK;
         }else {
             castlingPlayer = Chessboard.blackPlayer;
+            attackingPlayer = Chessboard.whitePlayer;
             return Color.WHITE;
         }
     }
