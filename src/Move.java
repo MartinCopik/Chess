@@ -26,14 +26,16 @@ public class Move {
 
     public static boolean rightColorToMakeMove(Piece pieceToMakeMove){
         if (moveCounter%2 == 0 && pieceToMakeMove.pieceColor.equals(Color.WHITE)){
-            EmptyPiece.attackedSquares.clear();
-            Piece.setAttackedSquares(Chessboard.blackPlayer);
-            pieceToMakeMove.player.king.kingIsInCheck();
+            GameManager.checkGameStatus(pieceToMakeMove.player);
+//            EmptyPiece.attackedSquares.clear();
+//            Piece.setAttackedSquares(Chessboard.blackPlayer);
+//            pieceToMakeMove.player.king.kingIsInCheck();
             return true;
         } else if (moveCounter%2 == 1 && pieceToMakeMove.pieceColor.equals(Color.BLACK)){
-            EmptyPiece.attackedSquares.clear();
-            Piece.setAttackedSquares(Chessboard.whitePlayer);
-            pieceToMakeMove.player.king.kingIsInCheck();
+            GameManager.checkGameStatus(pieceToMakeMove.player);
+//            EmptyPiece.attackedSquares.clear();
+//            Piece.setAttackedSquares(Chessboard.whitePlayer);
+//            pieceToMakeMove.player.king.kingIsInCheck();
             return true;
         }
         return false;

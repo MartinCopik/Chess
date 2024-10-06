@@ -15,11 +15,9 @@ public class King extends Piece {
 
     boolean kingIsInCheck(){
         if (EmptyPiece.isSquareUnderAttack(this.rowPosition, this.columPosition, setAttackingColor())){
-            kingIsInCheck = true;
-            return true;
+            return kingIsInCheck = true;
         }
-        kingIsInCheck = false;
-        return false;
+        return kingIsInCheck = false;
     }
     boolean cleanMoveForKing(int rowToCheck, int columToCheck){
         setAttackingColor();

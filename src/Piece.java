@@ -177,6 +177,9 @@ public class Piece implements MouseListener {
             EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck,columToCheck), this);
             return true;
         } else if (positionIsTaken(rowToCheck, columToCheck) && !pieceIsAttacking(this, rowToCheck, columToCheck)) {
+            if (GameManager.checkOfGameManager){
+                return true;
+            }
             EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck,columToCheck), this);
             return true;
         } else if (!positionIsTaken(rowToCheck, columToCheck)) {
