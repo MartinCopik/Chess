@@ -3,8 +3,6 @@ import java.awt.*;
 
 public class Pawn extends Piece{
 
-   static boolean promoted;
-
     public Pawn(Player player, Color pawnColor, ImageIcon pawnImage, int rowPosition, int columPosition) {
         super(player, pawnColor,pawnImage, rowPosition, columPosition);
         super.pieceImageIcon = pawnImage;
@@ -16,7 +14,6 @@ public class Pawn extends Piece{
             new PromotionWindow(this);
             Move.discardingThePiece(Chessboard.getEmptySquare(this.getRowPosition(), this.getColumPosition()));
             Chessboard.panelBoard.repaint();
-            promoted = true;
         }
     }
 
@@ -98,18 +95,18 @@ public class Pawn extends Piece{
         if (isOutOfBorder(rowToCheck, columToCheck)){
             return true;
         }
-        if (this.pieceMove && !player.king.kingIsInCheck){
-            if (creationOfSelfCheck(this, this.rowPosition, this.columPosition)){
-                Chessboard.getArrayBoard()[this.rowPosition][this.columPosition][1] = this;
-                EmptyPiece.attackedSquares.clear();
-                System.out.println("king will be in check, with this piece cannot be moved!!!");
-                System.out.println("from pawn ");
-                return true;
-            }
-        }
+//        if (this.pieceMove && !player.king.kingIsInCheck){
+//            if (creationOfSelfCheck(this, this.rowPosition, this.columPosition)){
+//                Chessboard.getArrayBoard()[this.rowPosition][this.columPosition][1] = this;
+//                EmptyPiece.attackedSquares.clear();
+//                return true;
+//            }
+//        }
         if (!positionIsTaken(rowToCheck, columToCheck)){
-            if (this.pieceMove && !player.king.kingIsInCheck){
-                EmptyPiece.markTheSquareForMove(Chessboard.getEmptySquare(rowToCheck, columToCheck));
+            if (this.pieceMove){
+                if (!player.king.kingIsInCheck || standsAgainstAttack(rowToCheck, columToCheck, this)){
+                    EmptyPiece.markTheSquareForMove(Chessboard.getEmptySquare(rowToCheck, columToCheck));
+                }
             }
             return true;
         }

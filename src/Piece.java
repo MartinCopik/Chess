@@ -70,9 +70,6 @@ public class Piece implements MouseListener {
     }
     static void setAttackedSquares(Player  attackingPlayer){
         for (Piece piece : attackingPlayer.playerPieces){
-            if (piece.player.specialQueen == piece && piece.player.specialQueen.pieceColor == Color.WHITE){
-                System.out.println("now");
-            }
             piece.showMovePossibilities();
         }
     }
@@ -92,9 +89,6 @@ public class Piece implements MouseListener {
     public void showMovePossibilities(){
     }
     boolean creationOfSelfCheck(Piece pieceToBeMoved, int rowPosition, int columPosition){
-        if (this instanceof  King){
-            System.out.println("fs");
-        }
         Chessboard.getArrayBoard()[rowPosition][columPosition][1] = null;
         if (pieceToBeMoved.pieceColor.equals(Color.WHITE)){
             setAttackedSquares(Chessboard.blackPlayer);
@@ -112,32 +106,42 @@ public class Piece implements MouseListener {
         if (pieceToMakeCheck.pieceColor.equals(Color.WHITE)){
             if (Chessboard.blackPlayer.king.kingIsInCheck()){
                 Chessboard.blackPlayer.pieceAttackingKing = pieceToMakeCheck;
-//                setAttackedSquares(Chessboard.whitePlayer);
-                //na obranu figurky ktora vytvara sach
                 return true;
             }
         }else {
             if (Chessboard.whitePlayer.king.kingIsInCheck()){
                 Chessboard.whitePlayer.pieceAttackingKing = pieceToMakeCheck;
-//                setAttackedSquares(Chessboard.blackPlayer);
-                //na obranu figurky ktora vytvara sach
                 return true;
             }
         }
         return false;
     }
-    boolean whoToDefendTheKing(Piece kingAttackingPiece){
-        if (kingAttackingPiece.pieceColor.equals(Color.white)){
-            setAttackedSquares(Chessboard.blackPlayer);
-            if (EmptyPiece.isSquareUnderAttack(kingAttackingPiece.rowPosition, kingAttackingPiece.columPosition, Chessboard.blackPlayer.king.pieceColor)){
-                return true;
-            }
-        }else {
-            setAttackedSquares(Chessboard.whitePlayer);
-            if (EmptyPiece.isSquareUnderAttack(kingAttackingPiece.rowPosition, kingAttackingPiece.columPosition, Chessboard.whitePlayer.king.pieceColor)){
-                return true;
-            }
+    boolean standsAgainstAttack(int rowToCheck, int columToCheck, Piece pieceToDefend){
+        if (pieceToDefend.player.king.kingIsInCheck() && pieceToDefend instanceof Queen){
+            System.out.println();
         }
+//        if (pieceToDefend.player.king.kingIsInCheck()){
+            Chessboard.arrayBoard[pieceToDefend.rowPosition][pieceToDefend.columPosition][1] = null;
+            Chessboard.arrayBoard[rowToCheck][columToCheck][1] = pieceToDefend;
+            EmptyPiece.attackedSquares.clear();
+            if (pieceToDefend.pieceColor == Color.WHITE){
+                setAttackedSquares(Chessboard.blackPlayer);
+                if (!pieceToDefend.player.king.kingIsInCheck()){
+                    Chessboard.arrayBoard[rowToCheck][columToCheck][1] = null;
+                    Chessboard.arrayBoard[pieceToDefend.rowPosition][pieceToDefend.columPosition][1] = pieceToDefend;
+                    return true;
+                }
+            }else {
+                setAttackedSquares(Chessboard.whitePlayer);
+                if (!pieceToDefend.player.king.kingIsInCheck()){
+                    Chessboard.arrayBoard[rowToCheck][columToCheck][1] = null;
+                    Chessboard.arrayBoard[pieceToDefend.rowPosition][pieceToDefend.columPosition][1] = pieceToDefend;
+                    return true;
+                }
+            }
+            Chessboard.arrayBoard[rowToCheck][columToCheck][1] = null;
+        Chessboard.arrayBoard[pieceToDefend.rowPosition][pieceToDefend.columPosition][1] = pieceToDefend;
+//        }
         return false;
     }
 
@@ -163,12 +167,12 @@ public class Piece implements MouseListener {
         if (isOutOfBorder(rowToCheck,columToCheck)){
             return true;
         }
-        if (this.pieceMove && !player.king.kingIsInCheck){
-            if (creationOfSelfCheck(this, this.rowPosition, this.columPosition)){
-                EmptyPiece.attackedSquares.clear();
-                return true;
-            }
-        }
+//        if (this.pieceMove && !player.king.kingIsInCheck){
+//            if (creationOfSelfCheck(this, this.rowPosition, this.columPosition)){
+//                EmptyPiece.attackedSquares.clear();
+//                return true;
+//            }
+//        }
         if (player.king.kingIsInCheck && this.pieceMove){
             if (Chessboard.getArrayBoard()[rowToCheck][columToCheck][1] == player.pieceAttackingKing){
                 EmptyPiece.markTheSquareForAttack(Chessboard.getEmptySquare(rowToCheck, columToCheck));
@@ -188,7 +192,7 @@ public class Piece implements MouseListener {
             return true;
         } else if (!positionIsTaken(rowToCheck, columToCheck)) {
             if (this.pieceMove){
-                if (!player.king.kingIsInCheck || this instanceof King){
+                if (!player.king.kingIsInCheck || this instanceof King || standsAgainstAttack(rowToCheck, columToCheck, this)){
                     EmptyPiece.markTheSquareForMove(Chessboard.getEmptySquare(rowToCheck, columToCheck));
                 }
                 return false;
@@ -226,10 +230,6 @@ public class Piece implements MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        if (this instanceof King){
-            System.out.println("je king na tahu ");
-        }
-
         if (Move.rightColorToMakeMove(this) && !isAnyPieceSelected()){
             this.pieceMove = true;
             setActualPositionOfPiece(this);

@@ -16,7 +16,6 @@ public class King extends Piece {
     boolean kingIsInCheck(){
         if (EmptyPiece.isSquareUnderAttack(this.rowPosition, this.columPosition, setAttackingColor())){
             kingIsInCheck = true;
-            System.out.println("king is under attack!!!!");
             return true;
         }
         kingIsInCheck = false;
@@ -52,13 +51,6 @@ public class King extends Piece {
     void setCastling(){
         possibleSmallCastling(setAttackingColor());
         possibleBigCastling(setAttackingColor());
-//        if (this.pieceColor.equals(Color.WHITE)){
-//            possibleSmallCastling(Color.BLACK);
-//            possibleBigCastling(Color.BLACK);
-//        } else {
-//            possibleSmallCastling(Color.WHITE);
-//            possibleBigCastling(Color.WHITE);
-//        }
     }
 
     boolean possibleSmallCastling(Color attackingColor){
