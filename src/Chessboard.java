@@ -21,6 +21,13 @@ public class Chessboard  {
     public static Piece getEmptySquare(int row, int colum){
         return arrayBoard[row][colum][0];
     }
+    public static Player getAttackingPlayer(Player defendingPlayer){
+        if (defendingPlayer == whitePlayer){
+            return blackPlayer;
+        }else {
+            return whitePlayer;
+        }
+    }
 
     private void boardInitialization(){
         for (int row = 0; row  < arrayBoard.length; row ++){

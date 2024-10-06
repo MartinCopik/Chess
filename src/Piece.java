@@ -88,17 +88,18 @@ public class Piece implements MouseListener {
 
     public void showMovePossibilities(){
     }
-    boolean creationOfSelfCheck(Piece pieceToBeMoved, int rowPosition, int columPosition){
-        Chessboard.getArrayBoard()[rowPosition][columPosition][1] = null;
-        if (pieceToBeMoved.pieceColor.equals(Color.WHITE)){
-            setAttackedSquares(Chessboard.blackPlayer);
-            Chessboard.getArrayBoard()[rowPosition][columPosition][1] = pieceToBeMoved;
-            return Chessboard.whitePlayer.king.kingIsInCheck();
-        }else {
-            setAttackedSquares(Chessboard.whitePlayer);
-            Chessboard.getArrayBoard()[rowPosition][columPosition][1] = pieceToBeMoved;
-            return Chessboard.blackPlayer.king.kingIsInCheck();
-        }
+    boolean selfCheckOnEmptySquare(Piece pieceToBeMoved, int rowToCheck, int columToCheck){
+        EmptyPiece.attackedSquares.clear();
+        Chessboard.getArrayBoard()[pieceToBeMoved.rowPosition][pieceToBeMoved.columPosition][1] = null;
+        Chessboard.getArrayBoard()[rowToCheck][columToCheck][1] = pieceToBeMoved;
+
+        setAttackedSquares(Chessboard.getAttackingPlayer(pieceToBeMoved.player));
+        pieceToBeMoved.player.king.kingIsInCheck();
+
+        Chessboard.getArrayBoard()[pieceToBeMoved.rowPosition][pieceToBeMoved.columPosition][1] = pieceToBeMoved;
+        Chessboard.getArrayBoard()[rowToCheck][columToCheck][1] = null;
+        EmptyPiece.attackedSquares.clear();
+        return pieceToBeMoved.player.king.kingIsInCheck;
     }
 
     boolean checkIfCheckIsMade(Piece pieceToMakeCheck){
@@ -116,32 +117,19 @@ public class Piece implements MouseListener {
         }
         return false;
     }
-    boolean standsAgainstAttack(int rowToCheck, int columToCheck, Piece pieceToDefend){
-        if (pieceToDefend.player.king.kingIsInCheck() && pieceToDefend instanceof Queen){
-            System.out.println();
-        }
-//        if (pieceToDefend.player.king.kingIsInCheck()){
+    boolean stepIntoAttack(int rowToCheck, int columToCheck, Piece pieceToDefend){
             Chessboard.arrayBoard[pieceToDefend.rowPosition][pieceToDefend.columPosition][1] = null;
             Chessboard.arrayBoard[rowToCheck][columToCheck][1] = pieceToDefend;
             EmptyPiece.attackedSquares.clear();
-            if (pieceToDefend.pieceColor == Color.WHITE){
-                setAttackedSquares(Chessboard.blackPlayer);
-                if (!pieceToDefend.player.king.kingIsInCheck()){
-                    Chessboard.arrayBoard[rowToCheck][columToCheck][1] = null;
-                    Chessboard.arrayBoard[pieceToDefend.rowPosition][pieceToDefend.columPosition][1] = pieceToDefend;
-                    return true;
-                }
-            }else {
-                setAttackedSquares(Chessboard.whitePlayer);
-                if (!pieceToDefend.player.king.kingIsInCheck()){
-                    Chessboard.arrayBoard[rowToCheck][columToCheck][1] = null;
-                    Chessboard.arrayBoard[pieceToDefend.rowPosition][pieceToDefend.columPosition][1] = pieceToDefend;
-                    return true;
-                }
+            setAttackedSquares(Chessboard.getAttackingPlayer(pieceToDefend.player));
+            if (!pieceToDefend.player.king.kingIsInCheck()){
+                Chessboard.arrayBoard[rowToCheck][columToCheck][1] = null;
+                Chessboard.arrayBoard[pieceToDefend.rowPosition][pieceToDefend.columPosition][1] = pieceToDefend;
+                setAttackedSquares(Chessboard.getAttackingPlayer(pieceToDefend.player));
+                return true;
             }
             Chessboard.arrayBoard[rowToCheck][columToCheck][1] = null;
-        Chessboard.arrayBoard[pieceToDefend.rowPosition][pieceToDefend.columPosition][1] = pieceToDefend;
-//        }
+            Chessboard.arrayBoard[pieceToDefend.rowPosition][pieceToDefend.columPosition][1] = pieceToDefend;
         return false;
     }
 
@@ -167,20 +155,21 @@ public class Piece implements MouseListener {
         if (isOutOfBorder(rowToCheck,columToCheck)){
             return true;
         }
-//        if (this.pieceMove && !player.king.kingIsInCheck){
-//            if (creationOfSelfCheck(this, this.rowPosition, this.columPosition)){
-//                EmptyPiece.attackedSquares.clear();
-//                return true;
-//            }
-//        }
-        if (player.king.kingIsInCheck && this.pieceMove){
+        if (this.pieceMove && !player.king.kingIsInCheck()){
+            if (!positionIsTaken(rowToCheck, columToCheck)){
+                if (selfCheckOnEmptySquare(this, rowToCheck, columToCheck)){
+                    return true;
+                }
+            }
+        }
+        if (player.king.kingIsInCheck() && this.pieceMove){
             if (Chessboard.getArrayBoard()[rowToCheck][columToCheck][1] == player.pieceAttackingKing){
                 EmptyPiece.markTheSquareForAttack(Chessboard.getEmptySquare(rowToCheck, columToCheck));
             }
         }
         if (positionIsTaken(rowToCheck, columToCheck) && pieceIsAttacking(this, rowToCheck, columToCheck)){
             if (this.pieceMove){
-                if (!player.king.kingIsInCheck){
+                if (!player.king.kingIsInCheck()){
                     EmptyPiece.markTheSquareForAttack(Chessboard.getEmptySquare(rowToCheck, columToCheck));
                 }
                 return true;
@@ -192,7 +181,7 @@ public class Piece implements MouseListener {
             return true;
         } else if (!positionIsTaken(rowToCheck, columToCheck)) {
             if (this.pieceMove){
-                if (!player.king.kingIsInCheck || this instanceof King || standsAgainstAttack(rowToCheck, columToCheck, this)){
+                if (!player.king.kingIsInCheck() || this instanceof King || stepIntoAttack(rowToCheck, columToCheck, this)){
                     EmptyPiece.markTheSquareForMove(Chessboard.getEmptySquare(rowToCheck, columToCheck));
                 }
                 return false;

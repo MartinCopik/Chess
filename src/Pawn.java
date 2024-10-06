@@ -72,13 +72,13 @@ public class Pawn extends Piece{
         if (isOutOfBorder(rowToCheck, columToCheck)){
             return;
         }
-        if (player.king.kingIsInCheck && this.pieceMove){
+        if (player.king.kingIsInCheck() && this.pieceMove){
             if (Chessboard.getArrayBoard()[rowToCheck][columToCheck][1] == player.pieceAttackingKing){
                 EmptyPiece.markTheSquareForAttack(Chessboard.getEmptySquare(rowToCheck, columToCheck));
             }
         }
         if (positionIsTaken(rowToCheck, columToCheck) && pieceIsAttacking(this, rowToCheck, columToCheck)) {
-            if (this.pieceMove && !player.king.kingIsInCheck) {
+            if (this.pieceMove && !player.king.kingIsInCheck()) {
                 EmptyPiece.markTheSquareForAttack(Chessboard.getEmptySquare(rowToCheck, columToCheck));
                 return;
             }
@@ -95,16 +95,16 @@ public class Pawn extends Piece{
         if (isOutOfBorder(rowToCheck, columToCheck)){
             return true;
         }
-//        if (this.pieceMove && !player.king.kingIsInCheck){
-//            if (creationOfSelfCheck(this, this.rowPosition, this.columPosition)){
-//                Chessboard.getArrayBoard()[this.rowPosition][this.columPosition][1] = this;
-//                EmptyPiece.attackedSquares.clear();
-//                return true;
-//            }
-//        }
+        if (this.pieceMove && !player.king.kingIsInCheck()){
+            if (!positionIsTaken(rowToCheck, columToCheck)){
+                if (selfCheckOnEmptySquare(this, rowToCheck, columToCheck)){
+                    return true;
+                }
+            }
+        }
         if (!positionIsTaken(rowToCheck, columToCheck)){
             if (this.pieceMove){
-                if (!player.king.kingIsInCheck || standsAgainstAttack(rowToCheck, columToCheck, this)){
+                if (!player.king.kingIsInCheck() || stepIntoAttack(rowToCheck, columToCheck, this)){
                     EmptyPiece.markTheSquareForMove(Chessboard.getEmptySquare(rowToCheck, columToCheck));
                 }
             }
