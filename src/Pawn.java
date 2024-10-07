@@ -82,6 +82,9 @@ public class Pawn extends Piece{
                 EmptyPiece.markTheSquareForAttack(Chessboard.getEmptySquare(rowToCheck, columToCheck));
                 return;
             }
+            if (GameManager.checkOfGameManager){
+                player.setMovePossibilities(Chessboard.getEmptySquare(rowToCheck,columToCheck), this);
+            }
             EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck, columToCheck), this);
         }
 //        } else if (!positionIsTaken(rowToCheck, columToCheck)) {
@@ -109,7 +112,7 @@ public class Pawn extends Piece{
                 }
             }
             if (GameManager.checkOfGameManager){
-                EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck, columToCheck), this);
+                player.setMovePossibilities(Chessboard.getEmptySquare(rowToCheck,columToCheck), this);
             }
             return true;
         }

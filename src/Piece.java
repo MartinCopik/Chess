@@ -103,7 +103,8 @@ public class Piece implements MouseListener {
     }
 
     boolean checkIfCheckIsMade(Piece pieceToMakeCheck){
-        pieceToMakeCheck.showMovePossibilities();
+        setAttackedSquares(pieceToMakeCheck.player);
+//        pieceToMakeCheck.showMovePossibilities();
         if (pieceToMakeCheck.pieceColor.equals(Color.WHITE)){
             if (Chessboard.blackPlayer.king.kingIsInCheck()){
                 Chessboard.blackPlayer.pieceAttackingKing = pieceToMakeCheck;
@@ -168,6 +169,9 @@ public class Piece implements MouseListener {
             }
         }
         if (positionIsTaken(rowToCheck, columToCheck) && pieceIsAttacking(this, rowToCheck, columToCheck)){
+            if (GameManager.checkOfGameManager){
+                player.setMovePossibilities(Chessboard.getEmptySquare(rowToCheck,columToCheck), this);
+            }
             if (this.pieceMove){
                 if (!player.king.kingIsInCheck()){
                     EmptyPiece.markTheSquareForAttack(Chessboard.getEmptySquare(rowToCheck, columToCheck));
@@ -177,12 +181,12 @@ public class Piece implements MouseListener {
             EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck,columToCheck), this);
             return true;
         } else if (positionIsTaken(rowToCheck, columToCheck) && !pieceIsAttacking(this, rowToCheck, columToCheck)) {
-            if (GameManager.checkOfGameManager){
-                return true;
-            }
             EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck,columToCheck), this);
             return true;
         } else if (!positionIsTaken(rowToCheck, columToCheck)) {
+            if (GameManager.checkOfGameManager){
+                player.setMovePossibilities(Chessboard.getEmptySquare(rowToCheck,columToCheck), this);
+            }
             if (this.pieceMove){
                 if (!player.king.kingIsInCheck() || this instanceof King || stepIntoAttack(rowToCheck, columToCheck, this)){
                     EmptyPiece.markTheSquareForMove(Chessboard.getEmptySquare(rowToCheck, columToCheck));
@@ -197,6 +201,9 @@ public class Piece implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        if (this.player.playerPieces.size() < 2){
+            this.player.clicked = true;
+        }
         if (isAnyPieceSelected()) {
             Move.figureToMove = null;
             Chessboard.setColors();
