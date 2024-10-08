@@ -2,12 +2,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.HashMap;
 
 public class Piece implements MouseListener {
 
     protected Color pieceColor;
     ImageIcon pieceImageIcon;
     Player player;
+    HashMap <Piece,Piece> moveRecordOfPiece = new HashMap<>();
 
 
     int rowPosition;
@@ -44,6 +46,11 @@ public class Piece implements MouseListener {
         this.pieceImageIcon = new ImageIcon(scaledImage);
         this.pieceLabel.setIcon(this.pieceImageIcon);
 
+    }
+
+    void addMoveRecord(Piece movedPiece, Piece squarePosition){
+        moveRecordOfPiece.put(movedPiece, squarePosition);
+        this.player.setMovesRecord(moveRecordOfPiece);
     }
 
     boolean isAnyPieceSelected(){

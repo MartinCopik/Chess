@@ -27,15 +27,15 @@ public class Move {
     public static boolean rightColorToMakeMove(Piece pieceToMakeMove){
         if (moveCounter%2 == 0 && pieceToMakeMove.pieceColor.equals(Color.WHITE)){
             GameManager.checkGameStatus(pieceToMakeMove.player);
-            EmptyPiece.attackedSquares.clear();
-            Piece.setAttackedSquares(Chessboard.blackPlayer);
-            pieceToMakeMove.player.king.kingIsInCheck();
+//            EmptyPiece.attackedSquares.clear();
+//            Piece.setAttackedSquares(Chessboard.blackPlayer);
+//            pieceToMakeMove.player.king.kingIsInCheck();
             return true;
         } else if (moveCounter%2 == 1 && pieceToMakeMove.pieceColor.equals(Color.BLACK)){
             GameManager.checkGameStatus(pieceToMakeMove.player);
-            EmptyPiece.attackedSquares.clear();
-            Piece.setAttackedSquares(Chessboard.whitePlayer);
-            pieceToMakeMove.player.king.kingIsInCheck();
+//            EmptyPiece.attackedSquares.clear();
+//            Piece.setAttackedSquares(Chessboard.whitePlayer);
+//            pieceToMakeMove.player.king.kingIsInCheck();
             return true;
         }
         return false;
@@ -62,6 +62,10 @@ public class Move {
              }
          }
          figureToMove.pieceFirstMove = false;
+
+         figureToMove.addMoveRecord(figureToMove, newSquareSpot);
+         System.out.println(figureToMove.moveRecordOfPiece);
+         System.out.println(figureToMove.player.stringPlayerColor + " " +figureToMove.player.movesRecord);
     }
 
      static void discardingThePiece(Piece newSquareSpot){
@@ -76,6 +80,9 @@ public class Move {
 
     public static void makeCleanMove(Piece newSquareSpot){
         movingThePiece(newSquareSpot);
+
+//        figureToMove.addMoveRecord(newSquareSpot,figureToMove);
+//        System.out.println(figureToMove.moveRecordOfPiece);
 
         moveCounter++;
         figureToMove = null;

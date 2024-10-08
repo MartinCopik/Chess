@@ -30,6 +30,7 @@ public class Player {
     Pawn pawn7;
 
     HashMap <Piece,Piece> movePossibilities = new HashMap<>();
+    HashMap<Integer,HashMap> movesRecord = new HashMap<>();
 
     Queen specialQueen;
     Queen specialQueen2;
@@ -56,7 +57,7 @@ public class Player {
         playerPieces.add(queen = new Queen(this, playerColor, new ImageIcon(this.stringPlayerColor + "Queen.png"), mainLineUP, 3));
         playerPieces.add(king = new King(this, playerColor, new ImageIcon(this.stringPlayerColor + "King.png"), mainLineUP, 4));
 
-//        playerPieces.add(pawn0 = new Pawn(this, playerColor, new ImageIcon(this.stringPlayerColor + "Pawn.png"), pawnLineUp, 0));
+        playerPieces.add(pawn0 = new Pawn(this, playerColor, new ImageIcon(this.stringPlayerColor + "Pawn.png"), pawnLineUp, 0));
 //        playerPieces.add(pawn1 = new Pawn(this, playerColor, new ImageIcon(this.stringPlayerColor + "Pawn.png"), pawnLineUp, 1));
 //        playerPieces.add(pawn2 = new Pawn(this, playerColor, new ImageIcon(this.stringPlayerColor + "Pawn.png"), pawnLineUp, 2));
 //        playerPieces.add(pawn3 = new Pawn(this, playerColor, new ImageIcon(this.stringPlayerColor + "Pawn.png"), pawnLineUp, 3));
@@ -80,6 +81,15 @@ public class Player {
     }
     void setMovePossibilities(Piece square, Piece piece){
         movePossibilities.put(square,piece);
+    }
+
+    void setMovesRecord(HashMap moveRecord){
+        movesRecord.put((Integer)Move.moveCounter, moveRecord);
+    }
+
+    public boolean checkForRepetition (int xTimes){
+
+        return false;
     }
 
 }

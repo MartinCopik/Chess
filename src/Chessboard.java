@@ -59,7 +59,7 @@ public class Chessboard  {
         setStartPointOfPiece(player.queen);
         setStartPointOfPiece(player.king);
 
-//        setStartPointOfPiece(player.pawn0);
+        setStartPointOfPiece(player.pawn0);
 //        setStartPointOfPiece(player.pawn1);
 //        setStartPointOfPiece(player.pawn2);
 //        setStartPointOfPiece(player.pawn3);

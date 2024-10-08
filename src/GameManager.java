@@ -4,28 +4,25 @@ public class GameManager {
 
     public static boolean checkGameStatus(Player playerOnTurn){
         if (!playerOnTurn.king.kingIsInCheck()){
-            checkForDraw(playerOnTurn);
+            checkForPat(playerOnTurn);
         }
         return false;
     }
 
-    static void checkForDraw(Player playerOnTurn){
-        if (playerOnTurn.playerPieces.size() < 2 && playerOnTurn.clicked ){
-            System.out.println("empty");
-        }
+    static void checkForPat(Player playerOnTurn){
         checkOfGameManager = true;
-        System.out.println(playerOnTurn.movePossibilities.size());
         playerOnTurn.movePossibilities.clear();
-        System.out.println(playerOnTurn.stringPlayerColor);
         Piece.setAttackedSquares(playerOnTurn);
         if (playerOnTurn.movePossibilities.isEmpty()){
-            if (playerOnTurn.playerPieces.size() < 2 ){
-                System.out.println("now");
-            }
-            System.out.println("draw !!! " + Move.moveCounter);
-            System.out.println(playerOnTurn.stringPlayerColor);
+            new EndingScreen(playerOnTurn.stringPlayerColor + " Player has been given a draw by Pat");
         }
         checkOfGameManager = false;
+    }
+
+    void checkRepititionOfMoves(Player playerOnTurn){
+        if (playerOnTurn.movesRecord.size() > 5 && Chessboard.getAttackingPlayer(playerOnTurn).movesRecord.size() > 5){
+            
+        }
     }
 
 
