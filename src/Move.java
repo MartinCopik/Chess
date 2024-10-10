@@ -62,10 +62,11 @@ public class Move {
              }
          }
          figureToMove.pieceFirstMove = false;
+         figureToMove.player.pieceAttackingKing = null;
 
          figureToMove.addMoveRecord(figureToMove, newSquareSpot);
-         System.out.println(figureToMove.moveRecordOfPiece);
-         System.out.println(figureToMove.player.stringPlayerColor + " " +figureToMove.player.movesRecord);
+//         System.out.println(figureToMove.moveRecordOfPiece);
+//         System.out.println(figureToMove.player.stringPlayerColor + " " +figureToMove.player.movesRecord);
     }
 
      static void discardingThePiece(Piece newSquareSpot){

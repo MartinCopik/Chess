@@ -72,17 +72,23 @@ public class Pawn extends Piece{
         if (isOutOfBorder(rowToCheck, columToCheck)){
             return;
         }
-        if (player.king.kingIsInCheck() && this.pieceMove){
-            if (Chessboard.getArrayBoard()[rowToCheck][columToCheck][1] == player.pieceAttackingKing){
-                EmptyPiece.markTheSquareForAttack(Chessboard.getEmptySquare(rowToCheck, columToCheck));
+//        if (player.king.kingIsInCheck() && this.pieceMove){
+            if (player.pieceAttackingKing != null && Chessboard.getArrayBoard()[rowToCheck][columToCheck][1] == player.pieceAttackingKing){
+                if (GameManager.checkOfGameManager){
+                    player.setMovePossibilities(Chessboard.getEmptySquare(rowToCheck,columToCheck), this);
+                }
+                if (player.king.kingIsInCheck() && this.pieceMove){
+                    EmptyPiece.markTheSquareForAttack(Chessboard.getEmptySquare(rowToCheck, columToCheck));
+                }
+                return;
             }
-        }
+//        }
         if (positionIsTaken(rowToCheck, columToCheck) && pieceIsAttacking(this, rowToCheck, columToCheck)) {
             if (this.pieceMove && !player.king.kingIsInCheck()) {
                 EmptyPiece.markTheSquareForAttack(Chessboard.getEmptySquare(rowToCheck, columToCheck));
                 return;
             }
-            if (GameManager.checkOfGameManager){
+            if (GameManager.checkOfGameManager && !player.king.kingIsInCheck){
                 player.setMovePossibilities(Chessboard.getEmptySquare(rowToCheck,columToCheck), this);
             }
             EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck, columToCheck), this);
@@ -112,7 +118,9 @@ public class Pawn extends Piece{
                 }
             }
             if (GameManager.checkOfGameManager){
-                player.setMovePossibilities(Chessboard.getEmptySquare(rowToCheck,columToCheck), this);
+                if (!player.king.kingIsInCheck){
+                    player.setMovePossibilities(Chessboard.getEmptySquare(rowToCheck,columToCheck), this);
+                }
             }
             return true;
         }

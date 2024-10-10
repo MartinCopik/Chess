@@ -138,7 +138,6 @@ public class King extends Piece {
         kingMoveDiagonallyDownRight();
 
         if (this.pieceMove && !this.kingIsInCheck ){
-//            kingIsInCheck();
             setCastling();
         }
     }
