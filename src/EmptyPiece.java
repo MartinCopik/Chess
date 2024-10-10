@@ -59,8 +59,4 @@ public class EmptyPiece extends Piece{
         return false;
     }
 
-//    static Piece findKingAttackingPiece(){
-//        if (attackedSquares.containsValue())
-//    }
-
 }

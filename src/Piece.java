@@ -188,41 +188,16 @@ public class Piece implements MouseListener {
             }
             if (GameManager.checkOfGameManager && !player.king.kingIsInCheck){
                 player.setMovePossibilities(Chessboard.getEmptySquare(rowToCheck,columToCheck), this);
-                //return musim dat aby dalej nekontrolovalo zbytocne
             }
-            //tuna musim dat tu istu podmienku ako pri volnom policku aby prepisoval ohrozujuce policka len ked mimo GM
             if (!GameManager.checkOfGameManager){
                 EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck, columToCheck), this);
             }
             return true;
         }
-//        if (player.king.kingIsInCheck() && this.pieceMove){
-//            if (Chessboard.getArrayBoard()[rowToCheck][columToCheck][1] == player.pieceAttackingKing){
-//                EmptyPiece.markTheSquareForAttack(Chessboard.getEmptySquare(rowToCheck, columToCheck));
-//            }
-//        }
-//        if (positionIsTaken(rowToCheck, columToCheck) && pieceIsAttacking(this, rowToCheck, columToCheck)){
-//            if (GameManager.checkOfGameManager){
-//                player.setMovePossibilities(Chessboard.getEmptySquare(rowToCheck,columToCheck), this);
-//            }
-//            if (this.pieceMove){
-//                if (!player.king.kingIsInCheck()){
-//                    EmptyPiece.markTheSquareForAttack(Chessboard.getEmptySquare(rowToCheck, columToCheck));
-//                }
-//                return true;
-//            }
-//            EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck,columToCheck), this);
-//            return true;
-//        }
         else if (positionIsTaken(rowToCheck, columToCheck) && !pieceIsAttacking(this, rowToCheck, columToCheck)) {
             EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck,columToCheck), this);
             return true;
         } else if (!positionIsTaken(rowToCheck, columToCheck)) {
-//            if (GameManager.checkOfGameManager){
-//                if (player.king.kingIsInCheck){
-//                    player.setMovePossibilities(Chessboard.getEmptySquare(rowToCheck,columToCheck), this);
-//                }
-//            }
             if (this.pieceMove){
                 if (!player.king.kingIsInCheck() || this instanceof King || stepIntoAttack(rowToCheck, columToCheck, this)){
                     EmptyPiece.markTheSquareForMove(Chessboard.getEmptySquare(rowToCheck, columToCheck));
@@ -237,7 +212,6 @@ public class Piece implements MouseListener {
             if (!GameManager.checkOfGameManager){
                 EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck,columToCheck), this);
             }
-            //toto by malo zabranit ze ked game manager kontroluje mozny pohyb aby neprepisoval  ohrozujuce policka ktore boli nastavene v beznej hre
             return false;
         }
         return false;
@@ -245,12 +219,6 @@ public class Piece implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (this instanceof  King && Move.moveCounter ==3){
-            System.out.println();
-        }
-//        if (this.player.playerPieces.size() < 2){
-//            this.player.clicked = true;
-//        }
         if (isAnyPieceSelected()) {
             Move.figureToMove = null;
             Chessboard.setColors();
