@@ -26,24 +26,46 @@ public class Move {
 
     public static boolean rightColorToMakeMove(Piece pieceToMakeMove){
         if (moveCounter%2 == 0 && pieceToMakeMove.pieceColor.equals(Color.WHITE)){
+            GameManager.checkGameStatus(pieceToMakeMove.player);
             return true;
         } else if (moveCounter%2 == 1 && pieceToMakeMove.pieceColor.equals(Color.BLACK)){
+            GameManager.checkGameStatus(pieceToMakeMove.player);
             return true;
         }
         return false;
     }
 
-    private static void movingThePiece(Piece newSquareSpot){
-        Chessboard.arrayBoard[figureToMove.getRowPosition()][figureToMove.getColumPosition()][1] = null;
-        Chessboard.arrayBoard[newSquareSpot.getRowPosition()][newSquareSpot.getColumPosition()][1] = figureToMove;
-        newSquareSpot.emptyPiecePanel.add(figureToMove.pieceLabel);
+     static void movingThePiece(Piece newSquareSpot){
+         Chessboard.arrayBoard[figureToMove.getRowPosition()][figureToMove.getColumPosition()][1] = null;
+         Chessboard.arrayBoard[newSquareSpot.getRowPosition()][newSquareSpot.getColumPosition()][1] = figureToMove;
+         newSquareSpot.emptyPiecePanel.add(figureToMove.pieceLabel);
 
-        figureToMove.pieceFirstMove = false;
+         figureToMove.setActualPositionOfPiece(figureToMove);
+         figureToMove.checkIfCheckIsMade(figureToMove);
+
+         if (figureToMove instanceof Pawn){
+            ((Pawn) figureToMove).readyToBePromoted();
+         }
+         if (figureToMove instanceof King && figureToMove.pieceFirstMove){
+             if (newSquareSpot == Chessboard.getEmptySquare(figureToMove.rowPosition, 6)){
+                 figureToMove = Chessboard.getArrayBoard()[figureToMove.rowPosition][7][1];
+                 movingThePiece(Chessboard.getEmptySquare(figureToMove.rowPosition, 5));
+             } else if (newSquareSpot == Chessboard.getEmptySquare(figureToMove.rowPosition, 2)) {
+                 figureToMove = Chessboard.getArrayBoard()[figureToMove.rowPosition][0][1];
+                 movingThePiece(Chessboard.getEmptySquare(figureToMove.rowPosition, 3));
+             }
+         }
+         figureToMove.pieceFirstMove = false;
+         figureToMove.player.pieceAttackingKing = null;
+
+         figureToMove.addMoveRecord(figureToMove, newSquareSpot);
     }
 
-    private static void discardingThePiece(Piece newSquareSpot){
+     static void discardingThePiece(Piece newSquareSpot){
         Chessboard.arrayDiscardedPieces.add(Chessboard.arrayBoard[newSquareSpot.getRowPosition()][newSquareSpot.getColumPosition()][1]);
-        Chessboard.arrayBoard[newSquareSpot.getRowPosition()][newSquareSpot.getColumPosition()][1] = null;
+        Chessboard.arrayBoard[newSquareSpot.getRowPosition()][newSquareSpot.getColumPosition()][1].player.playerPieces.
+                 remove(Chessboard.arrayBoard[newSquareSpot.getRowPosition()][newSquareSpot.getColumPosition()][1]);
+
         newSquareSpot.emptyPiecePanel.removeAll();
 
     }
@@ -53,7 +75,6 @@ public class Move {
         movingThePiece(newSquareSpot);
 
         moveCounter++;
-//        figureToMove.pieceFirstMove = false;
         figureToMove = null;
 
         Chessboard.setColors();
