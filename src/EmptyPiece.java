@@ -11,30 +11,30 @@ public class EmptyPiece extends Piece{
 
     public EmptyPiece( Color emptyPieceColor, int rowPosition, int columPosition) {
         super(emptyPieceColor, rowPosition, columPosition);
-        super.emptyPiecePanel.setSize(width, height);
-        super.emptyPiecePanel.setBackground(emptyPieceColor);
-        super.emptyPiecePanel.setOpaque(true);
-        super.emptyPiecePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        super.getEmptyPiecePanel().setSize(width, height);
+        super.getEmptyPiecePanel().setBackground(emptyPieceColor);
+        super.getEmptyPiecePanel().setOpaque(true);
+        super.getEmptyPiecePanel().setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
 
     static void markTheSquareForAttack(Piece emptyPieceToMark){
-        emptyPieceToMark.emptyPiecePanel.setBackground(Color.pink);
+        emptyPieceToMark.getEmptyPiecePanel().setBackground(Color.pink);
         if (Move.figureToMove != null){
-            emptyPieceToMark.emptyPiecePanel.setBackground(Color.RED);
+            emptyPieceToMark.getEmptyPiecePanel().setBackground(Color.RED);
         }
     }
     static void markTheSquareForMove(Piece emptyPieceToMark){
-        emptyPieceToMark.emptyPiecePanel.setBackground(Color.gray);
+        emptyPieceToMark.getEmptyPiecePanel().setBackground(Color.gray);
         if (Move.figureToMove != null){
-            emptyPieceToMark.emptyPiecePanel.setBackground(Color.green);
+            emptyPieceToMark.getEmptyPiecePanel().setBackground(Color.green);
         }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (this.emptyPiecePanel.getBackground() == Color.GREEN){
+        if (this.getEmptyPiecePanel().getBackground() == Color.GREEN){
             Move.makeCleanMove(this);
-        } else if (this.emptyPiecePanel.getBackground() == Color.RED) {
+        } else if (this.getEmptyPiecePanel().getBackground() == Color.RED) {
             Move.makeMoveDiscardPiece(this);
         }else {
             Chessboard.setColors();

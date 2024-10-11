@@ -4,13 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class PromotionWindow  implements ActionListener {
-    JFrame promotionWindow;
-    JButton rookButton;
-    JButton knightButton;
-    JButton bishopButton;
-    JButton queenButton;
-    Piece pieceToBePromoted;
-    Player promotingPlayer;
+    private JFrame promotionWindow;
+    private JButton rookButton;
+    private JButton knightButton;
+    private JButton bishopButton;
+    private JButton queenButton;
+    private Piece pieceToBePromoted;
 
     PromotionWindow(Piece pawnToBePromoted){
         ChessGame.chessGame.setVisible(false);
@@ -65,12 +64,12 @@ public class PromotionWindow  implements ActionListener {
     }
 
     Player setPromotingPlayer(){
-        return this.pieceToBePromoted.player;
+        return this.pieceToBePromoted.getPlayer();
     }
 
     void promotePiece(Piece newPiece){
         Chessboard.setStartPointOfPiece(newPiece);
-        newPiece.player.playerPieces.add(newPiece);
+        newPiece.getPlayer().getPlayerPieces().add(newPiece);
         newPiece.checkIfCheckIsMade(newPiece);
     }
 }

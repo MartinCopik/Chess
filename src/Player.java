@@ -5,69 +5,173 @@ import java.util.HashMap;
 
 public class Player {
 
-    boolean clicked = false;
-    String stringPlayerColor;
-    int pawnLineUp;
-    int mainLineUP;
-    Piece pieceAttackingKing;
+    private String stringPlayerColor;
+    private int pawnLineUp;
+    private int mainLineUP;
+    private Piece pieceAttackingKing;
 
-    Rook leftRook;
-    Rook rightRook;
-    Knight leftKnight;
-    Knight rightKnigt;
-    Bishop leftBishop;
-    Bishop rightBishop;
-    Queen queen;
-    King king;
+    private Rook leftRook;
+    private Rook rightRook;
+    private Knight leftKnight;
+    private Knight rightKnigt;
+    private Bishop leftBishop;
+    private Bishop rightBishop;
+    private Queen queen;
+    private King king;
 
-    Pawn pawn0;
-    Pawn pawn1;
-    Pawn pawn2;
-    Pawn pawn3;
-    Pawn pawn4;
-    Pawn pawn5;
-    Pawn pawn6;
-    Pawn pawn7;
+    private Pawn pawn0;
+    private Pawn pawn1;
+    private Pawn pawn2;
+    private Pawn pawn3;
+    private Pawn pawn4;
+    private Pawn pawn5;
+    private Pawn pawn6;
+    private Pawn pawn7;
 
-    HashMap <Piece,Piece> movePossibilities = new HashMap<>();
-    HashMap<Integer,HashMap> movesRecord = new HashMap<>();
+    private HashMap <Piece,Piece> movePossibilities = new HashMap<>();
+    private ArrayList<Piece> playerPieces = new ArrayList<Piece>();
 
-    ArrayList<Piece> playerPieces = new ArrayList<Piece>();
+    public void setAttackedSquares(Player  attackingPlayer){
+        for (Piece piece : attackingPlayer.getPlayerPieces()){
+            piece.showMovePossibilities();
+        }
+    }
 
-    Player(Color playerColor) {
+    public Player(Color playerColor) {
         if (playerColor == Color.BLACK) {
-            this.mainLineUP = 0;
-            this.pawnLineUp = 1;
-            this.stringPlayerColor = "black";
+            this.setMainLineUP(0);
+            this.setPawnLineUp(1);
+            this.setStringPlayerColor("black");
         } else {
-            this.mainLineUP = 7;
-            this.pawnLineUp = 6;
-            this.stringPlayerColor = "white";
+            this.setMainLineUP(7);
+            this.setPawnLineUp(6);
+            this.setStringPlayerColor("white");
         }
 
-        playerPieces.add(leftRook = new Rook(this, playerColor, new ImageIcon(this.stringPlayerColor + "Rook.png"), mainLineUP, 0));
-        playerPieces.add(rightRook = new Rook(this, playerColor, new ImageIcon(this.stringPlayerColor + "Rook.png"), mainLineUP, 7));
-        playerPieces.add(leftKnight = new Knight(this, playerColor, new ImageIcon(this.stringPlayerColor + "Knight.png"), mainLineUP, 1));
-        playerPieces.add(rightKnigt = new Knight(this, playerColor, new ImageIcon(this.stringPlayerColor + "Knight.png"), mainLineUP, 6));
-        playerPieces.add(leftBishop = new Bishop(this, playerColor, new ImageIcon(this.stringPlayerColor + "Bishop.png"), mainLineUP, 2));
-        playerPieces.add(rightBishop = new Bishop(this, playerColor, new ImageIcon(this.stringPlayerColor + "Bishop.png"), mainLineUP, 5));
-        playerPieces.add(queen = new Queen(this, playerColor, new ImageIcon(this.stringPlayerColor + "Queen.png"), mainLineUP, 3));
-        playerPieces.add(king = new King(this, playerColor, new ImageIcon(this.stringPlayerColor + "King.png"), mainLineUP, 4));
+        playerPieces.add(leftRook = new Rook(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Rook.png"), getMainLineUP(), 0));
+        playerPieces.add(rightRook = new Rook(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Rook.png"), getMainLineUP(), 7));
+        playerPieces.add(leftKnight = new Knight(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Knight.png"), getMainLineUP(), 1));
+        playerPieces.add(rightKnigt = new Knight(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Knight.png"), getMainLineUP(), 6));
+        playerPieces.add(leftBishop = new Bishop(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Bishop.png"), getMainLineUP(), 2));
+        playerPieces.add(rightBishop = new Bishop(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Bishop.png"), getMainLineUP(), 5));
+        playerPieces.add(queen = new Queen(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Queen.png"), getMainLineUP(), 3));
+        playerPieces.add(king = new King(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "King.png"), getMainLineUP(), 4));
 
-        playerPieces.add(pawn0 = new Pawn(this, playerColor, new ImageIcon(this.stringPlayerColor + "Pawn.png"), pawnLineUp, 0));
-        playerPieces.add(pawn1 = new Pawn(this, playerColor, new ImageIcon(this.stringPlayerColor + "Pawn.png"), pawnLineUp, 1));
-        playerPieces.add(pawn2 = new Pawn(this, playerColor, new ImageIcon(this.stringPlayerColor + "Pawn.png"), pawnLineUp, 2));
-        playerPieces.add(pawn3 = new Pawn(this, playerColor, new ImageIcon(this.stringPlayerColor + "Pawn.png"), pawnLineUp, 3));
-        playerPieces.add(pawn4 = new Pawn(this, playerColor, new ImageIcon(this.stringPlayerColor + "Pawn.png"), pawnLineUp, 4));
-        playerPieces.add(pawn5 = new Pawn(this, playerColor, new ImageIcon(this.stringPlayerColor + "Pawn.png"), pawnLineUp, 5));
-        playerPieces.add(pawn6 = new Pawn(this, playerColor, new ImageIcon(this.stringPlayerColor + "Pawn.png"), pawnLineUp, 6));
-        playerPieces.add(pawn7 = new Pawn(this, playerColor, new ImageIcon(this.stringPlayerColor + "Pawn.png"), pawnLineUp, 7));
+        playerPieces.add(pawn0 = new Pawn(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Pawn.png"), getPawnLineUp(), 0));
+        playerPieces.add(pawn1 = new Pawn(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Pawn.png"), getPawnLineUp(), 1));
+        playerPieces.add(pawn2 = new Pawn(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Pawn.png"), getPawnLineUp(), 2));
+        playerPieces.add(pawn3 = new Pawn(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Pawn.png"), getPawnLineUp(), 3));
+        playerPieces.add(pawn4 = new Pawn(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Pawn.png"), getPawnLineUp(), 4));
+        playerPieces.add(pawn5 = new Pawn(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Pawn.png"), getPawnLineUp(), 5));
+        playerPieces.add(pawn6 = new Pawn(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Pawn.png"), getPawnLineUp(), 6));
+        playerPieces.add(pawn7 = new Pawn(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Pawn.png"), getPawnLineUp(), 7));
     }
-    void setMovePossibilities(Piece square, Piece piece){
+
+    public void setMovePossibilities(Piece square, Piece piece){
         movePossibilities.put(square,piece);
     }
 
-    void setMovesRecord(HashMap moveRecord){
-        movesRecord.put((Integer)Move.moveCounter, moveRecord);
+    public String getStringPlayerColor() {
+        return stringPlayerColor;
+    }
+
+    public Pawn getPawn7() {
+        return pawn7;
+    }
+
+    public Pawn getPawn6() {
+        return pawn6;
+    }
+
+    public Pawn getPawn5() {
+        return pawn5;
+    }
+
+    public Pawn getPawn4() {
+        return pawn4;
+    }
+
+    public Pawn getPawn3() {
+        return pawn3;
+    }
+
+    public Pawn getPawn2() {
+        return pawn2;
+    }
+
+    public Pawn getPawn1() {
+        return pawn1;
+    }
+
+    public Pawn getPawn0() {
+        return pawn0;
+    }
+
+    public Rook getLeftRook() {
+        return leftRook;
+    }
+
+    public Rook getRightRook() {
+        return rightRook;
+    }
+
+    public Knight getLeftKnight() {
+        return leftKnight;
+    }
+
+    public Knight getRightKnigt() {
+        return rightKnigt;
+    }
+
+    public Bishop getLeftBishop() {
+        return leftBishop;
+    }
+
+    public Bishop getRightBishop() {
+        return rightBishop;
+    }
+
+    public Queen getQueen() {
+        return queen;
+    }
+
+    public King getKing() {
+        return king;
+    }
+
+    public Piece getPieceAttackingKing() {
+        return pieceAttackingKing;
+    }
+
+    public void setPieceAttackingKing(Piece pieceAttackingKing) {
+        this.pieceAttackingKing = pieceAttackingKing;
+    }
+
+    public int getPawnLineUp() {
+        return pawnLineUp;
+    }
+
+    public void setPawnLineUp(int pawnLineUp) {
+        this.pawnLineUp = pawnLineUp;
+    }
+
+    public int getMainLineUP() {
+        return mainLineUP;
+    }
+
+    public void setMainLineUP(int mainLineUP) {
+        this.mainLineUP = mainLineUP;
+    }
+
+    public void setStringPlayerColor(String stringPlayerColor) {
+        this.stringPlayerColor = stringPlayerColor;
+    }
+
+    public ArrayList<Piece> getPlayerPieces() {
+        return playerPieces;
+    }
+
+    public HashMap<Piece, Piece> getMovePossibilities() {
+        return movePossibilities;
     }
 }

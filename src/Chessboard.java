@@ -7,12 +7,19 @@ public class Chessboard  {
     public static JPanel panelBoard;
     static JPanel discardedPieces;
 
-    static Player whitePlayer;
-    static Player blackPlayer;
+    private static Player whitePlayer;
+    private static Player blackPlayer;
 
     public static Piece[][][] arrayBoard = new Piece[8][8][2];
     public static ArrayList<Piece> arrayDiscardedPieces = new ArrayList<>();
 
+    public static Player getWhitePlayer() {
+        return whitePlayer;
+    }
+
+    public static Player getBlackPlayer() {
+        return blackPlayer;
+    }
 
     public static Piece[][][] getArrayBoard() {
         return arrayBoard;
@@ -45,28 +52,28 @@ public class Chessboard  {
         }
     }
     static void setStartPointOfPiece(Piece piece){
-        arrayBoard[piece.rowPosition][piece.columPosition][1] = piece;
-        arrayBoard[piece.rowPosition][piece.columPosition][0].emptyPiecePanel.add(piece.pieceLabel);
+        arrayBoard[piece.getRowPosition()][piece.getColumPosition()][1] = piece;
+        arrayBoard[piece.getRowPosition()][piece.getColumPosition()][0].getEmptyPiecePanel().add(piece.getPieceLabel());
     }
 
     private void setStartPointOfPlayer(Player player){
-        setStartPointOfPiece(player.leftRook);
-        setStartPointOfPiece(player.rightRook);
-        setStartPointOfPiece(player.leftKnight);
-        setStartPointOfPiece(player.rightKnigt);
-        setStartPointOfPiece(player.leftBishop);
-        setStartPointOfPiece(player.rightBishop);
-        setStartPointOfPiece(player.queen);
-        setStartPointOfPiece(player.king);
+        setStartPointOfPiece(player.getLeftRook());
+        setStartPointOfPiece(player.getRightRook());
+        setStartPointOfPiece(player.getLeftKnight());
+        setStartPointOfPiece(player.getRightKnigt());
+        setStartPointOfPiece(player.getLeftBishop());
+        setStartPointOfPiece(player.getRightBishop());
+        setStartPointOfPiece(player.getQueen());
+        setStartPointOfPiece(player.getKing());
 
-        setStartPointOfPiece(player.pawn0);
-        setStartPointOfPiece(player.pawn1);
-        setStartPointOfPiece(player.pawn2);
-        setStartPointOfPiece(player.pawn3);
-        setStartPointOfPiece(player.pawn4);
-        setStartPointOfPiece(player.pawn5);
-        setStartPointOfPiece(player.pawn6);
-        setStartPointOfPiece(player.pawn7);
+        setStartPointOfPiece(player.getPawn0());
+        setStartPointOfPiece(player.getPawn1());
+        setStartPointOfPiece(player.getPawn2());
+        setStartPointOfPiece(player.getPawn3());
+        setStartPointOfPiece(player.getPawn4());
+        setStartPointOfPiece(player.getPawn5());
+        setStartPointOfPiece(player.getPawn6());
+        setStartPointOfPiece(player.getPawn7());
 
     }
 
@@ -78,7 +85,7 @@ public class Chessboard  {
     private void addEmptyPiecesToFrame(){
         for (int row = 0; row < arrayBoard.length; row++){
             for (int colum = 0; colum < arrayBoard.length; colum++){
-                    panelBoard.add(arrayBoard[row][colum][0].emptyPiecePanel);
+                    panelBoard.add(arrayBoard[row][colum][0].getEmptyPiecePanel());
             }
         }
     }
@@ -86,7 +93,7 @@ public class Chessboard  {
     public static void setColors(){
         for (int row = 0; row < arrayBoard.length; row++){
             for (int colum = 0; colum < arrayBoard.length; colum++){
-                arrayBoard[row][colum][0].emptyPiecePanel.setBackground(arrayBoard[row][colum][0].pieceColor);
+                arrayBoard[row][colum][0].getEmptyPiecePanel().setBackground(arrayBoard[row][colum][0].pieceColor);
             }
         }
         panelBoard.repaint();

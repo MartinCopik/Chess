@@ -5,7 +5,7 @@ public class Bishop extends Piece {
 
     public Bishop(Player player, Color bishopColor, ImageIcon bishopImage, int rowPosition, int columPosition) {
         super(player, bishopColor, bishopImage, rowPosition, columPosition);
-        super.pieceImageIcon = bishopImage;
+        super.setPieceImageIcon(bishopImage);
     }
 
 
@@ -21,7 +21,7 @@ public class Bishop extends Piece {
         while (row >= 0 || colum >= 0){
             row--;
             colum--;
-            if (impossibleMove(player,row, colum)){
+            if (impossibleMove(getPlayer(),row, colum)){
                 break;
             }
         }
@@ -33,7 +33,7 @@ public class Bishop extends Piece {
         while (row >= 7 || colum >= 0){
             row++;
             colum--;
-            if (impossibleMove(player,row, colum)){
+            if (impossibleMove(getPlayer(),row, colum)){
                 break;
             }
         }
@@ -44,7 +44,7 @@ public class Bishop extends Piece {
         while (row >= 0 || colum <= 7){
             row--;
             colum++;
-            if (impossibleMove(player,row, colum)){
+            if (impossibleMove(getPlayer(),row, colum)){
                 break;
             }
         }
@@ -55,7 +55,7 @@ public class Bishop extends Piece {
         while (row <= 7 || colum <= 7){
             row++;
             colum++;
-            if (impossibleMove(player,row, colum)){
+            if (impossibleMove(getPlayer(),row, colum)){
                 break;
             }
         }
