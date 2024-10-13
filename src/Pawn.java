@@ -8,99 +8,96 @@ public class Pawn extends Piece{
         super.setPieceImageIcon(pawnImage);
     }
 
-    void readyToBePromoted(){
+    public void readyToBePromoted(){
         setActualPositionOfPiece(this);
         if (getRowPosition() == 0 || getRowPosition() == 7){
             new PromotionWindow(this);
             Move.discardingThePiece(Chessboard.getEmptySquare(this.getRowPosition(), this.getColumPosition()));
-            Chessboard.panelBoard.repaint();
+            Chessboard.getPanelBoard().repaint();
         }
     }
 
-    void checkColourOfPawn(Piece pawnToCheck){
-        if (pawnToCheck.pieceColor == Color.black){
+    public void checkColourOfPawn(Piece pawnToCheck){
+        if (pawnToCheck.getPieceColor() == Color.black){
             blackPawnMoves();
-        } else if (pawnToCheck.pieceColor == Color.white) {
+        } else {
             whitePawnMoves();
         }
     }
-    void blackPawnMoves(){
+    public void blackPawnMoves(){
         pawnMoveDown();
         blackPawnAttacks();
     }
-    void whitePawnMoves(){
+    public void whitePawnMoves(){
         pawnMoveUp();
         whitePawnAttacks();
     }
-    void blackPawnAttacks(){
+    public void blackPawnAttacks(){
         pawnMoveDiagonallyDownLeft();
         pawnMoveDiagonallyDownRight();
     }
-    void whitePawnAttacks(){
+    public void whitePawnAttacks(){
         pawnMoveDiagonallyUpLeft();
         pawnMoveDiagonallyUpRight();
     }
 
-    void pawnMoveUp(){
+    public void pawnMoveUp(){
         if (this.getPieceFirstMove() && !positionIsTaken(this.getRowPosition()-1, this.getColumPosition())){
             impossibleMove(getPlayer(),this.getRowPosition()-2, this.getColumPosition());
         }
         impossibleMove(getPlayer(),this.getRowPosition()-1, this.getColumPosition());
     }
 
-    void pawnMoveDown(){
+    public void pawnMoveDown(){
         if (this.getPieceFirstMove() && !positionIsTaken(this.getRowPosition()+1, this.getColumPosition())){
             impossibleMove(getPlayer(),this.getRowPosition()+2, this.getColumPosition());
         }
         impossibleMove(getPlayer(),this.getRowPosition()+1, this.getColumPosition());
     }
 
-    void pawnMoveDiagonallyUpLeft(){
+    public void pawnMoveDiagonallyUpLeft(){
         possibleAttackMove(this.getRowPosition()-1,this.getColumPosition()-1);
     }
-    void pawnMoveDiagonallyUpRight(){
+    public void pawnMoveDiagonallyUpRight(){
         possibleAttackMove(this.getRowPosition()-1,this.getColumPosition()+1);
     }
-    void pawnMoveDiagonallyDownLeft(){
+    public void pawnMoveDiagonallyDownLeft(){
         possibleAttackMove(this.getRowPosition()+1, this.getColumPosition()-1);
     }
-    void pawnMoveDiagonallyDownRight(){
+    public void pawnMoveDiagonallyDownRight(){
         possibleAttackMove(this.getRowPosition()+1, this.getColumPosition()+1);
     }
-
-    void possibleAttackMove(int rowToCheck, int columToCheck) {
+    public void possibleAttackMove(int rowToCheck, int columToCheck) {
         if (isOutOfBorder(rowToCheck, columToCheck)){
             return;
         }
-//        if (getPlayer().king.kingIsInCheck() && this.getPieceMove()){
             if (getPlayer().getPieceAttackingKing() != null && Chessboard.getArrayBoard()[rowToCheck][columToCheck][1] == getPlayer().getPieceAttackingKing()){
-                if (GameManager.checkOfGameManager){
+                if (GameManager.getCheckOfGameManager()){
                     getPlayer().setMovePossibilities(Chessboard.getEmptySquare(rowToCheck,columToCheck), this);
                 }
                 if (getPlayer().getKing().kingIsInCheck() && this.getPieceMove()){
-                    EmptyPiece.markTheSquareForAttack(Chessboard.getEmptySquare(rowToCheck, columToCheck));
+                    Chessboard.getEmptySquare(rowToCheck, columToCheck).markTheSquareForAttack();
                 }
                 return;
             }
-//        }
         if (positionIsTaken(rowToCheck, columToCheck) && pieceIsAttacking(this, rowToCheck, columToCheck)) {
             if (this.getPieceMove() && !getPlayer().getKing().kingIsInCheck()) {
-                EmptyPiece.markTheSquareForAttack(Chessboard.getEmptySquare(rowToCheck, columToCheck));
+                Chessboard.getEmptySquare(rowToCheck, columToCheck).markTheSquareForAttack();
                 return;
             }
-            if (GameManager.checkOfGameManager && !getPlayer().getKing().kingIsInCheck){
+            if (GameManager.getCheckOfGameManager() && !getPlayer().getKing().getKingIsInCheck()){
                 getPlayer().setMovePossibilities(Chessboard.getEmptySquare(rowToCheck,columToCheck), this);
             }
-            EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck, columToCheck), this);
+            this.getPlayer().arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck, columToCheck), this);
+//            EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck, columToCheck), this);
         }
-//        } else if (!positionIsTaken(rowToCheck, columToCheck)) {
-        if (!this.getPieceMove() && !GameManager.checkOfGameManager){
-            EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck, columToCheck), this);
+        if (!this.getPieceMove() && !GameManager.getCheckOfGameManager()){
+            this.getPlayer().arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck, columToCheck), this);
+//            EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck, columToCheck), this);
         }
     }
-
     @Override
-    boolean impossibleMove(Player player, int rowToCheck, int columToCheck) {
+    public boolean impossibleMove(Player player, int rowToCheck, int columToCheck) {
         if (isOutOfBorder(rowToCheck, columToCheck)){
             return true;
         }
@@ -114,11 +111,11 @@ public class Pawn extends Piece{
         if (!positionIsTaken(rowToCheck, columToCheck)){
             if (this.getPieceMove()){
                 if (!player.getKing().kingIsInCheck() || stepIntoAttack(rowToCheck, columToCheck, this)){
-                    EmptyPiece.markTheSquareForMove(Chessboard.getEmptySquare(rowToCheck, columToCheck));
+                    Chessboard.getEmptySquare(rowToCheck, columToCheck).markTheSquareForMove();
                 }
             }
-            if (GameManager.checkOfGameManager){
-                if (!player.getKing().kingIsInCheck){
+            if (GameManager.getCheckOfGameManager()){
+                if (!player.getKing().getKingIsInCheck()){
                     player.setMovePossibilities(Chessboard.getEmptySquare(rowToCheck,columToCheck), this);
                 }
             }

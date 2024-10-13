@@ -10,31 +10,43 @@ public class Player {
     private int mainLineUP;
     private Piece pieceAttackingKing;
 
-    private Rook leftRook;
-    private Rook rightRook;
-    private Knight leftKnight;
-    private Knight rightKnigt;
-    private Bishop leftBishop;
-    private Bishop rightBishop;
-    private Queen queen;
-    private King king;
+    private final Rook leftRook;
+    private final Rook rightRook;
+    private final Knight leftKnight;
+    private final Knight rightKnigt;
+    private final Bishop leftBishop;
+    private final Bishop rightBishop;
+    private final Queen queen;
+    private final King king;
 
-    private Pawn pawn0;
-    private Pawn pawn1;
-    private Pawn pawn2;
-    private Pawn pawn3;
-    private Pawn pawn4;
-    private Pawn pawn5;
-    private Pawn pawn6;
-    private Pawn pawn7;
+    private final Pawn pawn0;
+    private final Pawn pawn1;
+    private final Pawn pawn2;
+    private final Pawn pawn3;
+    private final Pawn pawn4;
+    private final Pawn pawn5;
+    private final Pawn pawn6;
+    private final Pawn pawn7;
 
+    private HashMap <Piece,Piece> attackedSquares = new HashMap<>();
     private HashMap <Piece,Piece> movePossibilities = new HashMap<>();
     private ArrayList<Piece> playerPieces = new ArrayList<Piece>();
 
-    public void setAttackedSquares(Player  attackingPlayer){
-        for (Piece piece : attackingPlayer.getPlayerPieces()){
+    public void setAttackedSquares(){
+        for (Piece piece : this.getPlayerPieces()){
             piece.showMovePossibilities();
         }
+    }
+    public void arrangementOfAttackedSquares(Piece attackedSquare, Piece attackingFigure){
+        getAttackedSquares().put(attackedSquare, attackingFigure);
+    }
+    public boolean isSquareUnderAttack(int rowToCheck, int columToCheck, Color colorOfAttackingPlayer){
+        if (getAttackedSquares().containsKey(Chessboard.getEmptySquare(rowToCheck,columToCheck))
+                && getAttackedSquares().get(Chessboard.getEmptySquare(rowToCheck, columToCheck)).getPieceColor().equals(colorOfAttackingPlayer)){
+
+            return true;
+        }
+        return false;
     }
 
     public Player(Color playerColor) {
@@ -48,27 +60,30 @@ public class Player {
             this.setStringPlayerColor("white");
         }
 
-        playerPieces.add(leftRook = new Rook(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Rook.png"), getMainLineUP(), 0));
-        playerPieces.add(rightRook = new Rook(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Rook.png"), getMainLineUP(), 7));
-        playerPieces.add(leftKnight = new Knight(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Knight.png"), getMainLineUP(), 1));
-        playerPieces.add(rightKnigt = new Knight(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Knight.png"), getMainLineUP(), 6));
-        playerPieces.add(leftBishop = new Bishop(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Bishop.png"), getMainLineUP(), 2));
-        playerPieces.add(rightBishop = new Bishop(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Bishop.png"), getMainLineUP(), 5));
-        playerPieces.add(queen = new Queen(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Queen.png"), getMainLineUP(), 3));
-        playerPieces.add(king = new King(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "King.png"), getMainLineUP(), 4));
+        getPlayerPieces().add(leftRook = new Rook(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Rook.png"), getMainLineUP(), 0));
+        getPlayerPieces().add(rightRook = new Rook(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Rook.png"), getMainLineUP(), 7));
+        getPlayerPieces().add(leftKnight = new Knight(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Knight.png"), getMainLineUP(), 1));
+        getPlayerPieces().add(rightKnigt = new Knight(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Knight.png"), getMainLineUP(), 6));
+        getPlayerPieces().add(leftBishop = new Bishop(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Bishop.png"), getMainLineUP(), 2));
+        getPlayerPieces().add(rightBishop = new Bishop(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Bishop.png"), getMainLineUP(), 5));
+        getPlayerPieces().add(queen = new Queen(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Queen.png"), getMainLineUP(), 3));
+        getPlayerPieces().add(king = new King(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "King.png"), getMainLineUP(), 4));
 
-        playerPieces.add(pawn0 = new Pawn(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Pawn.png"), getPawnLineUp(), 0));
-        playerPieces.add(pawn1 = new Pawn(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Pawn.png"), getPawnLineUp(), 1));
-        playerPieces.add(pawn2 = new Pawn(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Pawn.png"), getPawnLineUp(), 2));
-        playerPieces.add(pawn3 = new Pawn(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Pawn.png"), getPawnLineUp(), 3));
-        playerPieces.add(pawn4 = new Pawn(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Pawn.png"), getPawnLineUp(), 4));
-        playerPieces.add(pawn5 = new Pawn(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Pawn.png"), getPawnLineUp(), 5));
-        playerPieces.add(pawn6 = new Pawn(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Pawn.png"), getPawnLineUp(), 6));
-        playerPieces.add(pawn7 = new Pawn(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Pawn.png"), getPawnLineUp(), 7));
+        getPlayerPieces().add(pawn0 = new Pawn(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Pawn.png"), getPawnLineUp(), 0));
+        getPlayerPieces().add(pawn1 = new Pawn(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Pawn.png"), getPawnLineUp(), 1));
+        getPlayerPieces().add(pawn2 = new Pawn(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Pawn.png"), getPawnLineUp(), 2));
+        getPlayerPieces().add(pawn3 = new Pawn(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Pawn.png"), getPawnLineUp(), 3));
+        getPlayerPieces().add(pawn4 = new Pawn(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Pawn.png"), getPawnLineUp(), 4));
+        getPlayerPieces().add(pawn5 = new Pawn(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Pawn.png"), getPawnLineUp(), 5));
+        getPlayerPieces().add(pawn6 = new Pawn(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Pawn.png"), getPawnLineUp(), 6));
+        getPlayerPieces().add(pawn7 = new Pawn(this, playerColor, new ImageIcon(this.getStringPlayerColor() + "Pawn.png"), getPawnLineUp(), 7));
     }
 
     public void setMovePossibilities(Piece square, Piece piece){
-        movePossibilities.put(square,piece);
+        getMovePossibilities().put(square,piece);
+    }
+    public HashMap<Piece, Piece> getAttackedSquares() {
+        return attackedSquares;
     }
 
     public String getStringPlayerColor() {

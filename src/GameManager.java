@@ -1,6 +1,6 @@
 public class GameManager {
 
-    static boolean checkOfGameManager = false;
+    private static boolean checkOfGameManager = false;
 
     public static boolean checkGameStatus(Player playerOnTurn){
         if (!playerOnTurn.getKing().kingIsInCheck()){
@@ -12,17 +12,23 @@ public class GameManager {
     }
 
     static void gameOver(Player playerOnTurn, String outcome){
-        checkOfGameManager = true;
+        setCheckOfGameManager(true);
         playerOnTurn.getMovePossibilities().clear();
-        playerOnTurn.setAttackedSquares(playerOnTurn);
-//        Piece.setAttackedSquares(playerOnTurn);
+        playerOnTurn.setAttackedSquares();
         if (playerOnTurn.getMovePossibilities().isEmpty()){
             new EndingScreen(playerOnTurn.getStringPlayerColor() + outcome);
         }else {
-            checkOfGameManager = false;
-            EmptyPiece.attackedSquares.clear();
-            playerOnTurn.setAttackedSquares(Chessboard.getAttackingPlayer(playerOnTurn));
-//            Piece.setAttackedSquares(Chessboard.getAttackingPlayer(playerOnTurn));
+            setCheckOfGameManager(false);
+            playerOnTurn.getAttackedSquares().clear();
+            Chessboard.getAttackingPlayer(playerOnTurn).setAttackedSquares();
         }
+    }
+
+    public static boolean getCheckOfGameManager() {
+        return checkOfGameManager;
+    }
+
+    public static void setCheckOfGameManager(boolean checkOfGameManager) {
+        GameManager.checkOfGameManager = checkOfGameManager;
     }
 }

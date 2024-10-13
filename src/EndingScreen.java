@@ -3,27 +3,61 @@ import java.awt.*;
 
 public class EndingScreen extends JFrame {
 
-    JFrame endingScreen;
-    JLabel textLabel;
+    private JFrame endingScreen;
+    private JLabel textLabel;
 
-    int width;
-    int height;
+    private int width;
+    private int height;
 
     public EndingScreen(String endingText){
-        ChessGame.chessGame.setVisible(false);
+        ChessGame.getChessGame().setVisible(false);
+        setWidth(ChessGame.getWidthFrame()/2);
+        setHeight(ChessGame.getHeightFrame()/2);
 
-        textLabel = new JLabel(endingText);
-        textLabel.setFont(new Font(Font.DIALOG,5,40));
-        endingScreen = new JFrame();
-        endingScreen.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        endingScreen.setTitle("EndingScreen");
-        endingScreen.setSize(ChessGame.width/2, ChessGame.height/2);
-        endingScreen.setResizable(false);
-        endingScreen.setLocationRelativeTo(null);
-        endingScreen.add(textLabel);
+        setTextLabel(new JLabel(endingText));
+        getTextLabel().setFont(new Font(Font.DIALOG,5,40));
+        setEndingScreen(new JFrame());
+        getEndingScreen().setDefaultCloseOperation(EXIT_ON_CLOSE);
+        getEndingScreen().setTitle("EndingScreen");
+        getEndingScreen().setSize(getWidth(), getHeight());
+        getEndingScreen().setResizable(false);
+        getEndingScreen().setLocationRelativeTo(null);
+        getEndingScreen().add(getTextLabel());
 
-        endingScreen.setVisible(true);
+        getEndingScreen().setVisible(true);
     }
 
+    public JFrame getEndingScreen() {
+        return endingScreen;
+    }
 
+    public void setEndingScreen(JFrame endingScreen) {
+        this.endingScreen = endingScreen;
+    }
+
+    public JLabel getTextLabel() {
+        return textLabel;
+    }
+
+    public void setTextLabel(JLabel textLabel) {
+        this.textLabel = textLabel;
+    }
+
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
 }

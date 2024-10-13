@@ -12,62 +12,110 @@ public class PromotionWindow  implements ActionListener {
     private Piece pieceToBePromoted;
 
     PromotionWindow(Piece pawnToBePromoted){
-        ChessGame.chessGame.setVisible(false);
+        ChessGame.getChessGame().setVisible(false);
 
-        promotionWindow = new JFrame();
-        rookButton = new JButton("Rook");
-        knightButton = new JButton("Knight");
-        bishopButton = new JButton("Bishop");
-        queenButton = new JButton("Queen");
-        pieceToBePromoted = pawnToBePromoted;
+        setPromotionWindow(new JFrame());
+        setRookButton(new JButton("Rook"));
+        setKnightButton(new JButton("Knight"));
+        setBishopButton(new JButton("Bishop"));
+        setQueenButton(new JButton("Queen"));
+        setPieceToBePromoted(pawnToBePromoted);
 
-        rookButton.addActionListener(this);
-        knightButton.addActionListener(this);
-        bishopButton.addActionListener(this);
-        queenButton.addActionListener(this);
+        getRookButton().addActionListener(this);
+        getKnightButton().addActionListener(this);
+        getBishopButton().addActionListener(this);
+        getQueenButton().addActionListener(this);
 
-        promotionWindow.add(rookButton);
-        promotionWindow.add(knightButton);
-        promotionWindow.add(bishopButton);
-        promotionWindow.add(queenButton);
+        getPromotionWindow().add(getRookButton());
+        getPromotionWindow().add(getKnightButton());
+        getPromotionWindow().add(getBishopButton());
+        getPromotionWindow().add(getQueenButton());
 
-        promotionWindow.setLayout(new GridLayout());
-        promotionWindow.setSize(ChessGame.width/2, ChessGame.height/2);
-        promotionWindow.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        promotionWindow.setLocationRelativeTo(null);
-        promotionWindow.setResizable(false);
-        promotionWindow.setVisible(true);
+        getPromotionWindow().setLayout(new GridLayout());
+        getPromotionWindow().setSize(ChessGame.getWidthFrame()/2, ChessGame.getHeightFrame()/2);
+        getPromotionWindow().setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        getPromotionWindow().setLocationRelativeTo(null);
+        getPromotionWindow().setResizable(false);
+        getPromotionWindow().setVisible(true);
+    }
+
+    public JButton getRookButton() {
+        return rookButton;
+    }
+
+    public void setRookButton(JButton rookButton) {
+        this.rookButton = rookButton;
+    }
+
+    public JButton getKnightButton() {
+        return knightButton;
+    }
+
+    public void setKnightButton(JButton knightButton) {
+        this.knightButton = knightButton;
+    }
+
+    public JButton getBishopButton() {
+        return bishopButton;
+    }
+
+    public void setBishopButton(JButton bishopButton) {
+        this.bishopButton = bishopButton;
+    }
+
+    public JButton getQueenButton() {
+        return queenButton;
+    }
+
+    public void setQueenButton(JButton queenButton) {
+        this.queenButton = queenButton;
+    }
+
+    public Piece getPieceToBePromoted() {
+        return pieceToBePromoted;
+    }
+
+    public void setPieceToBePromoted(Piece pieceToBePromoted) {
+        this.pieceToBePromoted = pieceToBePromoted;
+    }
+
+    public JFrame getPromotionWindow() {
+        return promotionWindow;
+    }
+
+    public void setPromotionWindow(JFrame promotionWindow) {
+        this.promotionWindow = promotionWindow;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == rookButton) {
-            promotePiece(new Rook(setPromotingPlayer(), pieceToBePromoted.getPieceColor(), new ImageIcon(colorToBePromoted()+"Rook.png"), pieceToBePromoted.getRowPosition(), pieceToBePromoted.getColumPosition()));
+        if (e.getSource() == getRookButton()) {
+            promotePiece(new Rook(setPromotingPlayer(), getPieceToBePromoted().getPieceColor(), new ImageIcon(colorToBePromoted()+"Rook.png"), getPieceToBePromoted().getRowPosition(), getPieceToBePromoted().getColumPosition()));
         }
-        if (e.getSource() == knightButton) {
-            promotePiece(new Knight(setPromotingPlayer(), pieceToBePromoted.getPieceColor(), new ImageIcon(colorToBePromoted()+"Knight.png"), pieceToBePromoted.getRowPosition(), pieceToBePromoted.getColumPosition()));
+        if (e.getSource() == getKnightButton()) {
+            promotePiece(new Knight(setPromotingPlayer(), getPieceToBePromoted().getPieceColor(), new ImageIcon(colorToBePromoted()+"Knight.png"), getPieceToBePromoted().getRowPosition(), getPieceToBePromoted().getColumPosition()));
         }
-        if (e.getSource() == bishopButton) {
-            promotePiece(new Bishop(setPromotingPlayer(), pieceToBePromoted.getPieceColor(), new ImageIcon(colorToBePromoted()+"Bishop.png"), pieceToBePromoted.getRowPosition(), pieceToBePromoted.getColumPosition()));
+        if (e.getSource() == getBishopButton()) {
+            promotePiece(new Bishop(setPromotingPlayer(), getPieceToBePromoted().getPieceColor(), new ImageIcon(colorToBePromoted()+"Bishop.png"), getPieceToBePromoted().getRowPosition(), getPieceToBePromoted().getColumPosition()));
         }
-        if (e.getSource() == queenButton) {
-            promotePiece(new Queen(setPromotingPlayer(), pieceToBePromoted.getPieceColor(), new ImageIcon(colorToBePromoted()+"Queen.png"), pieceToBePromoted.getRowPosition(), pieceToBePromoted.getColumPosition()));
+        if (e.getSource() == getQueenButton()) {
+            promotePiece(new Queen(setPromotingPlayer(), getPieceToBePromoted().getPieceColor(), new ImageIcon(colorToBePromoted()+"Queen.png"), getPieceToBePromoted().getRowPosition(), getPieceToBePromoted().getColumPosition()));
         }
-        promotionWindow.dispose();
-        ChessGame.chessGame.setVisible(true);
+        getPromotionWindow().dispose();
+        ChessGame.getChessGame().setVisible(true);
     }
 
-    String colorToBePromoted(){
-        if (this.pieceToBePromoted.pieceColor == Color.BLACK){
+    public String colorToBePromoted(){
+        if (getPieceToBePromoted().getPieceColor() == Color.BLACK){
             return "black";
         }else return "white";
     }
 
-    Player setPromotingPlayer(){
-        return this.pieceToBePromoted.getPlayer();
+    public Player setPromotingPlayer(){
+        return getPieceToBePromoted().getPlayer();
     }
 
-    void promotePiece(Piece newPiece){
+    public void promotePiece(Piece newPiece){
         Chessboard.setStartPointOfPiece(newPiece);
         newPiece.getPlayer().getPlayerPieces().add(newPiece);
         newPiece.checkIfCheckIsMade(newPiece);

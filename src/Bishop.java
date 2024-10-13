@@ -8,14 +8,7 @@ public class Bishop extends Piece {
         super.setPieceImageIcon(bishopImage);
     }
 
-
-    @Override
-    public Color getPieceColor() {
-        return pieceColor;
-    }
-
-
-    void bishopMoveDiagonallyUpLeft(){
+    public void bishopMoveDiagonallyUpLeft(){
         int row = this.getRowPosition();
         int colum = this.getColumPosition();
         while (row >= 0 || colum >= 0){
@@ -27,7 +20,7 @@ public class Bishop extends Piece {
         }
     }
 
-    void bishopMoveDiagonallyDownLeft(){
+    public void bishopMoveDiagonallyDownLeft(){
         int row = this.getRowPosition();
         int colum = this.getColumPosition();
         while (row >= 7 || colum >= 0){
@@ -38,7 +31,7 @@ public class Bishop extends Piece {
             }
         }
     }
-    void bishopMoveDiagonallyUpRight(){
+    public void bishopMoveDiagonallyUpRight(){
         int row = this.getRowPosition();
         int colum = this.getColumPosition();
         while (row >= 0 || colum <= 7){
@@ -49,7 +42,7 @@ public class Bishop extends Piece {
             }
         }
     }
-    void bishopMoveDiagonallyDownRight(){
+    public void bishopMoveDiagonallyDownRight(){
         int row = this.getRowPosition();
         int colum = this.getColumPosition();
         while (row <= 7 || colum <= 7){

@@ -9,35 +9,35 @@ public class Queen extends Piece {
         super.setPieceImageIcon(queenImage);
     }
 
-    void queenMoveUP(){
+    public void queenMoveUP(){
         for (int row = getRowPosition()-1; row >= 0 ; row--){
             if (impossibleMove(getPlayer(),row,this.getColumPosition())){
                 break;
             }
         }
     }
-    void queenMoveDown(){
+    public void queenMoveDown(){
         for (int row = getRowPosition()+1; row<= 7; row++){
             if (impossibleMove(getPlayer(),row,this.getColumPosition())){
                 break;
             }
         }
     }
-    void queenMoveLeft(){
+    public void queenMoveLeft(){
         for (int colum = getColumPosition()-1; colum>= 0; colum--){
             if (impossibleMove(getPlayer(),this.getRowPosition(),colum)){
                 break;
             }
         }
     }
-    void queenMoveRight(){
+    public void queenMoveRight(){
         for (int colum = getColumPosition()+1; colum<= 7; colum++){
             if (impossibleMove(getPlayer(),this.getRowPosition(),colum)){
                 break;
             }
         }
     }
-    void queenMoveDiagonallyUpLeft(){
+    public void queenMoveDiagonallyUpLeft(){
         int row = this.getRowPosition();
         int colum = this.getColumPosition();
         while (row >= 0 || colum >= 0){
@@ -49,7 +49,7 @@ public class Queen extends Piece {
         }
     }
 
-    void queenMoveDiagonallyDownLeft(){
+    public void queenMoveDiagonallyDownLeft(){
         int row = this.getRowPosition();
         int colum = this.getColumPosition();
         while (row >= 7 || colum >= 0){
@@ -60,7 +60,7 @@ public class Queen extends Piece {
             }
         }
     }
-    void queenMoveDiagonallyUpRight(){
+    public void queenMoveDiagonallyUpRight(){
         int row = this.getRowPosition();
         int colum = this.getColumPosition();
         while (row >= 0 || colum <= 7){
@@ -71,7 +71,7 @@ public class Queen extends Piece {
             }
         }
     }
-    void queenMoveDiagonallyDownRight(){
+    public void queenMoveDiagonallyDownRight(){
         int row = this.getRowPosition();
         int colum = this.getColumPosition();
         while (row <= 7 || colum <= 7){

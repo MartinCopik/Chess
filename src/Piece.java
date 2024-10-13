@@ -14,16 +14,18 @@ public class Piece implements MouseListener {
     private JLabel pieceLabel;
 
     private JPanel emptyPiecePanel;
+    private int width = ChessGame.getWidthFrame()/8;
+    private int height = ChessGame.getHeightFrame()/8;
 
     private boolean pieceIsSelected = false;
     private boolean pieceFirstMove = true;
     private boolean pieceMove = false;
 
     public Piece(Player player, Color pieceColor, ImageIcon pieceImageIcon, int rowPosition, int columPosition){
-        this.player = player;
+        this.setPlayer(player);
         this.setPieceColor(pieceColor);
         this.setPieceLabel(new JLabel());
-        this.pieceLabel.addMouseListener(this);
+        this.getPieceLabel().addMouseListener(this);
         this.setPieceImageIcon(pieceImageIcon);
         scaleImageOfPiece();
         this.setRowPosition(rowPosition);
@@ -33,46 +35,42 @@ public class Piece implements MouseListener {
     public Piece(Color emptyPieceColor, int rowPosition, int columPosition){
         this.setPieceColor(emptyPieceColor);
         this.setEmptyPiecePanel(new JPanel());
-        this.emptyPiecePanel.addMouseListener(this);
+        this.getEmptyPiecePanel().addMouseListener(this);
         this.setRowPosition(rowPosition);
         this.setColumPosition(columPosition);
     }
 
     private void scaleImageOfPiece(){
-        Image scaledImage = this.pieceImageIcon.getImage().getScaledInstance(EmptyPiece.width/2, EmptyPiece.height/2,Image.SCALE_SMOOTH);
-        this.pieceImageIcon = new ImageIcon(scaledImage);
-        this.pieceLabel.setIcon(this.pieceImageIcon);
+        Image scaledImage = this.getPieceImageIcon().getImage().getScaledInstance(getWidth()/2, getHeight()/2,Image.SCALE_SMOOTH);
+        this.setPieceImageIcon(new ImageIcon(scaledImage));
+        this.getPieceLabel().setIcon(this.getPieceImageIcon());
 
     }
 
     private boolean isAnyPieceSelected(){
         for (int row = 0; row < Chessboard.getArrayBoard().length; row++){
             for (int colum = 0; colum < Chessboard.getArrayBoard().length; colum++){
-                if (Chessboard.arrayBoard[row][colum][0].emptyPiecePanel.getBackground() == Color.green
-                        || Chessboard.arrayBoard[row][colum][0].emptyPiecePanel.getBackground() == Color.red ){
-                    return this.pieceIsSelected = true;
+                if (Chessboard.getArrayBoard()[row][colum][0].getEmptyPiecePanel().getBackground() == Color.green
+                        || Chessboard.getArrayBoard()[row][colum][0].getEmptyPiecePanel().getBackground() == Color.red ){
+                    this.setPieceIsSelected(true);
+                    return this.getIsPieceSelected();
                 }
             }
         }
-        return this.pieceIsSelected = false;
+        this.setPieceIsSelected(false);
+        return this.getIsPieceSelected();
     }
 
     public void setActualPositionOfPiece(Piece pieceToFind){
         for (int row = 0; row < Chessboard.getArrayBoard().length; row++ ){
             for (int colum = 0; colum < Chessboard.getArrayBoard().length; colum++){
-                if (pieceToFind == Chessboard.arrayBoard[row][colum][1]){
-                    this.rowPosition = row;
-                    this.columPosition = colum;
+                if (pieceToFind == Chessboard.getArrayBoard()[row][colum][1]){
+                    this.setRowPosition(row);
+                    this.setColumPosition(colum);
                 }
             }
         }
     }
-//    void setAttackedSquares(Player  attackingPlayer){
-//        for (Piece piece : attackingPlayer.getPlayerPieces()){
-//            piece.showMovePossibilities();
-//        }
-//    }
-
     public int getRowPosition() {
         return rowPosition;
     }
@@ -101,6 +99,10 @@ public class Piece implements MouseListener {
         return player;
     }
 
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
     public boolean getPieceFirstMove() {
         return pieceFirstMove;
     }
@@ -109,7 +111,7 @@ public class Piece implements MouseListener {
         this.pieceFirstMove = pieceFirstMove;
     }
 
-    public boolean getIsPieceIsSelected() {
+    public boolean getIsPieceSelected() {
         return pieceIsSelected;
     }
 
@@ -149,84 +151,81 @@ public class Piece implements MouseListener {
         this.emptyPiecePanel = emptyPiecePanel;
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
     public void showMovePossibilities(){
     }
 
-    boolean selfCheckOnEmptySquare(Piece pieceToBeMoved, int rowToCheck, int columToCheck){
-        EmptyPiece.attackedSquares.clear();
-        Chessboard.getArrayBoard()[pieceToBeMoved.rowPosition][pieceToBeMoved.columPosition][1] = null;
+    public void markTheSquareForMove(){}
+    public void markTheSquareForAttack(){}
+
+    public boolean selfCheckOnEmptySquare(Piece pieceToBeMoved, int rowToCheck, int columToCheck){
+        Chessboard.getAttackingPlayer(pieceToBeMoved.getPlayer()).getAttackedSquares().clear();
+        Chessboard.getArrayBoard()[pieceToBeMoved.getRowPosition()][pieceToBeMoved.getColumPosition()][1] = null;
         Chessboard.getArrayBoard()[rowToCheck][columToCheck][1] = pieceToBeMoved;
 
-        pieceToBeMoved.player.setAttackedSquares(Chessboard.getAttackingPlayer(pieceToBeMoved.player));
-//        setAttackedSquares(Chessboard.getAttackingPlayer(pieceToBeMoved.player));
-        pieceToBeMoved.player.getKing().kingIsInCheck();
+        Chessboard.getAttackingPlayer(pieceToBeMoved.getPlayer()).setAttackedSquares();
+        pieceToBeMoved.getPlayer().getKing().kingIsInCheck();
 
-        Chessboard.getArrayBoard()[pieceToBeMoved.rowPosition][pieceToBeMoved.columPosition][1] = pieceToBeMoved;
+        Chessboard.getArrayBoard()[pieceToBeMoved.getRowPosition()][pieceToBeMoved.getColumPosition()][1] = pieceToBeMoved;
         Chessboard.getArrayBoard()[rowToCheck][columToCheck][1] = null;
-        EmptyPiece.attackedSquares.clear();
-        return pieceToBeMoved.player.getKing().kingIsInCheck;
+        Chessboard.getAttackingPlayer(pieceToBeMoved.getPlayer()).getAttackedSquares().clear();
+        return pieceToBeMoved.getPlayer().getKing().getKingIsInCheck();
     }
 
-    boolean checkIfCheckIsMade(Piece pieceToMakeCheck){
-        pieceToMakeCheck.player.setAttackedSquares(pieceToMakeCheck.player);
-//        setAttackedSquares(pieceToMakeCheck.player);
-        if (Chessboard.getAttackingPlayer(pieceToMakeCheck.player).getKing().kingIsInCheck()){
-            Chessboard.getAttackingPlayer(pieceToMakeCheck.player).setPieceAttackingKing(pieceToMakeCheck);
+    public void checkIfCheckIsMade(Piece pieceToMakeCheck){
+        pieceToMakeCheck.getPlayer().setAttackedSquares();
+        if (Chessboard.getAttackingPlayer(pieceToMakeCheck.getPlayer()).getKing().kingIsInCheck()){
+            Chessboard.getAttackingPlayer(pieceToMakeCheck.getPlayer()).setPieceAttackingKing(pieceToMakeCheck);
         }
-        if (pieceToMakeCheck.pieceColor.equals(Color.WHITE)){
-            if (Chessboard.getBlackPlayer().getKing().kingIsInCheck()){
-                Chessboard.getBlackPlayer().setPieceAttackingKing(pieceToMakeCheck);
-                return true;
-            }
-        }else {
-            if (Chessboard.getWhitePlayer().getKing().kingIsInCheck()){
-                Chessboard.getWhitePlayer().setPieceAttackingKing(pieceToMakeCheck);
-                return true;
-            }
-        }
-        return false;
     }
-    boolean stepIntoAttack(int rowToCheck, int columToCheck, Piece pieceToDefend){
-            Chessboard.arrayBoard[pieceToDefend.rowPosition][pieceToDefend.columPosition][1] = null;
-            Chessboard.arrayBoard[rowToCheck][columToCheck][1] = pieceToDefend;
-            EmptyPiece.attackedSquares.clear();
-            pieceToDefend.player.setAttackedSquares(Chessboard.getAttackingPlayer(pieceToDefend.player));
-//            setAttackedSquares(Chessboard.getAttackingPlayer(pieceToDefend.player));
-            if (!pieceToDefend.player.getKing().kingIsInCheck()){
-                Chessboard.arrayBoard[rowToCheck][columToCheck][1] = null;
-                Chessboard.arrayBoard[pieceToDefend.rowPosition][pieceToDefend.columPosition][1] = pieceToDefend;
-                pieceToDefend.player.setAttackedSquares(Chessboard.getAttackingPlayer(pieceToDefend.player));
-//                setAttackedSquares(Chessboard.getAttackingPlayer(pieceToDefend.player));
+    public boolean stepIntoAttack(int rowToCheck, int columToCheck, Piece pieceToDefend){
+            Chessboard.getArrayBoard()[pieceToDefend.getRowPosition()][pieceToDefend.getColumPosition()][1] = null;
+            Chessboard.getArrayBoard()[rowToCheck][columToCheck][1] = pieceToDefend;
+
+            Chessboard.getAttackingPlayer(pieceToDefend.getPlayer()).getAttackedSquares().clear();
+            Chessboard.getAttackingPlayer(pieceToDefend.getPlayer()).setAttackedSquares();
+
+            if (!pieceToDefend.getPlayer().getKing().kingIsInCheck()){
+                Chessboard.getArrayBoard()[rowToCheck][columToCheck][1] = null;
+                Chessboard.getArrayBoard()[pieceToDefend.getRowPosition()][pieceToDefend.getColumPosition()][1] = pieceToDefend;
+                Chessboard.getAttackingPlayer(pieceToDefend.getPlayer()).setAttackedSquares();
                 return true;
             }
-            Chessboard.arrayBoard[rowToCheck][columToCheck][1] = null;
-            Chessboard.arrayBoard[pieceToDefend.rowPosition][pieceToDefend.columPosition][1] = pieceToDefend;
+            Chessboard.getArrayBoard()[rowToCheck][columToCheck][1] = null;
+            Chessboard.getArrayBoard()[pieceToDefend.getRowPosition()][pieceToDefend.getColumPosition()][1] = pieceToDefend;
         return false;
     }
 
-    boolean isOutOfBorder(int rowToCheck, int columToCheck){
+    public boolean isOutOfBorder(int rowToCheck, int columToCheck){
         if (rowToCheck <0 || columToCheck <0 || rowToCheck > Chessboard.getArrayBoard().length-1 || columToCheck > Chessboard.getArrayBoard().length-1){
             return true;
         }
         return false;
     }
-    boolean pieceIsAttacking(Piece pieceToMakeAttack, int rowToCheck, int columToCheck){
-        if (pieceToMakeAttack.pieceColor != Chessboard.getArrayBoard()[rowToCheck][columToCheck][1].pieceColor){
+    public boolean pieceIsAttacking(Piece pieceToMakeAttack, int rowToCheck, int columToCheck){
+        if (pieceToMakeAttack.getPieceColor() != Chessboard.getArrayBoard()[rowToCheck][columToCheck][1].getPieceColor()){
             return true;
         }
         return false;
     }
-    boolean positionIsTaken(int rowToCheck, int columToCheck){
+    public boolean positionIsTaken(int rowToCheck, int columToCheck){
         if (Chessboard.getArrayBoard()[rowToCheck][columToCheck][1] != null){
             return true;
         }
         return false;
     }
-    boolean impossibleMove(Player player, int rowToCheck, int columToCheck){
+    public boolean impossibleMove(Player player, int rowToCheck, int columToCheck){
         if (isOutOfBorder(rowToCheck,columToCheck)){
             return true;
         }
-        if (this.pieceMove && !player.getKing().kingIsInCheck()){
+        if (this.getPieceMove() && !player.getKing().kingIsInCheck()){
             if (!positionIsTaken(rowToCheck, columToCheck)){
                 if (selfCheckOnEmptySquare(this, rowToCheck, columToCheck)){
                     return true;
@@ -234,44 +233,47 @@ public class Piece implements MouseListener {
             }
         }
         if (player.getPieceAttackingKing() != null && Chessboard.getArrayBoard()[rowToCheck][columToCheck][1] == player.getPieceAttackingKing()){
-            if (GameManager.checkOfGameManager){
+            if (GameManager.getCheckOfGameManager()){
                 player.setMovePossibilities(Chessboard.getEmptySquare(rowToCheck,columToCheck), this);
             }
-            if (player.getKing().kingIsInCheck() && this.pieceMove){
-                EmptyPiece.markTheSquareForAttack(Chessboard.getEmptySquare(rowToCheck, columToCheck));
+            if (player.getKing().kingIsInCheck() && this.getPieceMove()){
+                Chessboard.getEmptySquare(rowToCheck, columToCheck).markTheSquareForAttack();
             }
             return true;
         }
         if (positionIsTaken(rowToCheck, columToCheck) && pieceIsAttacking(this, rowToCheck, columToCheck)) {
-            if (this.pieceMove && !player.getKing().kingIsInCheck()) {
-                EmptyPiece.markTheSquareForAttack(Chessboard.getEmptySquare(rowToCheck, columToCheck));
+            if (this.getPieceMove() && !player.getKing().kingIsInCheck()) {
+                Chessboard.getEmptySquare(rowToCheck, columToCheck).markTheSquareForAttack();
                 return true;
             }
-            if (GameManager.checkOfGameManager && !player.getKing().kingIsInCheck){
+            if (GameManager.getCheckOfGameManager() && !player.getKing().getKingIsInCheck()){
                 player.setMovePossibilities(Chessboard.getEmptySquare(rowToCheck,columToCheck), this);
             }
-            if (!GameManager.checkOfGameManager){
-                EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck, columToCheck), this);
+            if (!GameManager.getCheckOfGameManager()){
+                player.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck, columToCheck), this);
+//                EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck, columToCheck), this);
             }
             return true;
         }
         else if (positionIsTaken(rowToCheck, columToCheck) && !pieceIsAttacking(this, rowToCheck, columToCheck)) {
-            EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck,columToCheck), this);
+            if (!player.getKing().getKingIsInCheck()){
+                player.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck, columToCheck), this);
+            }
             return true;
         } else if (!positionIsTaken(rowToCheck, columToCheck)) {
-            if (this.pieceMove){
+            if (this.getPieceMove()){
                 if (!player.getKing().kingIsInCheck() || this instanceof King || stepIntoAttack(rowToCheck, columToCheck, this)){
-                    EmptyPiece.markTheSquareForMove(Chessboard.getEmptySquare(rowToCheck, columToCheck));
+                    Chessboard.getEmptySquare(rowToCheck, columToCheck).markTheSquareForMove();
                     return false;
                 }
             }
-            if (GameManager.checkOfGameManager){
-                if (!player.getKing().kingIsInCheck || this instanceof King){
+            if (GameManager.getCheckOfGameManager()){
+                if (!player.getKing().getKingIsInCheck() || this instanceof King){
                     player.setMovePossibilities(Chessboard.getEmptySquare(rowToCheck,columToCheck), this);
                 }
             }
-            if (!GameManager.checkOfGameManager){
-                EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck,columToCheck), this);
+            if (!GameManager.getCheckOfGameManager()){
+                player.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck, columToCheck), this);
             }
             return false;
         }
@@ -281,16 +283,16 @@ public class Piece implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         if (isAnyPieceSelected()) {
-            Move.figureToMove = null;
+            Move.setFigureToMove(null);
             Chessboard.setColors();
         }
         if (Move.rightColorToMakeMove(this)){
-            this.pieceMove = true;
+            this.setPieceMove(true);
             setActualPositionOfPiece(this);
             Move.setFigureToMove(this);
             showMovePossibilities();
             if (!isAnyPieceSelected()){
-                Move.figureToMove = null;
+                Move.setFigureToMove(null);
             }
         }
     }
@@ -305,20 +307,17 @@ public class Piece implements MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        if (this instanceof  King && Move.moveCounter ==3){
-            System.out.println();
-        }
         if (Move.rightColorToMakeMove(this) && !isAnyPieceSelected()){
-            this.pieceMove = true;
+            this.setPieceMove(true);
             setActualPositionOfPiece(this);
             showMovePossibilities();
-            this.pieceMove = false;
+            this.setPieceMove(false);
         }
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        this.pieceMove = false;
+        this.setPieceMove(false);
         if (!isAnyPieceSelected()){
             Chessboard.setColors();
         }

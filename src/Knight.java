@@ -8,28 +8,28 @@ public class Knight extends Piece {
         super.setPieceImageIcon(knightImage);
     }
 
-    void knightMoveUpShortLeft(){
+    public void knightMoveUpShortLeft(){
         impossibleMove(getPlayer(),getRowPosition()-1, getColumPosition()-2);
     }
-    void knightMoveUpShortRight(){
+    public void knightMoveUpShortRight(){
         impossibleMove(getPlayer(),getRowPosition()-1, getColumPosition()+2);
     }
-    void knightMoveUpLongLeft(){
+    public void knightMoveUpLongLeft(){
         impossibleMove(getPlayer(),getRowPosition()-2, getColumPosition()-1);
     }
-    void knightMoveUpLongRight(){
+    public void knightMoveUpLongRight(){
         impossibleMove(getPlayer(),getRowPosition()-2, getColumPosition()+1);
     }
-    void knightMoveDownShortLeft(){
+    public void knightMoveDownShortLeft(){
         impossibleMove(getPlayer(),getRowPosition()+1, getColumPosition()-2);
     }
-    void knightMoveDownShortRight(){
+    public void knightMoveDownShortRight(){
         impossibleMove(getPlayer(),getRowPosition()+1, getColumPosition()+2);
     }
-    void knightMoveDownLongLeft(){
+    public void knightMoveDownLongLeft(){
         impossibleMove(getPlayer(),getRowPosition()+2, getColumPosition()-1);
     }
-    void knightMoveDownLongRight(){
+    public void knightMoveDownLongRight(){
         impossibleMove(getPlayer(),getRowPosition()+2, getColumPosition()+1);
     }
 

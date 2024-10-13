@@ -2,11 +2,18 @@ import java.awt.*;
 
 public class Move {
 
-    public static int moveCounter;
+    private static int moveCounter;
 
-    public static Piece figureToMove;
-    public static Piece newSquareSpot;
+    private static Piece figureToMove;
+    private static Piece newSquareSpot;
 
+    public static int getMoveCounter() {
+        return moveCounter;
+    }
+
+    public static void setMoveCounter(int moveCounter) {
+        Move.moveCounter = moveCounter;
+    }
 
     public static Piece getFigureToMove() {
         return figureToMove;
@@ -25,10 +32,10 @@ public class Move {
     }
 
     public static boolean rightColorToMakeMove(Piece pieceToMakeMove){
-        if (moveCounter%2 == 0 && pieceToMakeMove.pieceColor.equals(Color.WHITE)){
+        if (getMoveCounter()%2 == 0 && pieceToMakeMove.pieceColor.equals(Color.WHITE)){
             GameManager.checkGameStatus(pieceToMakeMove.getPlayer());
             return true;
-        } else if (moveCounter%2 == 1 && pieceToMakeMove.pieceColor.equals(Color.BLACK)){
+        } else if (getMoveCounter()%2 == 1 && pieceToMakeMove.pieceColor.equals(Color.BLACK)){
             GameManager.checkGameStatus(pieceToMakeMove.getPlayer());
             return true;
         }
@@ -36,8 +43,8 @@ public class Move {
     }
 
      static void movingThePiece(Piece newSquareSpot){
-         Chessboard.arrayBoard[figureToMove.getRowPosition()][figureToMove.getColumPosition()][1] = null;
-         Chessboard.arrayBoard[newSquareSpot.getRowPosition()][newSquareSpot.getColumPosition()][1] = figureToMove;
+         Chessboard.getArrayBoard()[figureToMove.getRowPosition()][figureToMove.getColumPosition()][1] = null;
+         Chessboard.getArrayBoard()[newSquareSpot.getRowPosition()][newSquareSpot.getColumPosition()][1] = figureToMove;
          newSquareSpot.getEmptyPiecePanel().add(figureToMove.getPieceLabel());
 
          figureToMove.setActualPositionOfPiece(figureToMove);
@@ -61,9 +68,8 @@ public class Move {
     }
 
      static void discardingThePiece(Piece newSquareSpot){
-        Chessboard.arrayDiscardedPieces.add(Chessboard.arrayBoard[newSquareSpot.getRowPosition()][newSquareSpot.getColumPosition()][1]);
-        Chessboard.arrayBoard[newSquareSpot.getRowPosition()][newSquareSpot.getColumPosition()][1].getPlayer().getPlayerPieces().
-                 remove(Chessboard.arrayBoard[newSquareSpot.getRowPosition()][newSquareSpot.getColumPosition()][1]);
+        Chessboard.getArrayBoard()[newSquareSpot.getRowPosition()][newSquareSpot.getColumPosition()][1].getPlayer().getPlayerPieces().
+                 remove(Chessboard.getArrayBoard()[newSquareSpot.getRowPosition()][newSquareSpot.getColumPosition()][1]);
 
         newSquareSpot.getEmptyPiecePanel().removeAll();
 
@@ -73,7 +79,7 @@ public class Move {
     public static void makeCleanMove(Piece newSquareSpot){
         movingThePiece(newSquareSpot);
 
-        moveCounter++;
+        setMoveCounter(+1);
         figureToMove = null;
 
         Chessboard.setColors();
@@ -83,7 +89,7 @@ public class Move {
         discardingThePiece(newSquareSpot);
         movingThePiece(newSquareSpot);
 
-        moveCounter++;
+        setMoveCounter(+1);
         figureToMove = null;
 
         Chessboard.setColors();
