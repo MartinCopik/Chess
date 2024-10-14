@@ -79,7 +79,7 @@ public class Move {
     public static void makeCleanMove(Piece newSquareSpot){
         movingThePiece(newSquareSpot);
 
-        setMoveCounter(+1);
+        setMoveCounter(getMoveCounter()+1);
         figureToMove = null;
 
         Chessboard.setColors();
@@ -89,7 +89,7 @@ public class Move {
         discardingThePiece(newSquareSpot);
         movingThePiece(newSquareSpot);
 
-        setMoveCounter(+1);
+        setMoveCounter(getMoveCounter()+1);
         figureToMove = null;
 
         Chessboard.setColors();

@@ -3,12 +3,37 @@ import java.awt.*;
 
 public class Chessboard  {
 
+    private  JFrame chessGame;
+    private  int widthFrame;
+    private  int heightFrame;
     private static JPanel panelBoard;
     private static Player whitePlayer;
     private static Player blackPlayer;
-//    private static int moveCounter;
 
     private static final Piece[][][] arrayBoard = new Piece[8][8][2];
+
+    public  JFrame getChessGame() {
+        return chessGame;
+    }
+
+    public  void setChessGame(JFrame chessGame) {
+        this.chessGame = chessGame;
+    }
+    public  int getWidthFrame() {
+        return widthFrame;
+    }
+
+    public  void setWidthFrame(int widthFrame) {
+        this.widthFrame = widthFrame;
+    }
+
+    public  int getHeightFrame() {
+        return heightFrame;
+    }
+
+    public  void setHeightFrame(int heightFrame) {
+        this.heightFrame = heightFrame;
+    }
 
     public static JPanel getPanelBoard() {
         return panelBoard;
@@ -33,14 +58,6 @@ public class Chessboard  {
     public static void setBlackPlayer(Player blackPlayer) {
         Chessboard.blackPlayer = blackPlayer;
     }
-
-//    public static int getMoveCounter() {
-//        return moveCounter;
-//    }
-
-//    public static void setMoveCounter(int moveCounter) {
-//        Chessboard.moveCounter = moveCounter;
-//    }
 
     public static Piece[][][] getArrayBoard() {
         return arrayBoard;
@@ -119,20 +136,22 @@ public class Chessboard  {
         }
         getPanelBoard().repaint();
     }
+    public void setUpFrame(){
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        setWidthFrame((int) tk.getScreenSize().getWidth());
+        setHeightFrame((int) tk.getScreenSize().getHeight());
 
-//    public static boolean rightPlayerOnMove(Piece pieceToMakeMove){
-//        if (getMoveCounter()%2 == 0 && pieceToMakeMove.getPieceColor().equals(Color.WHITE)){
-//            GameManager.checkGameStatus(pieceToMakeMove.getPlayer());
-//            return true;
-//        } else if (getMoveCounter()%2 == 1 && pieceToMakeMove.getPieceColor().equals(Color.BLACK)){
-//            GameManager.checkGameStatus(pieceToMakeMove.getPlayer());
-//            return true;
-//        }
-//        return false;
-//    }
+        setChessGame(new JFrame());
+        getChessGame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        getChessGame().add(getPanelBoard());
+        getChessGame().setTitle("Chess");
+        getChessGame().setSize(getWidthFrame(), getHeightFrame());
+        getChessGame().setResizable(false);
+        getChessGame().setVisible(true);
+    }
 
-    Chessboard(){
+    Chessboard(int widthFrame, int heightFrame){
         setPanelBoard(new JPanel());
         getPanelBoard().setLayout(new GridLayout(8,8));
 

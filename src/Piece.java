@@ -251,7 +251,6 @@ public class Piece implements MouseListener {
             }
             if (!GameManager.getCheckOfGameManager()){
                 player.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck, columToCheck), this);
-//                EmptyPiece.arrangementOfAttackedSquares(Chessboard.getEmptySquare(rowToCheck, columToCheck), this);
             }
             return true;
         }

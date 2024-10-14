@@ -11,7 +11,7 @@ public class ChessGame extends JFrame{
         setWidthFrame((int) tk.getScreenSize().getWidth());
         setHeightFrame((int) tk.getScreenSize().getHeight());
 
-        new Chessboard();
+        new Chessboard(widthFrame, heightFrame);
         setChessGame(new JFrame());
         getChessGame().setDefaultCloseOperation(EXIT_ON_CLOSE);
 
