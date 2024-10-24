@@ -11,6 +11,7 @@ public class Chessboard  {
     private   JPanel chessboard;
     private   EmptySquare[][] arrayBoard = new EmptySquare[8][8];
     private ArrayList<Piece> listOfPieces = new ArrayList<>();
+    private Piece selectedPieceToMove;
 
     private Rook blackLeftRook = new Rook(Color.BLACK, new ImageIcon("blackRook.png"), 0, 0, getWidthFrame()/16, getHeightFrame()/16);
     private Rook blackRightRook = new Rook(Color.BLACK, new ImageIcon("blackRook.png"), 0, 7, getWidthFrame()/16, getHeightFrame()/16);;
@@ -85,6 +86,14 @@ public class Chessboard  {
 
     public ArrayList<Piece> getListOfPieces() {
         return listOfPieces;
+    }
+
+    public Piece getSelectedPieceToMove() {
+        return selectedPieceToMove;
+    }
+
+    public void setSelectedPieceToMove(Piece selectedPieceToMove) {
+        this.selectedPieceToMove = selectedPieceToMove;
     }
 
     public Rook getBlackLeftRook() {
@@ -219,12 +228,12 @@ public class Chessboard  {
         for (int row = 0; row  < getArrayBoard().length; row ++){
             for (int colum = 0; colum < getArrayBoard().length; colum++){
                 if (row%2 == 0) {
-                    getArrayBoard()[row][colum] = new EmptySquare(Color.WHITE, row, colum, getWidthFrame()/8, getHeightFrame()/8);
-                    getArrayBoard()[row][colum+1] = new EmptySquare(Color.BLACK, row, colum+1, getWidthFrame()/8, getHeightFrame()/8);
+                    getArrayBoard()[row][colum] = new EmptySquare(Color.WHITE, row, colum, getWidthFrame()/8, getHeightFrame()/8, this);
+                    getArrayBoard()[row][colum+1] = new EmptySquare(Color.BLACK, row, colum+1, getWidthFrame()/8, getHeightFrame()/8, this);
                     colum++;
                 }else {
-                    getArrayBoard()[row][colum] = new EmptySquare( Color.BLACK, row, colum, getWidthFrame()/8, getHeightFrame()/8);
-                    getArrayBoard()[row][colum+1] = new EmptySquare( Color.WHITE, row, colum+1, getWidthFrame()/8, getHeightFrame()/8);
+                    getArrayBoard()[row][colum] = new EmptySquare( Color.BLACK, row, colum, getWidthFrame()/8, getHeightFrame()/8, this);
+                    getArrayBoard()[row][colum+1] = new EmptySquare( Color.WHITE, row, colum+1, getWidthFrame()/8, getHeightFrame()/8, this);
                     colum++;
                 }
             }

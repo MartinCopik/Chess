@@ -5,14 +5,15 @@ public class Piece {
 
     protected Color pieceColor;
     private ImageIcon pieceImageIcon;
+    private Move move = new Move();
 
     private int rowPosition;
     private int columPosition;
     private JLabel pieceLabel;
-
     private JPanel emptyPiecePanel;
     private int widthOfPiece;
     private int heightOfPiece;
+    private boolean pieceFirstMove = true;
 
     public Piece(Color pieceColor, ImageIcon pieceImageIcon, int rowPosition, int columPosition, int widthOfPiece, int heightOfPiece){
         this.setPieceColor(pieceColor);
@@ -73,6 +74,14 @@ public class Piece {
         this.pieceImageIcon = pieceImageIcon;
     }
 
+    public Move getMove() {
+        return move;
+    }
+
+    public void setMove(Move move) {
+        this.move = move;
+    }
+
     public JLabel getPieceLabel() {
         return pieceLabel;
     }
@@ -105,7 +114,19 @@ public class Piece {
         this.heightOfPiece = heightOfPiece;
     }
 
-    public void showMovePossibilities(){
+    public boolean getPieceFirstMove() {
+        return pieceFirstMove;
+    }
+
+    public void setPieceFirstMove(boolean pieceFirstMove) {
+        this.pieceFirstMove = pieceFirstMove;
+    }
+
+    public void showMovePossibilities(Chessboard chessboard){
+    }
+
+    public boolean impossibleMove(int rowToCheck, int columToCheck, Chessboard chessboard){
+        return getMove().isMoveValid(this, rowToCheck, columToCheck, chessboard);
     }
 
 }
