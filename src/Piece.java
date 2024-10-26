@@ -15,7 +15,7 @@ public class Piece {
     private int heightOfPiece;
     private boolean pieceFirstMove = true;
 
-    public Piece(Color pieceColor, ImageIcon pieceImageIcon, int rowPosition, int columPosition, int widthOfPiece, int heightOfPiece){
+    public Piece(Color pieceColor, ImageIcon pieceImageIcon, int rowPosition, int columPosition, int widthOfPiece, int heightOfPiece){  //ivo: ak sa nemylim tak tento konstruktor len extenduje ten nizsie [29], porozmyslaj
         this.setPieceColor(pieceColor);
         this.setPieceLabel(new JLabel());
         this.setPieceImageIcon(pieceImageIcon);
@@ -35,7 +35,7 @@ public class Piece {
         this.setHeightOfPiece(heightOfPiece);
     }
 
-    private void scaleImageOfPiece(int widthOfPiece, int heightOfPiece){
+    private void scaleImageOfPiece(int widthOfPiece, int heightOfPiece){    //ivo: naco su tu tieto parametre?
         Image scaledImage = this.getPieceImageIcon().getImage().getScaledInstance(getWidthOfPiece(), getHeightOfPiece(),Image.SCALE_SMOOTH);
         this.setPieceImageIcon(new ImageIcon(scaledImage));
         this.getPieceLabel().setIcon(this.getPieceImageIcon());
@@ -78,7 +78,7 @@ public class Piece {
         return move;
     }
 
-    public void setMove(Move move) {
+    public void setMove(Move move) {    //ivo: toto nikde nepouzivas, zbytocny set teda..ked ho budes potrebovat tak spravis inak prec zo zbytocnym kodom
         this.move = move;
     }
 

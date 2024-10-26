@@ -13,6 +13,7 @@ public class Chessboard  {
     private ArrayList<Piece> listOfPieces = new ArrayList<>();
     private Piece selectedPieceToMove;
 
+    //ivo: z tohto by som spravil normalne enum, metody k tomu..ak nevies pozri ako sa to robi hint: ChessPiece(Color color, String iconPath, int row, int column){}
     private Rook blackLeftRook = new Rook(Color.BLACK, new ImageIcon("blackRook.png"), 0, 0, getWidthFrame()/16, getHeightFrame()/16);
     private Rook blackRightRook = new Rook(Color.BLACK, new ImageIcon("blackRook.png"), 0, 7, getWidthFrame()/16, getHeightFrame()/16);;
     private Rook whiteLeftRook = new Rook(Color.WHITE, new ImageIcon("whiteRook.png"), 7, 0, getWidthFrame()/16, getHeightFrame()/16);;
@@ -46,7 +47,7 @@ public class Chessboard  {
     private Pawn whitePawn4 = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"), 6, 4, getWidthFrame()/16, getHeightFrame()/16);
     private Pawn whitePawn5 = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"), 6, 5, getWidthFrame()/16, getHeightFrame()/16);
     private Pawn whitePawn6 = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"), 6, 6, getWidthFrame()/16, getHeightFrame()/16);
-    private Pawn whitePawn7 = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"), 6, 7, getWidthFrame()/16, getHeightFrame()/16);
+    private Pawn whitePawn7 = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"), 6, 7, getWidthFrame()/16, getHeightFrame()/16); //ivo: my vieme spravit ale toto  "private Piece whitePawn7 = new Pawn", takto sa vlastne zabezpecuje dedicnost, teda vsetky figurky by mali byt Piece, porozmyslaj preco to tak moze byt a potom ako sa volaju tie overridnute metody
 
     public JFrame getChessGame() {
         return chessGame;
@@ -230,11 +231,11 @@ public class Chessboard  {
                 if (row%2 == 0) {
                     getArrayBoard()[row][colum] = new EmptySquare(Color.WHITE, row, colum, getWidthFrame()/8, getHeightFrame()/8, this);
                     getArrayBoard()[row][colum+1] = new EmptySquare(Color.BLACK, row, colum+1, getWidthFrame()/8, getHeightFrame()/8, this);
-                    colum++;
+                    colum++;    //ivo: preco tu mas posuvanie column ked to robi samotny cyklus [229]?
                 }else {
                     getArrayBoard()[row][colum] = new EmptySquare( Color.BLACK, row, colum, getWidthFrame()/8, getHeightFrame()/8, this);
                     getArrayBoard()[row][colum+1] = new EmptySquare( Color.WHITE, row, colum+1, getWidthFrame()/8, getHeightFrame()/8, this);
-                    colum++;
+                    colum++;    //ivo: preco tu mas posuvanie column ked to robi samotny cyklus [229]?
                 }
             }
         }
@@ -243,11 +244,14 @@ public class Chessboard  {
         getArrayBoard()[piece.getRowPosition()][piece.getColumPosition()].setPieceOnSquare(piece);
     }
 
+    //ivo: tu sem sa asi troska nepochopili ale nevadi..nemusis volat getter na premennu ktora je priamo v classe [249] teda takto to bude vyzerat -> for (Piece piece : listOfPieces){
     private void setStartPointOfPieces(){
         for (Piece piece : getListOfPieces()){
             setStartPointOfPiece(piece);
         }
     }
+
+    //ivo: tu je to podobne ako [247] + velmi jednoducho ked spravis enum vies pridat vsetky figurky potom do ArrayList
     public void addPiecesToList(){
         getListOfPieces().add(getBlackLeftRook());
         getListOfPieces().add(getBlackRightRook());
