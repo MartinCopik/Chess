@@ -78,7 +78,7 @@ public class Piece {
         return move;
     }
 
-    public void setMove(Move move) {    //ivo: toto nikde nepouzivas, zbytocny set teda..ked ho budes potrebovat tak spravis inak prec zo zbytocnym kodom
+    public void setMove(Move move) {    //ivo: toto nikde nepouzivas, zbytocny set teda..ked ked ho budes potrebovat tak spravis inak prec zo zbytocnym kodom
         this.move = move;
     }
 
