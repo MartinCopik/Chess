@@ -47,7 +47,7 @@ public class Chessboard  {
     private Pawn whitePawn4 = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"), 6, 4, getWidthFrame()/16, getHeightFrame()/16);
     private Pawn whitePawn5 = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"), 6, 5, getWidthFrame()/16, getHeightFrame()/16);
     private Pawn whitePawn6 = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"), 6, 6, getWidthFrame()/16, getHeightFrame()/16);
-    private Pawn whitePawn7 = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"), 6, 7, getWidthFrame()/16, getHeightFrame()/16); //ivo: my vieme spravit ale toto  "private Piece whitePawn7 = new Pawn", takto sa vlastne zabezpecuje dedicnost, teda vsetky figurky by mali byt Piece, porozmyslaj preco to tak moze byt a potom ako sa volaju tie overridnute metody
+    private Pawn whitePawn7 = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"), 6, 7, getWidthFrame()/16, getHeightFrame()/16); //ivo: my vieme spravit ale aj toto  "private Piece whitePawn7 = new Pawn", takto sa vlastne zabezpecuje dedicnost, teda vsetky figurky by mali byt Piece, porozmyslaj preco to tak moze byt a potom ako sa volaju tie overridnute metody
 
     public JFrame getChessGame() {
         return chessGame;
