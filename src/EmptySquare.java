@@ -9,7 +9,7 @@ public class EmptySquare extends Piece implements MouseListener {
     private Chessboard chessboard;
 
     public EmptySquare(Color emptyPieceColor, int rowPosition, int columPosition, int withOfPiece, int heightOfPiece, Chessboard chessboard) {
-        super(emptyPieceColor, rowPosition, columPosition, withOfPiece, heightOfPiece);
+        super(emptyPieceColor, null, rowPosition, columPosition, withOfPiece, heightOfPiece);
         super.setPieceColor(emptyPieceColor);
         super.getEmptyPiecePanel().setSize(getWidthOfPiece(), getHeightOfPiece());
         super.getEmptyPiecePanel().setBackground(emptyPieceColor);

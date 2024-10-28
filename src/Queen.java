@@ -10,27 +10,27 @@ public class Queen extends Piece {
     }
     public void queenMoveUP(Chessboard chessboard){
         for (int row = getRowPosition()-1; row >= 0 ; row--){
-            if (impossibleMove(row, this.getColumPosition(), chessboard)){
+            if (impossibleMove(row, this.getColumnPosition(), chessboard)){
                 break;
             }
         }
     }
     public void queenMoveDown(Chessboard chessboard){
         for (int row = getRowPosition()+1; row<= 7; row++){
-            if (impossibleMove(row, this.getColumPosition(), chessboard)){
+            if (impossibleMove(row, this.getColumnPosition(), chessboard)){
                 break;
             }
         }
     }
     public void queenMoveLeft(Chessboard chessboard){
-        for (int colum = getColumPosition()-1; colum>= 0; colum--){
+        for (int colum = getColumnPosition()-1; colum>= 0; colum--){
             if (impossibleMove(this.getRowPosition(), colum, chessboard)){
                 break;
             }
         }
     }
     public void queenMoveRight(Chessboard chessboard){
-        for (int colum = getColumPosition()+1; colum<= 7; colum++){
+        for (int colum = getColumnPosition()+1; colum<= 7; colum++){
             if (impossibleMove(this.getRowPosition(), colum, chessboard)){
                 break;
             }
@@ -38,7 +38,7 @@ public class Queen extends Piece {
     }
     public void queenMoveDiagonallyUpLeft(Chessboard chessboard){
         int row = this.getRowPosition();
-        int colum = this.getColumPosition();
+        int colum = this.getColumnPosition();
         while (row >= 0 || colum >= 0){
             row--;
             colum--;
@@ -50,7 +50,7 @@ public class Queen extends Piece {
 
     public void queenMoveDiagonallyDownLeft(Chessboard chessboard){
         int row = this.getRowPosition();
-        int colum = this.getColumPosition();
+        int colum = this.getColumnPosition();
         while (row >= 7 || colum >= 0){
             row++;
             colum--;
@@ -61,7 +61,7 @@ public class Queen extends Piece {
     }
     public void queenMoveDiagonallyUpRight(Chessboard chessboard){
         int row = this.getRowPosition();
-        int colum = this.getColumPosition();
+        int colum = this.getColumnPosition();
         while (row >= 0 || colum <= 7){
             row--;
             colum++;
@@ -72,7 +72,7 @@ public class Queen extends Piece {
     }
     public void queenMoveDiagonallyDownRight(Chessboard chessboard){
         int row = this.getRowPosition();
-        int colum = this.getColumPosition();
+        int colum = this.getColumnPosition();
         while (row <= 7 || colum <= 7){
             row++;
             colum++;

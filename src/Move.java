@@ -1,47 +1,47 @@
 public class Move {
 
-    public boolean isOutOfBorder(int rowToCheck, int columToCheck, Chessboard chessboard){
-        if (rowToCheck <0 || columToCheck <0 || rowToCheck > chessboard.getArrayBoard().length-1 || columToCheck > chessboard.getArrayBoard().length-1){
+    public boolean isOutOfBorder(int rowToCheck, int columnToCheck, Chessboard chessboard){
+        if (rowToCheck <0 || columnToCheck <0 || rowToCheck > chessboard.getArrayBoard().length-1 || columnToCheck > chessboard.getArrayBoard().length-1){
             return true;
         }
         return false;
     }
-    public boolean pieceIsAttacking(Piece pieceToMakeAttack, int rowToCheck, int columToCheck, Chessboard chessboard){
-        if (pieceToMakeAttack.getPieceColor() != chessboard.getArrayBoard()[rowToCheck][columToCheck].getPieceOnSquare().getPieceColor()){
+    public boolean pieceIsAttacking(Piece pieceToMakeAttack, int rowToCheck, int columnToCheck, Chessboard chessboard){
+        if (pieceToMakeAttack.getPieceColor() != chessboard.getArrayBoard()[rowToCheck][columnToCheck].getPieceOnSquare().getPieceColor()){
             return true;
         }
         return false;
     }
-    public boolean positionIsTaken(int rowToCheck, int columToCheck, Chessboard chessboard){
-        if (chessboard.getArrayBoard()[rowToCheck][columToCheck].getPieceOnSquare() != null){
+    public boolean positionIsTaken(int rowToCheck, int columnToCheck, Chessboard chessboard){
+        if (chessboard.getArrayBoard()[rowToCheck][columnToCheck].getPieceOnSquare() != null){
             return true;
         }
         return false;
     }
 
-    public boolean isMoveValid(Piece pieceToMakeMove, int rowToCheck, int columToCheck, Chessboard chessboard){
-        if (isOutOfBorder(rowToCheck, columToCheck, chessboard)){
+    public boolean isMoveValid(Piece pieceToMakeMove, int rowToCheck, int columnToCheck, Chessboard chessboard){
+        if (isOutOfBorder(rowToCheck, columnToCheck, chessboard)){
             return true;
         }
-        if (positionIsTaken(rowToCheck, columToCheck, chessboard)){
-            if (pieceIsAttacking(pieceToMakeMove, rowToCheck, columToCheck, chessboard)){
-                chessboard.getArrayBoard()[rowToCheck][columToCheck].markTheSquareForAttack();
-            } else if (!pieceIsAttacking(pieceToMakeMove, rowToCheck, columToCheck, chessboard)) {
+        if (positionIsTaken(rowToCheck, columnToCheck, chessboard)){
+            if (pieceIsAttacking(pieceToMakeMove, rowToCheck, columnToCheck, chessboard)){
+                chessboard.getArrayBoard()[rowToCheck][columnToCheck].markTheSquareForAttack();
+            } else if (!pieceIsAttacking(pieceToMakeMove, rowToCheck, columnToCheck, chessboard)) {
             }
             return true;
         }
-        if (!positionIsTaken(rowToCheck, columToCheck, chessboard)){
-            chessboard.getArrayBoard()[rowToCheck][columToCheck].markTheSquareForMove();
+        if (!positionIsTaken(rowToCheck, columnToCheck, chessboard)){
+            chessboard.getArrayBoard()[rowToCheck][columnToCheck].markTheSquareForMove();
             return false;
         }
         return false;
     }
 
     public void movingThePiece(EmptySquare newSquareSpot, Piece pieceToMove, Chessboard chessboard){
-        chessboard.getArrayBoard()[pieceToMove.getRowPosition()][pieceToMove.getColumPosition()].discardPieceFromSquare();
+        chessboard.getArrayBoard()[pieceToMove.getRowPosition()][pieceToMove.getColumnPosition()].discardPieceFromSquare();
         newSquareSpot.setPieceOnSquare(pieceToMove);
         pieceToMove.setRowPosition(newSquareSpot.getRowPosition());
-        pieceToMove.setColumPosition(newSquareSpot.getColumPosition());
+        pieceToMove.setColumnPosition(newSquareSpot.getColumnPosition());
 
         pieceToMove.setPieceFirstMove(false);
     }

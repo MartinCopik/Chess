@@ -8,28 +8,28 @@ public class Knight extends Piece {
         super.setPieceImageIcon(knightImage);
     }
     public void knightMoveUpShortLeft(Chessboard chessboard){
-        impossibleMove(getRowPosition()-1, getColumPosition()-2, chessboard);
+        impossibleMove(getRowPosition()-1, getColumnPosition()-2, chessboard);
     }
     public void knightMoveUpShortRight(Chessboard chessboard){
-        impossibleMove(getRowPosition()-1, getColumPosition()+2, chessboard);
+        impossibleMove(getRowPosition()-1, getColumnPosition()+2, chessboard);
     }
     public void knightMoveUpLongLeft(Chessboard chessboard){
-        impossibleMove(getRowPosition()-2, getColumPosition()-1, chessboard);
+        impossibleMove(getRowPosition()-2, getColumnPosition()-1, chessboard);
     }
     public void knightMoveUpLongRight(Chessboard chessboard){
-        impossibleMove(getRowPosition()-2, getColumPosition()+1, chessboard);
+        impossibleMove(getRowPosition()-2, getColumnPosition()+1, chessboard);
     }
     public void knightMoveDownShortLeft(Chessboard chessboard){
-        impossibleMove(getRowPosition()+1, getColumPosition()-2, chessboard);
+        impossibleMove(getRowPosition()+1, getColumnPosition()-2, chessboard);
     }
     public void knightMoveDownShortRight(Chessboard chessboard){
-        impossibleMove(getRowPosition()+1, getColumPosition()+2, chessboard);
+        impossibleMove(getRowPosition()+1, getColumnPosition()+2, chessboard);
     }
     public void knightMoveDownLongLeft(Chessboard chessboard){
-        impossibleMove(getRowPosition()+2, getColumPosition()-1, chessboard);
+        impossibleMove(getRowPosition()+2, getColumnPosition()-1, chessboard);
     }
     public void knightMoveDownLongRight(Chessboard chessboard){
-        impossibleMove(getRowPosition()+2, getColumPosition()+1, chessboard);
+        impossibleMove(getRowPosition()+2, getColumnPosition()+1, chessboard);
     }
 
 

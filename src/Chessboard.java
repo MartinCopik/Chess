@@ -14,40 +14,41 @@ public class Chessboard  {
     private Piece selectedPieceToMove;
 
     //ivo: z tohto by som spravil normalne enum, metody k tomu..ak nevies pozri ako sa to robi hint: ChessPiece(Color color, String iconPath, int row, int column){}
-    private Rook blackLeftRook = new Rook(Color.BLACK, new ImageIcon("blackRook.png"), 0, 0, getWidthFrame()/16, getHeightFrame()/16);
-    private Rook blackRightRook = new Rook(Color.BLACK, new ImageIcon("blackRook.png"), 0, 7, getWidthFrame()/16, getHeightFrame()/16);;
-    private Rook whiteLeftRook = new Rook(Color.WHITE, new ImageIcon("whiteRook.png"), 7, 0, getWidthFrame()/16, getHeightFrame()/16);;
-    private Rook whiteRightRook = new Rook(Color.WHITE, new ImageIcon("whiteRook.png"), 7, 7, getWidthFrame()/16, getHeightFrame()/16);;
-    private Knight blackLeftKnight = new Knight(Color.BLACK, new ImageIcon("blackKnight.png"), 0, 1, getWidthFrame()/16, getHeightFrame()/16);
-    private Knight blackRightKnight = new Knight(Color.BLACK, new ImageIcon("blackKnight.png"), 0, 6, getWidthFrame()/16, getHeightFrame()/16);
-    private Knight whiteLeftKnight = new Knight(Color.WHITE, new ImageIcon("whiteKnight.png"), 7, 1, getWidthFrame()/16, getHeightFrame()/16);
-    private Knight whiteRightKnight = new Knight(Color.WHITE, new ImageIcon("whiteKnight.png"), 7, 6, getWidthFrame()/16, getHeightFrame()/16);
-    private Bishop blackLeftBishop = new Bishop(Color.BLACK, new ImageIcon("blackBishop.png"), 0, 2, getWidthFrame()/16, getHeightFrame()/16);
-    private Bishop blackRightBishop = new Bishop(Color.BLACK, new ImageIcon("blackBishop.png"), 0, 5, getWidthFrame()/16, getHeightFrame()/16);
-    private Bishop whiteLeftBishop = new Bishop(Color.WHITE, new ImageIcon("whiteBishop.png"), 7, 2, getWidthFrame()/16, getHeightFrame()/16);
-    private Bishop whiteRightBishop = new Bishop(Color.WHITE, new ImageIcon("whiteBishop.png"), 7, 5, getWidthFrame()/16, getHeightFrame()/16);
-    private Queen blackQueen = new Queen(Color.BLACK, new ImageIcon("blackQueen.png"), 0, 3, getWidthFrame()/16, getHeightFrame()/16);
-    private Queen whiteQueen = new Queen(Color.WHITE, new ImageIcon("whiteQueen.png"), 7, 3, getWidthFrame()/16, getHeightFrame()/16);
-    private King blackKing = new King(Color.BLACK, new ImageIcon("blackKing.png"), 0, 4, getWidthFrame()/16, getHeightFrame()/16);
-    private King whiteKing = new King(Color.WHITE, new ImageIcon("whiteKing.png"), 7, 4, getWidthFrame()/16, getHeightFrame()/16);
+    private Piece blackLeftRook = new Rook(Color.BLACK, new ImageIcon("blackRook.png"), 0, 0, getWidthFrame()/16, getHeightFrame()/16);
+    private Piece blackRightRook = new Rook(Color.BLACK, new ImageIcon("blackRook.png"), 0, 7, getWidthFrame()/16, getHeightFrame()/16);;
+    private Piece whiteLeftRook = new Rook(Color.WHITE, new ImageIcon("whiteRook.png"), 7, 0, getWidthFrame()/16, getHeightFrame()/16);;
+    private Piece whiteRightRook = new Rook(Color.WHITE, new ImageIcon("whiteRook.png"), 7, 7, getWidthFrame()/16, getHeightFrame()/16);;
+    private Piece blackLeftKnight = new Knight(Color.BLACK, new ImageIcon("blackKnight.png"), 0, 1, getWidthFrame()/16, getHeightFrame()/16);
+    private Piece blackRightKnight = new Knight(Color.BLACK, new ImageIcon("blackKnight.png"), 0, 6, getWidthFrame()/16, getHeightFrame()/16);
+    private Piece whiteLeftKnight = new Knight(Color.WHITE, new ImageIcon("whiteKnight.png"), 7, 1, getWidthFrame()/16, getHeightFrame()/16);
+    private Piece whiteRightKnight = new Knight(Color.WHITE, new ImageIcon("whiteKnight.png"), 7, 6, getWidthFrame()/16, getHeightFrame()/16);
+    private Piece blackLeftBishop = new Bishop(Color.BLACK, new ImageIcon("blackBishop.png"), 0, 2, getWidthFrame()/16, getHeightFrame()/16);
+    private Piece blackRightBishop = new Bishop(Color.BLACK, new ImageIcon("blackBishop.png"), 0, 5, getWidthFrame()/16, getHeightFrame()/16);
+    private Piece whiteLeftBishop = new Bishop(Color.WHITE, new ImageIcon("whiteBishop.png"), 7, 2, getWidthFrame()/16, getHeightFrame()/16);
+    private Piece whiteRightBishop = new Bishop(Color.WHITE, new ImageIcon("whiteBishop.png"), 7, 5, getWidthFrame()/16, getHeightFrame()/16);
+    private Piece blackQueen = new Queen(Color.BLACK, new ImageIcon("blackQueen.png"), 0, 3, getWidthFrame()/16, getHeightFrame()/16);
+    private Piece whiteQueen = new Queen(Color.WHITE, new ImageIcon("whiteQueen.png"), 7, 3, getWidthFrame()/16, getHeightFrame()/16);
+    private Piece blackKing = new King(Color.BLACK, new ImageIcon("blackKing.png"), 0, 4, getWidthFrame()/16, getHeightFrame()/16);
+    private Piece whiteKing = new King(Color.WHITE, new ImageIcon("whiteKing.png"), 7, 4, getWidthFrame()/16, getHeightFrame()/16);
 
-    private Pawn blackPawn0 = new Pawn(Color.BLACK, new ImageIcon("blackPawn.png"), 1, 0, getWidthFrame()/16, getHeightFrame()/16);
-    private Pawn blackPawn1 = new Pawn(Color.BLACK, new ImageIcon("blackPawn.png"), 1, 1, getWidthFrame()/16, getHeightFrame()/16);
-    private Pawn blackPawn2 = new Pawn(Color.BLACK, new ImageIcon("blackPawn.png"), 1, 2, getWidthFrame()/16, getHeightFrame()/16);
-    private Pawn blackPawn3 = new Pawn(Color.BLACK, new ImageIcon("blackPawn.png"), 1, 3, getWidthFrame()/16, getHeightFrame()/16);
-    private Pawn blackPawn4 = new Pawn(Color.BLACK, new ImageIcon("blackPawn.png"), 1, 4, getWidthFrame()/16, getHeightFrame()/16);
-    private Pawn blackPawn5 = new Pawn(Color.BLACK, new ImageIcon("blackPawn.png"), 1, 5, getWidthFrame()/16, getHeightFrame()/16);
-    private Pawn blackPawn6 = new Pawn(Color.BLACK, new ImageIcon("blackPawn.png"), 1, 6, getWidthFrame()/16, getHeightFrame()/16);
-    private Pawn blackPawn7 = new Pawn(Color.BLACK, new ImageIcon("blackPawn.png"), 1, 7, getWidthFrame()/16, getHeightFrame()/16);
-
-    private Pawn whitePawn0 = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"), 6, 0, getWidthFrame()/16, getHeightFrame()/16);
-    private Pawn whitePawn1 = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"), 6, 1, getWidthFrame()/16, getHeightFrame()/16);
-    private Pawn whitePawn2 = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"), 6, 2, getWidthFrame()/16, getHeightFrame()/16);
-    private Pawn whitePawn3 = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"), 6, 3, getWidthFrame()/16, getHeightFrame()/16);
-    private Pawn whitePawn4 = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"), 6, 4, getWidthFrame()/16, getHeightFrame()/16);
-    private Pawn whitePawn5 = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"), 6, 5, getWidthFrame()/16, getHeightFrame()/16);
-    private Pawn whitePawn6 = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"), 6, 6, getWidthFrame()/16, getHeightFrame()/16);
-    private Pawn whitePawn7 = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"), 6, 7, getWidthFrame()/16, getHeightFrame()/16); //ivo: my vieme spravit ale aj toto  "private Piece whitePawn7 = new Pawn", takto sa vlastne zabezpecuje dedicnost, teda vsetky figurky by mali byt Piece, porozmyslaj preco to tak moze byt a potom ako sa volaju tie overridnute metody
+    private Piece blackPawn0 = new Pawn(Color.BLACK, new ImageIcon("blackPawn.png"), 1, 0, getWidthFrame()/16, getHeightFrame()/16);
+    private Piece blackPawn1 = new Pawn(Color.BLACK, new ImageIcon("blackPawn.png"), 1, 1, getWidthFrame()/16, getHeightFrame()/16);
+    private Piece blackPawn2 = new Pawn(Color.BLACK, new ImageIcon("blackPawn.png"), 1, 2, getWidthFrame()/16, getHeightFrame()/16);
+    private Piece blackPawn3 = new Pawn(Color.BLACK, new ImageIcon("blackPawn.png"), 1, 3, getWidthFrame()/16, getHeightFrame()/16);
+    private Piece blackPawn4 = new Pawn(Color.BLACK, new ImageIcon("blackPawn.png"), 1, 4, getWidthFrame()/16, getHeightFrame()/16);
+    private Piece blackPawn5 = new Pawn(Color.BLACK, new ImageIcon("blackPawn.png"), 1, 5, getWidthFrame()/16, getHeightFrame()/16);
+    private Piece blackPawn6 = new Pawn(Color.BLACK, new ImageIcon("blackPawn.png"), 1, 6, getWidthFrame()/16, getHeightFrame()/16);
+    private Piece blackPawn7 = new Pawn(Color.BLACK, new ImageIcon("blackPawn.png"), 1, 7, getWidthFrame()/16, getHeightFrame()/16);
+            
+    private Piece whitePawn0 = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"), 6, 0, getWidthFrame()/16, getHeightFrame()/16);
+    private Piece whitePawn1 = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"), 6, 1, getWidthFrame()/16, getHeightFrame()/16);
+    private Piece whitePawn2 = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"), 6, 2, getWidthFrame()/16, getHeightFrame()/16);
+    private Piece whitePawn3 = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"), 6, 3, getWidthFrame()/16, getHeightFrame()/16);
+    private Piece whitePawn4 = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"), 6, 4, getWidthFrame()/16, getHeightFrame()/16);
+    private Piece whitePawn5 = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"), 6, 5, getWidthFrame()/16, getHeightFrame()/16);
+    private Piece whitePawn6 = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"), 6, 6, getWidthFrame()/16, getHeightFrame()/16);
+    private Piece whitePawn7 = new Pawn(Color.WHITE, new ImageIcon("whitePawn.png"), 6, 7, getWidthFrame()/16, getHeightFrame()/16);
+    //ivo: my vieme spravit ale aj toto  "private Piece whitePawn7 = new Pawn", takto sa vlastne zabezpecuje dedicnost, teda vsetky figurky by mali byt Piece, porozmyslaj preco to tak moze byt a potom ako sa volaju tie overridnute metody
 
     public JFrame getChessGame() {
         return chessGame;
@@ -61,16 +62,8 @@ public class Chessboard  {
         return widthFrame;
     }
 
-    public void setWidthFrame(int widthFrame) {
-        this.widthFrame = widthFrame;
-    }
-
     public int getHeightFrame() {
         return heightFrame;
-    }
-
-    public void setHeightFrame(int heightFrame) {
-        this.heightFrame = heightFrame;
     }
 
     public JPanel getChessboard() {
@@ -97,208 +90,84 @@ public class Chessboard  {
         this.selectedPieceToMove = selectedPieceToMove;
     }
 
-    public Rook getBlackLeftRook() {
-        return blackLeftRook;
-    }
-
-    public Rook getBlackRightRook() {
-        return blackRightRook;
-    }
-
-    public Rook getWhiteLeftRook() {
-        return whiteLeftRook;
-    }
-
-    public Rook getWhiteRightRook() {
-        return whiteRightRook;
-    }
-
-    public Knight getBlackLeftKnight() {
-        return blackLeftKnight;
-    }
-
-    public Knight getBlackRightKnight() {
-        return blackRightKnight;
-    }
-
-    public Knight getWhiteLeftKnight() {
-        return whiteLeftKnight;
-    }
-
-    public Knight getWhiteRightKnight() {
-        return whiteRightKnight;
-    }
-
-    public Bishop getBlackLeftBishop() {
-        return blackLeftBishop;
-    }
-
-    public Bishop getBlackRightBishop() {
-        return blackRightBishop;
-    }
-
-    public Bishop getWhiteLeftBishop() {
-        return whiteLeftBishop;
-    }
-
-    public Bishop getWhiteRightBishop() {
-        return whiteRightBishop;
-    }
-
-    public Queen getBlackQueen() {
-        return blackQueen;
-    }
-
-    public Queen getWhiteQueen() {
-        return whiteQueen;
-    }
-
-    public King getBlackKing() {
-        return blackKing;
-    }
-
-    public King getWhiteKing() {
-        return whiteKing;
-    }
-
-    public Pawn getBlackPawn0() {
-        return blackPawn0;
-    }
-
-    public Pawn getBlackPawn1() {
-        return blackPawn1;
-    }
-
-    public Pawn getBlackPawn2() {
-        return blackPawn2;
-    }
-
-    public Pawn getBlackPawn3() {
-        return blackPawn3;
-    }
-
-    public Pawn getBlackPawn4() {
-        return blackPawn4;
-    }
-
-    public Pawn getBlackPawn5() {
-        return blackPawn5;
-    }
-
-    public Pawn getBlackPawn6() {
-        return blackPawn6;
-    }
-
-    public Pawn getBlackPawn7() {
-        return blackPawn7;
-    }
-
-    public Pawn getWhitePawn0() {
-        return whitePawn0;
-    }
-
-    public Pawn getWhitePawn1() {
-        return whitePawn1;
-    }
-
-    public Pawn getWhitePawn2() {
-        return whitePawn2;
-    }
-
-    public Pawn getWhitePawn3() {
-        return whitePawn3;
-    }
-
-    public Pawn getWhitePawn4() {
-        return whitePawn4;
-    }
-
-    public Pawn getWhitePawn5() {
-        return whitePawn5;
-    }
-
-    public Pawn getWhitePawn6() {
-        return whitePawn6;
-    }
-
-    public Pawn getWhitePawn7() {
-        return whitePawn7;
-    }
-
     private void boardInitialization(){
         for (int row = 0; row  < getArrayBoard().length; row ++){
-            for (int colum = 0; colum < getArrayBoard().length; colum++){
+            for (int column = 0; column < getArrayBoard().length; column++){
                 if (row%2 == 0) {
-                    getArrayBoard()[row][colum] = new EmptySquare(Color.WHITE, row, colum, getWidthFrame()/8, getHeightFrame()/8, this);
-                    getArrayBoard()[row][colum+1] = new EmptySquare(Color.BLACK, row, colum+1, getWidthFrame()/8, getHeightFrame()/8, this);
-                    colum++;    //ivo: preco tu mas posuvanie column ked to robi samotny cyklus [229]?
+                    if (column%2 == 0){
+                        getArrayBoard()[row][column] = new EmptySquare(Color.WHITE, row, column, getWidthFrame()/8, getHeightFrame()/8, this);
+                    }else {
+                        getArrayBoard()[row][column] = new EmptySquare(Color.BLACK, row, column, getWidthFrame()/8, getHeightFrame()/8, this);
+                    }
                 }else {
-                    getArrayBoard()[row][colum] = new EmptySquare( Color.BLACK, row, colum, getWidthFrame()/8, getHeightFrame()/8, this);
-                    getArrayBoard()[row][colum+1] = new EmptySquare( Color.WHITE, row, colum+1, getWidthFrame()/8, getHeightFrame()/8, this);
-                    colum++;    //ivo: preco tu mas posuvanie column ked to robi samotny cyklus [229]?
+                    if (column%2 == 0){
+                        getArrayBoard()[row][column] = new EmptySquare(Color.BLACK, row, column, getWidthFrame()/8, getHeightFrame()/8, this);
+                    }else {
+                        getArrayBoard()[row][column] = new EmptySquare(Color.WHITE, row, column, getWidthFrame()/8, getHeightFrame()/8, this);
+                    }
                 }
             }
         }
     }
      void setStartPointOfPiece(Piece piece){
-        getArrayBoard()[piece.getRowPosition()][piece.getColumPosition()].setPieceOnSquare(piece);
+        getArrayBoard()[piece.getRowPosition()][piece.getColumnPosition()].setPieceOnSquare(piece);
     }
 
     //ivo: tu sem sa asi troska nepochopili ale nevadi..nemusis volat getter na premennu ktora je priamo v classe [249] teda takto to bude vyzerat -> for (Piece piece : listOfPieces){
     private void setStartPointOfPieces(){
-        for (Piece piece : getListOfPieces()){
+        for (Piece piece : listOfPieces){
             setStartPointOfPiece(piece);
         }
     }
 
     //ivo: tu je to podobne ako [247] + velmi jednoducho ked spravis enum vies pridat vsetky figurky potom do ArrayList
     public void addPiecesToList(){
-        getListOfPieces().add(getBlackLeftRook());
-        getListOfPieces().add(getBlackRightRook());
-        getListOfPieces().add(getWhiteLeftRook());
-        getListOfPieces().add(getWhiteRightRook());
-        getListOfPieces().add(getBlackLeftKnight());
-        getListOfPieces().add(getBlackRightKnight());
-        getListOfPieces().add(getWhiteLeftKnight());
-        getListOfPieces().add(getWhiteRightKnight());
-        getListOfPieces().add(getBlackLeftBishop());
-        getListOfPieces().add(getBlackRightBishop());
-        getListOfPieces().add(getWhiteLeftBishop());
-        getListOfPieces().add(getWhiteRightBishop());
-        getListOfPieces().add(getBlackQueen());
-        getListOfPieces().add(getWhiteQueen());
-        getListOfPieces().add(getBlackKing());
-        getListOfPieces().add(getWhiteKing());
-        getListOfPieces().add(getBlackPawn0());
-        getListOfPieces().add(getBlackPawn1());
-        getListOfPieces().add(getBlackPawn2());
-        getListOfPieces().add(getBlackPawn3());
-        getListOfPieces().add(getBlackPawn4());
-        getListOfPieces().add(getBlackPawn5());
-        getListOfPieces().add(getBlackPawn6());
-        getListOfPieces().add(getBlackPawn7());
-        getListOfPieces().add(getWhitePawn0());
-        getListOfPieces().add(getWhitePawn1());
-        getListOfPieces().add(getWhitePawn2());
-        getListOfPieces().add(getWhitePawn3());
-        getListOfPieces().add(getWhitePawn4());
-        getListOfPieces().add(getWhitePawn5());
-        getListOfPieces().add(getWhitePawn6());
-        getListOfPieces().add(getWhitePawn7());
+        listOfPieces.add(blackLeftRook);
+        listOfPieces.add(blackRightRook);
+        listOfPieces.add(whiteLeftRook);
+        listOfPieces.add(whiteRightRook);
+        listOfPieces.add(blackLeftKnight);
+        listOfPieces.add(blackRightKnight);
+        listOfPieces.add(whiteLeftKnight);
+        listOfPieces.add(whiteRightKnight);
+        listOfPieces.add(blackLeftBishop);
+        listOfPieces.add(blackRightBishop);
+        listOfPieces.add(whiteLeftBishop);
+        listOfPieces.add(whiteRightBishop);
+        listOfPieces.add(blackQueen);
+        listOfPieces.add(whiteQueen);
+        listOfPieces.add(blackKing);
+        listOfPieces.add(whiteKing);
+        listOfPieces.add(blackPawn0);
+        listOfPieces.add(blackPawn1);
+        listOfPieces.add(blackPawn2);
+        listOfPieces.add(blackPawn3);
+        listOfPieces.add(blackPawn4);
+        listOfPieces.add(blackPawn5);
+        listOfPieces.add(blackPawn6);
+        listOfPieces.add(blackPawn7);
+        listOfPieces.add(whitePawn0);
+        listOfPieces.add(whitePawn1);
+        listOfPieces.add(whitePawn2);
+        listOfPieces.add(whitePawn3);
+        listOfPieces.add(whitePawn4);
+        listOfPieces.add(whitePawn5);
+        listOfPieces.add(whitePawn6);
+        listOfPieces.add(whitePawn7);
     }
 
     public void addEmptyPiecesToFrame(){
         for (int row = 0; row < getArrayBoard().length; row++){
-            for (int colum = 0; colum < getArrayBoard().length; colum++){
-                getChessboard().add(getArrayBoard()[row][colum].getEmptyPiecePanel());
+            for (int column = 0; column < getArrayBoard().length; column++){
+                getChessboard().add(getArrayBoard()[row][column].getEmptyPiecePanel());
             }
         }
     }
 
     public  void setColors(){
         for (int row = 0; row < getArrayBoard().length; row++){
-            for (int colum = 0; colum < getArrayBoard().length; colum++){
-                getArrayBoard()[row][colum].getEmptyPiecePanel().setBackground(getArrayBoard()[row][colum].getPieceColor());
+            for (int column = 0; column < getArrayBoard().length; column++){
+                getArrayBoard()[row][column].getEmptyPiecePanel().setBackground(getArrayBoard()[row][column].getPieceColor());
             }
         }
         getChessboard().repaint();
@@ -306,6 +175,13 @@ public class Chessboard  {
 
 
     Chessboard(){
+
+        ChessPiece rook = ChessPiece.ROOK;
+        ChessPiece knight = ChessPiece.KNIGHT;
+        rook.printMove();
+        knight.printMove();
+
+
 
         setChessGame(new JFrame("Chess"));
         getChessGame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

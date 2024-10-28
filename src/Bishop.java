@@ -10,7 +10,7 @@ public class Bishop extends Piece {
 
     public void bishopMoveDiagonallyUpLeft(Chessboard chessboard){
         int row = this.getRowPosition();
-        int colum = this.getColumPosition();
+        int colum = this.getColumnPosition();
         while (row >= 0 || colum >= 0){
             row--;
             colum--;
@@ -22,7 +22,7 @@ public class Bishop extends Piece {
 
     public void bishopMoveDiagonallyDownLeft(Chessboard chessboard){
         int row = this.getRowPosition();
-        int colum = this.getColumPosition();
+        int colum = this.getColumnPosition();
         while (row >= 7 || colum >= 0){
             row++;
             colum--;
@@ -33,7 +33,7 @@ public class Bishop extends Piece {
     }
     public void bishopMoveDiagonallyUpRight(Chessboard chessboard){
         int row = this.getRowPosition();
-        int colum = this.getColumPosition();
+        int colum = this.getColumnPosition();
         while (row >= 0 || colum <= 7){
             row--;
             colum++;
@@ -44,7 +44,7 @@ public class Bishop extends Piece {
     }
     public void bishopMoveDiagonallyDownRight(Chessboard chessboard){
         int row = this.getRowPosition();
-        int colum = this.getColumPosition();
+        int colum = this.getColumnPosition();
         while (row <= 7 || colum <= 7){
             row++;
             colum++;

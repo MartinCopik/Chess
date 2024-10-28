@@ -8,31 +8,31 @@ public class King extends Piece {
         super.setPieceImageIcon(kingImage);
     }
     void kingMoveUp(Chessboard chessboard){
-        impossibleMove(getRowPosition()-1, getColumPosition(), chessboard);
+        impossibleMove(getRowPosition()-1, getColumnPosition(), chessboard);
     }
 
     void kingMoveDown(Chessboard chessboard){
-        impossibleMove(getRowPosition()+1, getColumPosition(), chessboard);
+        impossibleMove(getRowPosition()+1, getColumnPosition(), chessboard);
     }
     void kingMoveLeft(Chessboard chessboard){
-        impossibleMove(getRowPosition(), getColumPosition()-1, chessboard);
+        impossibleMove(getRowPosition(), getColumnPosition()-1, chessboard);
     }
     void kingMoveRight(Chessboard chessboard){
-        impossibleMove(getRowPosition(), getColumPosition()+1, chessboard);
+        impossibleMove(getRowPosition(), getColumnPosition()+1, chessboard);
     }
 
     void kingMoveDiagonallyUpLeft(Chessboard chessboard){
-        impossibleMove(getRowPosition()-1, getColumPosition()-1, chessboard);
+        impossibleMove(getRowPosition()-1, getColumnPosition()-1, chessboard);
     }
 
     void kingMoveDiagonallyUpRight(Chessboard chessboard){
-        impossibleMove(getRowPosition()-1,getColumPosition()+1, chessboard);
+        impossibleMove(getRowPosition()-1, getColumnPosition()+1, chessboard);
     }
     void kingMoveDiagonallyDownLeft(Chessboard chessboard){
-        impossibleMove(getRowPosition()+1, getColumPosition()-1, chessboard);
+        impossibleMove(getRowPosition()+1, getColumnPosition()-1, chessboard);
     }
     void kingMoveDiagonallyDownRight(Chessboard chessboard){
-        impossibleMove(getRowPosition()+1, getColumPosition()+1, chessboard);
+        impossibleMove(getRowPosition()+1, getColumnPosition()+1, chessboard);
     }
 
     @Override
