@@ -1,43 +1,74 @@
 import javax.swing.*;
-import javax.swing.text.html.ImageView;
 import java.awt.*;
 
-public enum ChessPiece {
-    ROOK(Color.black, "blackRook.png", 0, 0){
-        @Override
-        public void printMove() {
-            System.out.println("Rook cannot jump over another Pieces, can go only in 4 word dimensions");;
-        }
+public enum ChessPiece{
+    ROOK_WHITE_LEFT(Color.BLACK, "whiteRook.png", 7, 0){
     },
-    KNIGHT(Color.white, "whiteKnight.png", 7, 1){
+    ROOK_WHITE_RIGHT(Color.WHITE, "whiteRook.png", 7,7){
 
-        @Override
-        public void printMove() {
-            System.out.println("Knight can jump over another Pieces");
-            hopHop();
-        }
-        public void hopHop(){
-            System.out.println("Knight goes hopikyHop");
-        }
-    };
+    },
+    ROOK_BLACK_LEFT(Color.BLACK, "blackRook.png", 0, 0){
 
-    public void printMove(){
+    },
+    ROOK_BLACK_RIGHT(Color.BLACK, "blackRook.png", 0, 7){
 
-    }
+    },
+    KNIGHT_WHITE_LEFT(Color.WHITE, "whiteKnight.png", 7, 1){},
+    KNIGHT_WHITE_RIGHT(Color.WHITE, "whiteKnight.png", 7, 6){},
+    KNIGTH_BLACK_LEFT(Color.BLACK, "blackKnight.png", 0, 1){},
+    KNIGHT_BLACK_RIGHT(Color.BLACK, "blackKnight.png", 0, 6){
+    },
+    BISHOP_WHITE_LEFT(Color.WHITE, "whiteBishop.png", 7, 2){},
+    BISHOP_WHITE_RIGHT(Color.WHITE, "whiteBishop.png", 7, 5){},
+    BISHOP_BLACK_LEFT(Color.BLACK, "blackBishop.png", 0, 2){},
+    BISHOP_BLACK_RIGHT(Color.BLACK, "blackBishop.png", 0, 5){},
+    QUEEN_WHITE(Color.WHITE, "whiteQueen.png", 7, 3){},
+    QUEEN_BLACK(Color.BLACK, "blackQueen.png", 0, 3){},
+    KING_WHITE(Color.WHITE, "whiteKing.png", 7, 4){},
+    KING_BLACK(Color.BLACK, "blackKing.png", 0, 4){},
+
+    PAWN_WHITE_0(Color.WHITE, "whitepawn.png", 6, 0){},
+    PAWN_WHITE_1(Color.WHITE, "whitepawn.png", 6, 1){},
+    PAWN_WHITE_2(Color.WHITE, "whitepawn.png", 6, 2){},
+    PAWN_WHITE_3(Color.WHITE, "whitepawn.png", 6, 3){},
+    PAWN_WHITE_4(Color.WHITE, "whitepawn.png", 6, 4){},
+    PAWN_WHITE_5(Color.WHITE, "whitepawn.png", 6, 5){},
+    PAWN_WHITE_6(Color.WHITE, "whitepawn.png", 6, 6){},
+    PAWN_WHITE_7(Color.WHITE, "whitepawn.png", 6, 7){},
+    PAWN_BLACK_0(Color.BLACK, "blackpawn.png", 1, 0){},
+    PAWN_BLACK_1(Color.BLACK, "blackpawn.png", 1, 1){},
+    PAWN_BLACK_2(Color.BLACK, "blackpawn.png", 1, 2){},
+    PAWN_BLACK_3(Color.BLACK, "blackpawn.png", 1, 3){},
+    PAWN_BLACK_4(Color.BLACK, "blackpawn.png", 1, 4){},
+    PAWN_BLACK_5(Color.BLACK, "blackpawn.png", 1, 5){},
+    PAWN_BLACK_6(Color.BLACK, "blackpawn.png", 1, 6){},
+    PAWN_BLACK_7(Color.BLACK, "blackpawn.png", 1, 7){};
 
 
-    ChessPiece(Color pieceColor, String iconPath, int row, int column){
+
+
+
+
+    ChessPiece(Color pieceColor, String iconPath, int rowPosition, int columnPosition){
         setPieceColor(pieceColor);
         setPieceImageIcon(iconPath);
-        setRow(row);
-        setColumn(column);
+        this.pieceLabel = new JLabel();
+        setRowPosition(rowPosition);
+        setColumnPosition(columnPosition);
+    }
+    public void scaleImageOfPiece(int widthOfPiece, int heightOfPiece){
+        Image scaledImage = this.getPieceImageIcon().getImage().getScaledInstance(widthOfPiece, heightOfPiece,Image.SCALE_SMOOTH);
+        this.getPieceImageIcon().setImage(scaledImage);
+        this.getPieceLabel().setIcon(this.getPieceImageIcon());
     }
 
-    Color pieceColor;
-    String iconPath;
-    ImageIcon pieceImageIcon;
-    int row;
-    int column;
+    private Color pieceColor;
+    private ImageIcon pieceImageIcon;
+    private JLabel pieceLabel;
+    private int rowPosition;
+    private int columnPosition;
+    private boolean pieceFirstMove = true;
+
 
     public Color getPieceColor() {
         return pieceColor;
@@ -46,23 +77,33 @@ public enum ChessPiece {
     public void setPieceColor(Color pieceColor) {
         this.pieceColor = pieceColor;
     }
+
+    public ImageIcon getPieceImageIcon() {
+        return pieceImageIcon;
+    }
+
     public void setPieceImageIcon(String iconPath) {
         this.pieceImageIcon = new ImageIcon(iconPath);
     }
 
-    public int getRow() {
-        return row;
+    public JLabel getPieceLabel() {
+        return pieceLabel;
     }
 
-    public void setRow(int row) {
-        this.row = row;
+    public int getRowPosition() {
+        return rowPosition;
     }
 
-    public int getColumn() {
-        return column;
+    public void setRowPosition(int rowPosition) {
+        this.rowPosition = rowPosition;
     }
 
-    public void setColumn(int column) {
-        this.column = column;
+    public int getColumnPosition() {
+        return columnPosition;
     }
+
+    public void setColumnPosition(int columnPosition) {
+        this.columnPosition = columnPosition;
+    }
+
 }

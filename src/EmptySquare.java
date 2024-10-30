@@ -5,7 +5,7 @@ import java.awt.event.MouseListener;
 
 public class EmptySquare extends Piece implements MouseListener {
 
-    private Piece pieceOnSquare;
+    private ChessPiece pieceOnSquare;
     private Chessboard chessboard;
 
     public EmptySquare(Color emptyPieceColor, int rowPosition, int columPosition, int withOfPiece, int heightOfPiece, Chessboard chessboard) {
@@ -19,11 +19,11 @@ public class EmptySquare extends Piece implements MouseListener {
         setChessboard(chessboard);
     }
 
-    public Piece getPieceOnSquare() {
+    public ChessPiece getPieceOnSquare() {
         return pieceOnSquare;
     }
 
-    public void setPieceOnSquare(Piece pieceOnSquare) {
+    public void setPieceOnSquare(ChessPiece pieceOnSquare) {
         this.pieceOnSquare = pieceOnSquare;
         if (pieceOnSquare != null){
             this.getEmptyPiecePanel().add(pieceOnSquare.getPieceLabel());
@@ -57,28 +57,28 @@ public class EmptySquare extends Piece implements MouseListener {
     }
 
     public void clickedForMove(){
-        if (getEmptyPiecePanel().getBackground() == Color.green){
-            getChessboard().getSelectedPieceToMove().getMove().makeCleanMove(this, getChessboard().getSelectedPieceToMove(), getChessboard());
-        } else if (getEmptyPiecePanel().getBackground() == Color.red) {
-            getPieceOnSquare().getMove().makeDiscardMovePiece(this, getPieceOnSquare(), getChessboard().getSelectedPieceToMove(), getChessboard());
-        }
+//        if (getEmptyPiecePanel().getBackground() == Color.green){
+//            getChessboard().getSelectedPieceToMove().getMove().makeCleanMove(this, getChessboard().getSelectedPieceToMove(), getChessboard());
+//        } else if (getEmptyPiecePanel().getBackground() == Color.red) {
+////            getPieceOnSquare().getMove().makeDiscardMovePiece(this, getPieceOnSquare(), getChessboard().getSelectedPieceToMove(), getChessboard());
+//        }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        clickedForMove();
-        if (getPieceOnSquare() != null){
-            if (getChessboard().getSelectedPieceToMove() != null){
-                getChessboard().setSelectedPieceToMove(null);
-                getChessboard().setColors();
-            }else {
-                getChessboard().setSelectedPieceToMove(getPieceOnSquare());
-                getPieceOnSquare().showMovePossibilities(chessboard);
-            }
-        }else {
-            getChessboard().setSelectedPieceToMove(null);
-            getChessboard().setColors();
-        }
+//        clickedForMove();
+//        if (getPieceOnSquare() != null){
+//            if (getChessboard().getSelectedPieceToMove() != null){
+//                getChessboard().setSelectedPieceToMove(null);
+//                getChessboard().setColors();
+//            }else {
+//                getChessboard().setSelectedPieceToMove(getPieceOnSquare());
+//                getPieceOnSquare().showMovePossibilities(chessboard);
+//            }
+//        }else {
+//            getChessboard().setSelectedPieceToMove(null);
+//            getChessboard().setColors();
+//        }
 
 
     }
@@ -95,11 +95,11 @@ public class EmptySquare extends Piece implements MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        if (getChessboard().getSelectedPieceToMove() == null){
-            if (getPieceOnSquare() != null){
-                getPieceOnSquare().showMovePossibilities(getChessboard());
-            }
-        }
+//        if (getChessboard().getSelectedPieceToMove() == null){
+//            if (getPieceOnSquare() != null){
+//                getPieceOnSquare().showMovePossibilities(getChessboard());
+//            }
+//        }
     }
 
     @Override

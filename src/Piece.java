@@ -116,7 +116,8 @@ public class Piece {
     }
 
     public boolean impossibleMove(int rowToCheck, int columToCheck, Chessboard chessboard){
-        return getMove().isMoveValid(this, rowToCheck, columToCheck, chessboard);
+//        return getMove().isMoveValid(this, rowToCheck, columToCheck, chessboard);
+        return false;
     }
 
 }
