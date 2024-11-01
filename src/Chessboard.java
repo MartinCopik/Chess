@@ -10,18 +10,19 @@ public class Chessboard  {
 
     private   JPanel chessboard;
     private   EmptySquare[][] arrayBoard = new EmptySquare[8][8];
-    private ArrayList<Piece> listOfPieces = new ArrayList<>();
-    private Piece selectedPieceToMove;
+    private ArrayList<ChessPiece> listOfPieces = new ArrayList<>();
+    private ChessPiece selectedPieceToMove;
 
     //ivo: z tohto by som spravil normalne enum, metody k tomu..ak nevies pozri ako sa to robi hint: ChessPiece(Color color, String iconPath, int row, int column){}
     private ChessPiece blackLeftRook = ChessPiece.ROOK_BLACK_LEFT;
     private ChessPiece blackRightRook = ChessPiece.ROOK_BLACK_RIGHT;
     private ChessPiece whiteLeftRook = ChessPiece.ROOK_WHITE_LEFT;
     private ChessPiece whiteRightRook = ChessPiece.ROOK_WHITE_RIGHT;
-    private ChessPiece blackLeftKnight = ChessPiece.KNIGTH_BLACK_LEFT;
+    private ChessPiece blackLeftKnight = ChessPiece.KNIGHT_BLACK_LEFT;
     private ChessPiece blackRightKnight = ChessPiece.KNIGHT_BLACK_RIGHT;
     private ChessPiece whiteLeftKnight = ChessPiece.KNIGHT_WHITE_LEFT;
-    private ChessPiece whiteRightKnight = ChessPiece.KNIGHT_WHITE_RIGHT;
+    private ChessPiece whiteRightKnight = ChessPiece.KNIGHT_WHITE_LEFT;
+//    private ChessPiece whiteRightKnight = ChessPiece.KNIGHT_WHITE_RIGHT;
     private ChessPiece blackLeftBishop = ChessPiece.BISHOP_BLACK_LEFT;
     private ChessPiece blackRightBishop = ChessPiece.BISHOP_BLACK_RIGHT;
     private ChessPiece whiteLeftBishop = ChessPiece.BISHOP_WHITE_LEFT;
@@ -78,15 +79,15 @@ public class Chessboard  {
         return arrayBoard;
     }
 
-    public ArrayList<Piece> getListOfPieces() {
+    public ArrayList<ChessPiece> getListOfPieces() {
         return listOfPieces;
     }
 
-    public Piece getSelectedPieceToMove() {
+    public ChessPiece getSelectedPieceToMove() {
         return selectedPieceToMove;
     }
 
-    public void setSelectedPieceToMove(Piece selectedPieceToMove) {
+    public void setSelectedPieceToMove(ChessPiece selectedPieceToMove) {
         this.selectedPieceToMove = selectedPieceToMove;
     }
 
@@ -109,55 +110,14 @@ public class Chessboard  {
             }
         }
     }
-//     void setStartPointOfPiece(ChessPiece piece){
-//        getArrayBoard()[piece.getRowPosition()][piece.getColumnPosition()].setPieceOnSquare(piece);
-//    }
 
-    //ivo: tu sem sa asi troska nepochopili ale nevadi..nemusis volat getter na premennu ktora je priamo v classe [249] teda takto to bude vyzerat -> for (Piece piece : listOfPieces){
     private void setStartPointOfPieces(){
         for (ChessPiece piece : ChessPiece.values()){
-//            setStartPointOfPiece(piece);
+            listOfPieces.add(piece);
             piece.scaleImageOfPiece(widthFrame/16, heightFrame/16);
             arrayBoard[piece.getRowPosition()][piece.getColumnPosition()].setPieceOnSquare(piece);
         }
     }
-
-    //ivo: tu je to podobne ako [247] + velmi jednoducho ked spravis enum vies pridat vsetky figurky potom do ArrayList
-//    public void addPiecesToList(){
-//        listOfPieces.add(ChessPiece.values());
-////        listOfPieces.add(blackLeftRook);
-////        listOfPieces.add(blackRightRook);
-////        listOfPieces.add(whiteLeftRook);
-////        listOfPieces.add(whiteRightRook);
-////        listOfPieces.add(blackLeftKnight);
-////        listOfPieces.add(blackRightKnight);
-////        listOfPieces.add(whiteLeftKnight);
-////        listOfPieces.add(whiteRightKnight);
-////        listOfPieces.add(blackLeftBishop);
-////        listOfPieces.add(blackRightBishop);
-////        listOfPieces.add(whiteLeftBishop);
-////        listOfPieces.add(whiteRightBishop);
-////        listOfPieces.add(blackQueen);
-////        listOfPieces.add(whiteQueen);
-////        listOfPieces.add(blackKing);
-////        listOfPieces.add(whiteKing);
-////        listOfPieces.add(blackPawn0);
-////        listOfPieces.add(blackPawn1);
-////        listOfPieces.add(blackPawn2);
-////        listOfPieces.add(blackPawn3);
-////        listOfPieces.add(blackPawn4);
-////        listOfPieces.add(blackPawn5);
-////        listOfPieces.add(blackPawn6);
-////        listOfPieces.add(blackPawn7);
-////        listOfPieces.add(whitePawn0);
-////        listOfPieces.add(whitePawn1);
-////        listOfPieces.add(whitePawn2);
-////        listOfPieces.add(whitePawn3);
-////        listOfPieces.add(whitePawn4);
-////        listOfPieces.add(whitePawn5);
-////        listOfPieces.add(whitePawn6);
-////        listOfPieces.add(whitePawn7);
-//    }
 
     public void addEmptyPiecesToFrame(){
         for (int row = 0; row < arrayBoard.length; row++){
@@ -170,7 +130,7 @@ public class Chessboard  {
     public  void setColors(){
         for (int row = 0; row < getArrayBoard().length; row++){
             for (int column = 0; column < getArrayBoard().length; column++){
-                getArrayBoard()[row][column].getEmptyPiecePanel().setBackground(getArrayBoard()[row][column].getPieceColor());
+                getArrayBoard()[row][column].getEmptyPiecePanel().setBackground(getArrayBoard()[row][column].getEmptyPieceColor());
             }
         }
         getChessboard().repaint();
@@ -190,7 +150,6 @@ public class Chessboard  {
 
 
         boardInitialization();
-//        addPiecesToList();
         setStartPointOfPieces();
         addEmptyPiecesToFrame();
 
