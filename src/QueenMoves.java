@@ -1,7 +1,3 @@
-import javax.swing.*;
-import java.awt.*;
-
-
 public class QueenMoves {
 
     Move move = new Move();

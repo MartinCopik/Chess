@@ -1,6 +1,3 @@
-import javax.swing.*;
-import java.awt.*;
-
 public class KingMoves {
 
     Move move = new Move();

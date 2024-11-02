@@ -260,22 +260,6 @@ public enum ChessPiece{
         }
     };
 
-
-    ChessPiece(Color pieceColor, String iconPath, int rowPosition, int columnPosition){
-        setPieceColor(pieceColor);
-        setPieceImageIcon(iconPath);
-        this.pieceLabel = new JLabel();
-        setRowPosition(rowPosition);
-        setColumnPosition(columnPosition);
-    }
-    public void scaleImageOfPiece(int widthOfPiece, int heightOfPiece){
-        Image scaledImage = this.getPieceImageIcon().getImage().getScaledInstance(widthOfPiece, heightOfPiece,Image.SCALE_SMOOTH);
-        this.getPieceImageIcon().setImage(scaledImage);
-        this.getPieceLabel().setIcon(this.getPieceImageIcon());
-    }
-    public void showMovePossibilities(Chessboard chessboard){
-    }
-
     private Move move = new Move();
 
     private Color pieceColor;
@@ -284,6 +268,23 @@ public enum ChessPiece{
     private int rowPosition;
     private int columnPosition;
     private boolean pieceFirstMove = true;
+
+    ChessPiece(Color pieceColor, String iconPath, int rowPosition, int columnPosition){
+        setPieceColor(pieceColor);
+        setPieceImageIcon(iconPath);
+        this.pieceLabel = new JLabel();
+        setRowPosition(rowPosition);
+        setColumnPosition(columnPosition);
+    }
+
+    public void scaleImageOfPiece(int widthOfPiece, int heightOfPiece){
+        Image scaledImage = this.getPieceImageIcon().getImage().getScaledInstance(widthOfPiece, heightOfPiece,Image.SCALE_SMOOTH);
+        this.getPieceImageIcon().setImage(scaledImage);
+        this.getPieceLabel().setIcon(this.getPieceImageIcon());
+    }
+
+    public void showMovePossibilities(Chessboard chessboard){
+    }
 
 
     public Move getMove() {
@@ -333,30 +334,4 @@ public enum ChessPiece{
     public void setPieceFirstMove(boolean pieceFirstMove) {
         this.pieceFirstMove = pieceFirstMove;
     }
-
-//    public void knightMoveUpShortLeft(Chessboard chessboard){
-//        getMove().isMoveValid(this, getRowPosition()-1, getColumnPosition()-2, chessboard);
-//    }
-//    public void knightMoveUpShortRight(Chessboard chessboard){
-//        getMove().isMoveValid(this, getRowPosition() - 1, getColumnPosition() + 2, chessboard);
-//    }
-//    public void knightMoveUpLongLeft(Chessboard chessboard){
-//        getMove().isMoveValid(this, getRowPosition()-2, getColumnPosition()-1, chessboard);
-//    }
-//    public void knightMoveUpLongRight(Chessboard chessboard){
-//        getMove().isMoveValid(this,getRowPosition() - 2, getColumnPosition() + 1, chessboard);
-//    }
-//    public void knightMoveDownShortLeft(Chessboard chessboard){
-//        getMove().isMoveValid(this,getRowPosition()+1, getColumnPosition()-2, chessboard);
-//    }
-//    public void knightMoveDownShortRight(Chessboard chessboard){
-//        getMove().isMoveValid(this,getRowPosition()+1, getColumnPosition()+2, chessboard);
-//    }
-//    public void knightMoveDownLongLeft(Chessboard chessboard){
-//        getMove().isMoveValid(this,getRowPosition()+2, getColumnPosition()-1, chessboard);
-//    }
-//    public void knightMoveDownLongRight(Chessboard chessboard){
-//        getMove().isMoveValid(this,getRowPosition()+2, getColumnPosition()+1, chessboard);
-//    }
-
 }
