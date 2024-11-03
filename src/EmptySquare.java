@@ -8,16 +8,15 @@ public class EmptySquare implements MouseListener {
     private ChessPiece pieceOnSquare;
     private Chessboard chessboard;
 
-    protected Color EmptyPieceColor;
-    protected int rowPosition;
-    protected int columnPosition;
-
+    private Color emptyPieceColor;
+    private int rowPosition;
+    private int columnPosition;
     private JPanel emptyPiecePanel;
 
     public EmptySquare(Color emptyPieceColor, int rowPosition, int columPosition, int withOfPiece, int heightOfPiece, Chessboard chessboard) {
-        setEmptyPieceColor(emptyPieceColor);
-        setRowPosition(rowPosition);
-        setColumnPosition(columPosition);
+        this.emptyPieceColor = emptyPieceColor;
+        this.rowPosition = rowPosition;
+        this.columnPosition = columPosition;
 
         emptyPiecePanel = new JPanel();
         emptyPiecePanel.setSize(withOfPiece, heightOfPiece);
@@ -109,27 +108,15 @@ public class EmptySquare implements MouseListener {
     }
 
     public Color getEmptyPieceColor() {
-        return EmptyPieceColor;
-    }
-
-    public void setEmptyPieceColor(Color emptyPieceColor) {
-        EmptyPieceColor = emptyPieceColor;
+        return emptyPieceColor;
     }
 
     public int getRowPosition() {
         return rowPosition;
     }
 
-    public void setRowPosition(int rowPosition) {
-        this.rowPosition = rowPosition;
-    }
-
     public int getColumnPosition() {
         return columnPosition;
-    }
-
-    public void setColumnPosition(int columnPosition) {
-        this.columnPosition = columnPosition;
     }
 
     public JPanel getEmptyPiecePanel() {
