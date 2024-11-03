@@ -3,268 +3,242 @@ import java.awt.*;
 
 public enum ChessPiece{
     ROOK_WHITE_LEFT(Color.BLACK, "whiteRook.png", 7, 0){
-        RookMoves rookMoves = new RookMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            rookMoves.rookMoves(chessboard, this, getRowPosition(), getColumnPosition());
+            getRookMoves().rookMoves(chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
     ROOK_WHITE_RIGHT(Color.WHITE, "whiteRook.png", 7,7){
-        RookMoves rookMoves = new RookMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            rookMoves.rookMoves(chessboard, this, getRowPosition(), getColumnPosition());
+            getRookMoves().rookMoves(chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
     ROOK_BLACK_LEFT(Color.BLACK, "blackRook.png", 0, 0){
-        RookMoves rookMoves = new RookMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            rookMoves.rookMoves(chessboard, this, getRowPosition(), getColumnPosition());
+            getRookMoves().rookMoves(chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
     ROOK_BLACK_RIGHT(Color.BLACK, "blackRook.png", 0, 7){
-        RookMoves rookMoves = new RookMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            rookMoves.rookMoves(chessboard, this, getRowPosition(), getColumnPosition());
+            getRookMoves().rookMoves(chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
     KNIGHT_WHITE_LEFT(Color.WHITE, "whiteKnight.png", 7, 1){
-        KnightMoves knightMoves = new KnightMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            knightMoves.knightMoves(chessboard,this, getRowPosition(), getColumnPosition());
+            getKnightMoves().knightMoves(chessboard,this, getRowPosition(), getColumnPosition());
         }
     },
     KNIGHT_WHITE_RIGHT(Color.WHITE, "whiteKnight.png", 7, 6){
-        KnightMoves knightMoves = new KnightMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            knightMoves.knightMoves(chessboard,this, getRowPosition(), getColumnPosition());
+            getKnightMoves().knightMoves(chessboard,this, getRowPosition(), getColumnPosition());
         }
     },
     KNIGHT_BLACK_LEFT(Color.BLACK, "blackKnight.png", 0, 1){
-        KnightMoves knightMoves = new KnightMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            knightMoves.knightMoves(chessboard,this, getRowPosition(), getColumnPosition());
+            getKnightMoves().knightMoves(chessboard,this, getRowPosition(), getColumnPosition());
         }
     },
     KNIGHT_BLACK_RIGHT(Color.BLACK, "blackKnight.png", 0, 6){
-        KnightMoves knightMoves = new KnightMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            knightMoves.knightMoves(chessboard,this, getRowPosition(), getColumnPosition());
+            getKnightMoves().knightMoves(chessboard,this, getRowPosition(), getColumnPosition());
         }
     },
     BISHOP_WHITE_LEFT(Color.WHITE, "whiteBishop.png", 7, 2){
-        BishopMoves bishopMoves = new BishopMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            bishopMoves.bishopMoves(chessboard, this, getRowPosition(), getColumnPosition());
+            getBishopMoves().bishopMoves(chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
     BISHOP_WHITE_RIGHT(Color.WHITE, "whiteBishop.png", 7, 5){
-        BishopMoves bishopMoves = new BishopMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            bishopMoves.bishopMoves(chessboard, this, getRowPosition(), getColumnPosition());
+            getBishopMoves().bishopMoves(chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
     BISHOP_BLACK_LEFT(Color.BLACK, "blackBishop.png", 0, 2){
-        BishopMoves bishopMoves = new BishopMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            bishopMoves.bishopMoves(chessboard, this, getRowPosition(), getColumnPosition());
+            getBishopMoves().bishopMoves(chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
     BISHOP_BLACK_RIGHT(Color.BLACK, "blackBishop.png", 0, 5){
-        BishopMoves bishopMoves = new BishopMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            bishopMoves.bishopMoves(chessboard, this, getRowPosition(), getColumnPosition());
+            getBishopMoves().bishopMoves(chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
     QUEEN_WHITE(Color.WHITE, "whiteQueen.png", 7, 3){
-        QueenMoves queenMoves = new QueenMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            queenMoves.queenMoves(chessboard, this, getRowPosition(), getColumnPosition());
+            getQueenMoves().queenMoves(chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
     QUEEN_BLACK(Color.BLACK, "blackQueen.png", 0, 3){
-        QueenMoves queenMoves = new QueenMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            queenMoves.queenMoves(chessboard, this, getRowPosition(), getColumnPosition());
+            getQueenMoves().queenMoves(chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
     KING_WHITE(Color.WHITE, "whiteKing.png", 7, 4){
-        KingMoves kingMoves = new KingMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            kingMoves.kingMoves(chessboard, this, getRowPosition(), getColumnPosition());
+            getKingMoves().kingMoves(chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
     KING_BLACK(Color.BLACK, "blackKing.png", 0, 4){
-        KingMoves kingMoves = new KingMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            kingMoves.kingMoves(chessboard, this, getRowPosition(), getColumnPosition());
+            getKingMoves().kingMoves(chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
 
     PAWN_WHITE_0(Color.WHITE, "whitepawn.png", 6, 0){
-        PawnMoves pawnMoves = new PawnMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            pawnMoves.whitePawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
+            getPawnMoves().whitePawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
     PAWN_WHITE_1(Color.WHITE, "whitepawn.png", 6, 1){
-        PawnMoves pawnMoves = new PawnMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            pawnMoves.whitePawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
+            getPawnMoves().whitePawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
     PAWN_WHITE_2(Color.WHITE, "whitepawn.png", 6, 2){
-        PawnMoves pawnMoves = new PawnMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            pawnMoves.whitePawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
+            getPawnMoves().whitePawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
     PAWN_WHITE_3(Color.WHITE, "whitepawn.png", 6, 3){
-        PawnMoves pawnMoves = new PawnMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            pawnMoves.whitePawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
+            getPawnMoves().whitePawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
     PAWN_WHITE_4(Color.WHITE, "whitepawn.png", 6, 4){
-        PawnMoves pawnMoves = new PawnMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            pawnMoves.whitePawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
+            getPawnMoves().whitePawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
     PAWN_WHITE_5(Color.WHITE, "whitepawn.png", 6, 5){
-        PawnMoves pawnMoves = new PawnMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            pawnMoves.whitePawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
+            getPawnMoves().whitePawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
     PAWN_WHITE_6(Color.WHITE, "whitepawn.png", 6, 6){
-        PawnMoves pawnMoves = new PawnMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            pawnMoves.whitePawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
+            getPawnMoves().whitePawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
     PAWN_WHITE_7(Color.WHITE, "whitepawn.png", 6, 7){
-        PawnMoves pawnMoves = new PawnMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            pawnMoves.whitePawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
+            getPawnMoves().whitePawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
     PAWN_BLACK_0(Color.BLACK, "blackpawn.png", 1, 0){
-        PawnMoves pawnMoves = new PawnMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            pawnMoves.blackPawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
+            getPawnMoves().blackPawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
     PAWN_BLACK_1(Color.BLACK, "blackpawn.png", 1, 1){
-        PawnMoves pawnMoves = new PawnMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            pawnMoves.blackPawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
+            getPawnMoves().blackPawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
     PAWN_BLACK_2(Color.BLACK, "blackpawn.png", 1, 2){
-        PawnMoves pawnMoves = new PawnMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            pawnMoves.blackPawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
+            getPawnMoves().blackPawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
     PAWN_BLACK_3(Color.BLACK, "blackpawn.png", 1, 3){
-        PawnMoves pawnMoves = new PawnMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            pawnMoves.blackPawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
+            getPawnMoves().blackPawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
     PAWN_BLACK_4(Color.BLACK, "blackpawn.png", 1, 4){
-        PawnMoves pawnMoves = new PawnMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            pawnMoves.blackPawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
+            getPawnMoves().blackPawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
     PAWN_BLACK_5(Color.BLACK, "blackpawn.png", 1, 5){
-        PawnMoves pawnMoves = new PawnMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            pawnMoves.blackPawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
+            getPawnMoves().blackPawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
     PAWN_BLACK_6(Color.BLACK, "blackpawn.png", 1, 6){
-        PawnMoves pawnMoves = new PawnMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            pawnMoves.blackPawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
+            getPawnMoves().blackPawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
     PAWN_BLACK_7(Color.BLACK, "blackpawn.png", 1, 7){
-        PawnMoves pawnMoves = new PawnMoves();
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
-            pawnMoves.blackPawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
+            getPawnMoves().blackPawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
         }
     };
 
-    private Move move = new Move();
+    private final Move move = new Move();
+    private final PawnMoves pawnMoves = new PawnMoves();
+    private final RookMoves rookMoves = new RookMoves();
+    private final KnightMoves knightMoves = new KnightMoves();
+    private final BishopMoves bishopMoves = new BishopMoves();
+    private final QueenMoves queenMoves = new QueenMoves();
+    private final KingMoves kingMoves = new KingMoves();
 
     private Color pieceColor;
     private ImageIcon pieceImageIcon;
-    private JLabel pieceLabel;
+    private final JLabel pieceLabel;
     private int rowPosition;
     private int columnPosition;
     private boolean pieceFirstMove = true;
@@ -286,9 +260,32 @@ public enum ChessPiece{
     public void showMovePossibilities(Chessboard chessboard){
     }
 
-
     public Move getMove() {
         return move;
+    }
+
+    public PawnMoves getPawnMoves() {
+        return pawnMoves;
+    }
+
+    public RookMoves getRookMoves() {
+        return rookMoves;
+    }
+
+    public KnightMoves getKnightMoves() {
+        return knightMoves;
+    }
+
+    public BishopMoves getBishopMoves() {
+        return bishopMoves;
+    }
+
+    public QueenMoves getQueenMoves() {
+        return queenMoves;
+    }
+
+    public KingMoves getKingMoves() {
+        return kingMoves;
     }
 
     public Color getPieceColor() {
