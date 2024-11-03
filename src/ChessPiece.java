@@ -115,112 +115,112 @@ public enum ChessPiece{
         }
     },
 
-    PAWN_WHITE_0(Color.WHITE, "whitepawn.png", 6, 0){
+    PAWN_WHITE_0(Color.WHITE, "whitePawn.png", 6, 0){
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
             getPawnMoves().whitePawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
-    PAWN_WHITE_1(Color.WHITE, "whitepawn.png", 6, 1){
+    PAWN_WHITE_1(Color.WHITE, "whitePawn.png", 6, 1){
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
             getPawnMoves().whitePawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
-    PAWN_WHITE_2(Color.WHITE, "whitepawn.png", 6, 2){
+    PAWN_WHITE_2(Color.WHITE, "whitePawn.png", 6, 2){
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
             getPawnMoves().whitePawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
-    PAWN_WHITE_3(Color.WHITE, "whitepawn.png", 6, 3){
+    PAWN_WHITE_3(Color.WHITE, "whitePawn.png", 6, 3){
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
             getPawnMoves().whitePawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
-    PAWN_WHITE_4(Color.WHITE, "whitepawn.png", 6, 4){
+    PAWN_WHITE_4(Color.WHITE, "whitePawn.png", 6, 4){
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
             getPawnMoves().whitePawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
-    PAWN_WHITE_5(Color.WHITE, "whitepawn.png", 6, 5){
+    PAWN_WHITE_5(Color.WHITE, "whitePawn.png", 6, 5){
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
             getPawnMoves().whitePawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
-    PAWN_WHITE_6(Color.WHITE, "whitepawn.png", 6, 6){
+    PAWN_WHITE_6(Color.WHITE, "whitePawn.png", 6, 6){
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
             getPawnMoves().whitePawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
-    PAWN_WHITE_7(Color.WHITE, "whitepawn.png", 6, 7){
+    PAWN_WHITE_7(Color.WHITE, "whitePawn.png", 6, 7){
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
             getPawnMoves().whitePawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
-    PAWN_BLACK_0(Color.BLACK, "blackpawn.png", 1, 0){
+    PAWN_BLACK_0(Color.BLACK, "blackPawn.png", 1, 0){
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
             getPawnMoves().blackPawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
-    PAWN_BLACK_1(Color.BLACK, "blackpawn.png", 1, 1){
+    PAWN_BLACK_1(Color.BLACK, "blackPawn.png", 1, 1){
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
             getPawnMoves().blackPawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
-    PAWN_BLACK_2(Color.BLACK, "blackpawn.png", 1, 2){
+    PAWN_BLACK_2(Color.BLACK, "blackPawn.png", 1, 2){
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
             getPawnMoves().blackPawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
-    PAWN_BLACK_3(Color.BLACK, "blackpawn.png", 1, 3){
+    PAWN_BLACK_3(Color.BLACK, "blackPawn.png", 1, 3){
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
             getPawnMoves().blackPawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
-    PAWN_BLACK_4(Color.BLACK, "blackpawn.png", 1, 4){
+    PAWN_BLACK_4(Color.BLACK, "blackPawn.png", 1, 4){
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
             getPawnMoves().blackPawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
-    PAWN_BLACK_5(Color.BLACK, "blackpawn.png", 1, 5){
+    PAWN_BLACK_5(Color.BLACK, "blackPawn.png", 1, 5){
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
             getPawnMoves().blackPawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
-    PAWN_BLACK_6(Color.BLACK, "blackpawn.png", 1, 6){
+    PAWN_BLACK_6(Color.BLACK, "blackPawn.png", 1, 6){
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {
             getPawnMoves().blackPawnMoves(getPieceFirstMove(), chessboard, this, getRowPosition(), getColumnPosition());
         }
     },
-    PAWN_BLACK_7(Color.BLACK, "blackpawn.png", 1, 7){
+    PAWN_BLACK_7(Color.BLACK, "blackPawn.png", 1, 7){
 
         @Override
         public void showMovePossibilities(Chessboard chessboard) {

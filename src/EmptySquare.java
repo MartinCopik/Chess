@@ -6,12 +6,12 @@ import java.awt.event.MouseListener;
 public class EmptySquare implements MouseListener {
 
     private ChessPiece pieceOnSquare;
-    private Chessboard chessboard;
+    private final Chessboard chessboard;
 
-    private Color emptyPieceColor;
-    private int rowPosition;
-    private int columnPosition;
-    private JPanel emptyPiecePanel;
+    private final Color emptyPieceColor;
+    private final int rowPosition;
+    private final int columnPosition;
+    private final JPanel emptyPiecePanel;
 
     public EmptySquare(Color emptyPieceColor, int rowPosition, int columPosition, int withOfPiece, int heightOfPiece, Chessboard chessboard) {
         this.emptyPieceColor = emptyPieceColor;

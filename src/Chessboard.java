@@ -4,19 +4,18 @@ import java.util.ArrayList;
 
 public class Chessboard  {
 
-    private  JFrame chessGame;
     Toolkit tk = Toolkit.getDefaultToolkit();
-    private  int widthFrame = ((int) tk.getScreenSize().getWidth());
-    private  int heightFrame = ((int) tk.getScreenSize().getHeight());
+    private final int widthFrame = ((int) tk.getScreenSize().getWidth());
+    private final int heightFrame = ((int) tk.getScreenSize().getHeight());
 
-    private   JPanel chessboard;
-    private   EmptySquare[][] arrayBoard = new EmptySquare[8][8];
+    private final JPanel chessboard;
+    private final EmptySquare[][] arrayBoard = new EmptySquare[8][8];
     private ArrayList<ChessPiece> listOfPieces = new ArrayList<>();
     private ChessPiece selectedPieceToMove;
 
     Chessboard(){
 
-        chessGame = new JFrame("Chess");
+        JFrame chessGame = new JFrame("Chess");
         chessGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         chessGame.setSize(getWidthFrame(), getHeightFrame());
         chessGame.setResizable(false);

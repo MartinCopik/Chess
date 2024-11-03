@@ -26,7 +26,6 @@ public class Move {
         if (positionIsTaken(rowToCheck, columnToCheck, chessboard)){
             if (pieceIsAttacking(pieceToMakeMove, rowToCheck, columnToCheck, chessboard)){
                 chessboard.getArrayBoard()[rowToCheck][columnToCheck].markTheSquareForAttack();
-            } else if (!pieceIsAttacking(pieceToMakeMove, rowToCheck, columnToCheck, chessboard)) {
             }
             return true;
         }
