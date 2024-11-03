@@ -1,10 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
 
+//ivo: DOLEZITE!! toto nakoniec nemusi byt enum ale jednoducha abstractna trieda ktora bude mat riadok a stlpec
+//samozrejme abstraktnu metodu napr. isMoveValid() ktora bude implementovana priamo v jednotlivych figurkach napr. BishopMoves{}
 public enum ChessPiece{
     ROOK_WHITE_LEFT(Color.BLACK, "whiteRook.png", 7, 0){
 
-        @Override
+        @Override       // ivo: naco je tu ten override? podla mna nic neoverriduje :)
         public void showMovePossibilities(Chessboard chessboard) {
             getRookMoves().rookMoves(chessboard, this, getRowPosition(), getColumnPosition());
         }

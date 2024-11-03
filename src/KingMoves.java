@@ -2,6 +2,7 @@ public class KingMoves {
 
     Move move = new Move();
 
+    //ivo: good practice je ze ked aj nepotrebujes konstruktor tak aspon deklarujes ten defaultny
     void kingMoveUp(Chessboard chessboard, ChessPiece chessPiece, int rowPosition, int columnPosition){
         move.isMoveValid(chessPiece, rowPosition-1, columnPosition, chessboard);
     }

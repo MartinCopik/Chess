@@ -31,6 +31,13 @@ public class Chessboard  {
         chessGame.setVisible(true);
     }
 
+    //ivo: rozdelime logiku..najskor spravime vsetky policka EmptySquare, vysereme sa na figurky zatial
+    // aby som ti troska pomohol tak si vieme spravit
+    //    public interface Square {
+    //       int getRow();
+    //      int getCol();
+    //}
+    // a to bude miesto EmptySquare teda private final Square[][] board;
     private void boardInitialization(){
         for (int row = 0; row  < arrayBoard.length; row ++){
             for (int column = 0; column < arrayBoard.length; column++){
@@ -50,6 +57,13 @@ public class Chessboard  {
             }
         }
     }
+
+    //ivo: metoda ktora nam nastavi zaciatocne figurky na ich zakladne pozicie napr. placePiece(new BishopMoves(0, 2), 0, 2);
+
+    //ivo: tu vieme spravit metodu napr. placePiece() ktora uz definuje figurku napr. ChessPiece s velkou zmenou (najdes v ChessPiece).
+    //{
+    //  }
+
 
     private void setStartPointOfPieces(){
         for (ChessPiece piece : ChessPiece.values()){

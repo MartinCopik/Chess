@@ -18,6 +18,7 @@ public class EmptySquare implements MouseListener {
         this.rowPosition = rowPosition;
         this.columnPosition = columPosition;
 
+        //ivo: toto nie je nahodou tiez this. ako chessboard?
         emptyPiecePanel = new JPanel();
         emptyPiecePanel.setSize(withOfPiece, heightOfPiece);
         emptyPiecePanel.setBackground(emptyPieceColor);
@@ -40,12 +41,14 @@ public class EmptySquare implements MouseListener {
     }
 
     public void markTheSquareForMove(){
+        //ivo: nie je to vobec tazke zmenit len porozmyslaj aby primarne sa kontroloval pohyb a tuto moznost vyuzivala funkcionalita navrhu tahov, vsetko uz mas spravene aj tak len to prehodit
         emptyPiecePanel.setBackground(Color.gray);
         if (chessboard.getSelectedPieceToMove() != null){
             emptyPiecePanel.setBackground(Color.green);
         }
     }
     public void markTheSquareForAttack(){
+        //ivo: tu tiez to iste ako v clickedForMove(), treba si to vyratat a nie pozerat farbu policok. Ked chces pouzivat navrhy pohybu figurky tak to sa musi odvijat od moznosti tahov danej figurky, nie naopak
         emptyPiecePanel.setBackground(Color.pink);
         if (chessboard.getSelectedPieceToMove() != null){
             emptyPiecePanel.setBackground(Color.red);
@@ -53,6 +56,7 @@ public class EmptySquare implements MouseListener {
     }
 
     public void clickedForMove(){
+        // ivo: Color.green toto budes musiet vymysliet inak..ak chces aby ti ukazovalo tahy, tak to musi byt oddelena logika, nie ze ty si pozries ci je zelene/cervene ale nice try :)
         if (emptyPiecePanel.getBackground() == Color.green){
             chessboard.getSelectedPieceToMove().getMove().makeCleanMove(this, chessboard.getSelectedPieceToMove(), chessboard);
         } else if (emptyPiecePanel.getBackground() == Color.red) {

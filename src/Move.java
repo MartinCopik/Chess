@@ -1,5 +1,6 @@
 public class Move {
 
+    //ivo: zase mi tu chyba konstruktor prazdny ale v tomto pripade by som spravil staticku triedu pretoze mame len vypocty, teda vraciame true alebo false tazke nieco to len vypocita a potom vrati jednoduchy return
     public boolean isOutOfBorder(int rowToCheck, int columnToCheck, Chessboard chessboard){
         if (rowToCheck <0 || columnToCheck <0 || rowToCheck > chessboard.getArrayBoard().length-1 || columnToCheck > chessboard.getArrayBoard().length-1){
             return true;
@@ -36,6 +37,7 @@ public class Move {
         return false;
     }
 
+    //ivo: ak sa tato metoda nepouziva nikde ine len v Move{} tak private, tak ako variables
     public void movingThePiece(EmptySquare newSquareSpot, ChessPiece pieceToMove, Chessboard chessboard){
         chessboard.getArrayBoard()[pieceToMove.getRowPosition()][pieceToMove.getColumnPosition()].discardPieceFromSquare();
         newSquareSpot.setPieceOnSquare(pieceToMove);
