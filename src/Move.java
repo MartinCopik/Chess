@@ -38,7 +38,7 @@ public class Move {
     }
 
     //ivo: ak sa tato metoda nepouziva nikde ine len v Move{} tak private, tak ako variables
-    public void movingThePiece(EmptySquare newSquareSpot, ChessPiece pieceToMove, Chessboard chessboard){
+    private void movingThePiece(EmptySquare newSquareSpot, ChessPiece pieceToMove, Chessboard chessboard){
         chessboard.getArrayBoard()[pieceToMove.getRowPosition()][pieceToMove.getColumnPosition()].discardPieceFromSquare();
         newSquareSpot.setPieceOnSquare(pieceToMove);
         pieceToMove.setRowPosition(newSquareSpot.getRowPosition());
@@ -47,7 +47,7 @@ public class Move {
         pieceToMove.setPieceFirstMove(false);
     }
 
-    public void discardingThePiece(EmptySquare newSquareSpot, ChessPiece pieceToBeDiscarded, Chessboard chessboard){
+    private void discardingThePiece(EmptySquare newSquareSpot, ChessPiece pieceToBeDiscarded, Chessboard chessboard){
         newSquareSpot.discardPieceFromSquare();
         chessboard.getListOfPieces().remove(pieceToBeDiscarded);
     }

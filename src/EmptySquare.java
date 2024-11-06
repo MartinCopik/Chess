@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class EmptySquare implements MouseListener {
+public class EmptySquare implements MouseListener, ISquare {
 
     private ChessPiece pieceOnSquare;
     private final Chessboard chessboard;
@@ -18,28 +18,28 @@ public class EmptySquare implements MouseListener {
         this.rowPosition = rowPosition;
         this.columnPosition = columPosition;
 
-        //ivo: toto nie je nahodou tiez this. ako chessboard?
-        emptyPiecePanel = new JPanel();
-        emptyPiecePanel.setSize(withOfPiece, heightOfPiece);
-        emptyPiecePanel.setBackground(emptyPieceColor);
-        emptyPiecePanel.setOpaque(true);
-        emptyPiecePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        emptyPiecePanel.addMouseListener(this);
+        this.emptyPiecePanel = new JPanel();
+        this.emptyPiecePanel.setSize(withOfPiece, heightOfPiece);
+        this.emptyPiecePanel.setBackground(emptyPieceColor);
+        this.emptyPiecePanel.setOpaque(true);
+        this.emptyPiecePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        this.emptyPiecePanel.addMouseListener(this);
         this.chessboard = chessboard;
     }
 
+    @Override
     public void setPieceOnSquare(ChessPiece pieceOnSquare) {
         this.pieceOnSquare = pieceOnSquare;
         if (pieceOnSquare != null){
             this.emptyPiecePanel.add(pieceOnSquare.getPieceLabel());
         }
     }
-
+    @Override
     public void discardPieceFromSquare(){
         setPieceOnSquare(null);
         this.emptyPiecePanel.removeAll();
     }
-
+    @Override
     public void markTheSquareForMove(){
         //ivo: nie je to vobec tazke zmenit len porozmyslaj aby primarne sa kontroloval pohyb a tuto moznost vyuzivala funkcionalita navrhu tahov, vsetko uz mas spravene aj tak len to prehodit
         emptyPiecePanel.setBackground(Color.gray);
@@ -47,6 +47,7 @@ public class EmptySquare implements MouseListener {
             emptyPiecePanel.setBackground(Color.green);
         }
     }
+    @Override
     public void markTheSquareForAttack(){
         //ivo: tu tiez to iste ako v clickedForMove(), treba si to vyratat a nie pozerat farbu policok. Ked chces pouzivat navrhy pohybu figurky tak to sa musi odvijat od moznosti tahov danej figurky, nie naopak
         emptyPiecePanel.setBackground(Color.pink);
@@ -54,7 +55,6 @@ public class EmptySquare implements MouseListener {
             emptyPiecePanel.setBackground(Color.red);
         }
     }
-
     public void clickedForMove(){
         // ivo: Color.green toto budes musiet vymysliet inak..ak chces aby ti ukazovalo tahy, tak to musi byt oddelena logika, nie ze ty si pozries ci je zelene/cervene ale nice try :)
         if (emptyPiecePanel.getBackground() == Color.green){
@@ -107,22 +107,25 @@ public class EmptySquare implements MouseListener {
         }
     }
 
-    public ChessPiece getPieceOnSquare() {
-        return pieceOnSquare;
-    }
-
-    public Color getEmptyPieceColor() {
-        return emptyPieceColor;
-    }
-
+    @Override
     public int getRowPosition() {
         return rowPosition;
     }
 
+    @Override
     public int getColumnPosition() {
         return columnPosition;
     }
 
+    @Override
+    public ChessPiece getPieceOnSquare() {
+        return pieceOnSquare;
+    }
+    @Override
+    public Color getEmptyPieceColor() {
+        return emptyPieceColor;
+    }
+    @Override
     public JPanel getEmptyPiecePanel() {
         return emptyPiecePanel;
     }

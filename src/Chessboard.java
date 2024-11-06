@@ -9,7 +9,7 @@ public class Chessboard  {
     private final int heightFrame = ((int) tk.getScreenSize().getHeight());
 
     private final JPanel chessboard;
-    private final EmptySquare[][] arrayBoard = new EmptySquare[8][8];
+    private final ISquare[][] arrayBoard = new EmptySquare[8][8];
     private ArrayList<ChessPiece> listOfPieces = new ArrayList<>();
     private ChessPiece selectedPieceToMove;
 
@@ -98,7 +98,7 @@ public class Chessboard  {
         return heightFrame;
     }
 
-    public  EmptySquare[][] getArrayBoard() {
+    public  ISquare[][] getArrayBoard() {
         return arrayBoard;
     }
 
