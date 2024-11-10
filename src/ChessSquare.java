@@ -39,44 +39,25 @@ public class ChessSquare implements MouseListener{
         this.emptyPiecePanel.removeAll();
     }
 
-    public void markTheSquareForMove(){
-        //ivo: nie je to vobec tazke zmenit len porozmyslaj aby primarne sa kontroloval pohyb a tuto moznost vyuzivala funkcionalita navrhu tahov, vsetko uz mas spravene aj tak len to prehodit
-        emptyPiecePanel.setBackground(Color.gray);
-        if (chessboard.getSelectedPieceToMove() != null){
-            emptyPiecePanel.setBackground(Color.green);
-        }
-    }
-
-    public void markTheSquareForAttack(){
-        //ivo: tu tiez to iste ako v clickedForMove(), treba si to vyratat a nie pozerat farbu policok. Ked chces pouzivat navrhy pohybu figurky tak to sa musi odvijat od moznosti tahov danej figurky, nie naopak
-        emptyPiecePanel.setBackground(Color.pink);
-        if (chessboard.getSelectedPieceToMove() != null){
-            emptyPiecePanel.setBackground(Color.red);
-        }
-    }
-    public void clickedForMove(){
-        // ivo: Color.green toto budes musiet vymysliet inak..ak chces aby ti ukazovalo tahy, tak to musi byt oddelena logika, nie ze ty si pozries ci je zelene/cervene ale nice try :)
-        if (emptyPiecePanel.getBackground() == Color.green){
-            Move.makeCleanMove(this, chessboard.getSelectedPieceToMove(), chessboard);
-//            chessboard.getSelectedPieceToMove().getMove().makeCleanMove(this, chessboard.getSelectedPieceToMove(), chessboard);
-        } else if (emptyPiecePanel.getBackground() == Color.red) {
-            Move.makeDiscardMovePiece(this, pieceOnSquare, chessboard.getSelectedPieceToMove(), chessboard);
-//            pieceOnSquare.getMove().makeDiscardMovePiece(this, pieceOnSquare, chessboard.getSelectedPieceToMove(), chessboard);
-        }
+    public void isItClickedForMove(){
+        Move.canPieceMakeThisMove(this, chessboard);
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        clickedForMove();
         if (pieceOnSquare != null){
             if (chessboard.getSelectedPieceToMove() != null){
+                isItClickedForMove();
                 chessboard.setSelectedPieceToMove(null);
                 chessboard.setColors();
             }else {
                 chessboard.setSelectedPieceToMove(pieceOnSquare);
-                pieceOnSquare.chessPieceMovePossibilities(chessboard);
+                pieceOnSquare.showMovePossibilitiesOfPiece();
             }
         }else {
+            if (chessboard.getSelectedPieceToMove() != null){
+                isItClickedForMove();
+            }
             chessboard.setSelectedPieceToMove(null);
             chessboard.setColors();
         }
@@ -96,7 +77,7 @@ public class ChessSquare implements MouseListener{
     public void mouseEntered(MouseEvent e) {
         if (chessboard.getSelectedPieceToMove() == null){
             if (pieceOnSquare != null){
-                pieceOnSquare.chessPieceMovePossibilities(chessboard);
+                pieceOnSquare.showMovePossibilitiesOfPiece();
             }
         }
     }

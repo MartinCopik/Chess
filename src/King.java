@@ -7,7 +7,7 @@ public class King extends ChessPiece{
     }
 
     @Override
-    public void chessPieceMovePossibilities(Chessboard chessboard) {
+    public void setChessPieceMovesMap(Chessboard chessboard) {
         kingMoveUp(chessboard);
         kingMoveDown(chessboard);
         kingMoveLeft(chessboard);

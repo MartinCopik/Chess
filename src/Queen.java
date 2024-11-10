@@ -7,7 +7,7 @@ public class Queen extends ChessPiece {
     }
 
     @Override
-    public void chessPieceMovePossibilities(Chessboard chessboard) {
+    public void setChessPieceMovesMap(Chessboard chessboard) {
         queenMoveUP(chessboard);
         queenMoveDown(chessboard);
         queenMoveLeft(chessboard);

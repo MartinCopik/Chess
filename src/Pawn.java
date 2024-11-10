@@ -8,7 +8,7 @@ public class Pawn extends ChessPiece{
     }
 
     @Override
-    public void chessPieceMovePossibilities(Chessboard chessboard) {
+    public void setChessPieceMovesMap(Chessboard chessboard) {
         checkColorOfPawn(chessboard);
     }
 
@@ -77,12 +77,12 @@ public class Pawn extends ChessPiece{
         possibleAttackMove(chessboard,getRowPosition()-1,getColumnPosition()+1);
     }
 
-    private void possibleAttackMove( Chessboard chessboard, int rowToCheck, int columToCheck) {
-        if (Move.isOutOfBorder(rowToCheck, columToCheck, chessboard)){
+    private void possibleAttackMove( Chessboard chessboard, int rowToCheck, int columnToCheck) {
+        if (Move.isOutOfBorder(rowToCheck, columnToCheck, chessboard)){
             return;
         }
-        if (Move.positionIsTaken(rowToCheck, columToCheck, chessboard) && Move.pieceIsAttacking(this, rowToCheck, columToCheck, chessboard)) {
-            chessboard.getArrayBoard()[rowToCheck][columToCheck].markTheSquareForAttack();
+        if (Move.positionIsTaken(rowToCheck, columnToCheck, chessboard) && Move.pieceIsAttacking(this, rowToCheck, columnToCheck, chessboard)) {
+            getChessPieceMovesMap().put(chessboard.getArrayBoard()[rowToCheck][columnToCheck], this);
         }
     }
 
@@ -91,7 +91,7 @@ public class Pawn extends ChessPiece{
             return true;
         }
         if (!Move.positionIsTaken(rowToCheck, columnToCheck, chessboard)){
-            chessboard.getArrayBoard()[rowToCheck][columnToCheck].markTheSquareForMove();
+            getChessPieceMovesMap().put(chessboard.getArrayBoard()[rowToCheck][columnToCheck], this);
             return false;
         }
         return true;

@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 
 public abstract class ChessPiece {
 
@@ -9,6 +10,7 @@ public abstract class ChessPiece {
     private int rowPosition;
     private int columnPosition;
     private boolean pieceFirstMove = true;
+    private HashMap<ChessSquare, ChessPiece> chessPieceMovesMap = new HashMap<>();
 
     ChessPiece(Color chessPieceColor, String iconPath, int rowPosition, int columnPosition){
         this.chessPieceColor = chessPieceColor;
@@ -24,7 +26,13 @@ public abstract class ChessPiece {
         this.pieceLabel.setIcon(this.pieceImageIcon);
     }
 
-    public abstract void chessPieceMovePossibilities(Chessboard chessboard);
+    public  void showMovePossibilitiesOfPiece(){
+        for (ChessSquare square : chessPieceMovesMap.keySet()){
+            square.getEmptyPiecePanel().setBackground(Color.gray);
+        }
+    }
+
+    public abstract void setChessPieceMovesMap(Chessboard chessboard);
 
     public Color getChessPieceColor() {
         return chessPieceColor;
@@ -56,5 +64,9 @@ public abstract class ChessPiece {
 
     public void setPieceFirstMove(boolean pieceFirstMove) {
         this.pieceFirstMove = pieceFirstMove;
+    }
+
+    public HashMap<ChessSquare, ChessPiece> getChessPieceMovesMap() {
+        return chessPieceMovesMap;
     }
 }

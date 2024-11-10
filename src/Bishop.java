@@ -7,7 +7,7 @@ public class Bishop extends ChessPiece{
     }
 
     @Override
-    public void chessPieceMovePossibilities(Chessboard chessboard) {
+    public void setChessPieceMovesMap(Chessboard chessboard) {
         bishopMoveDiagonallyUpLeft(chessboard);
         bishopMoveDiagonallyUpRight(chessboard);
         bishopMoveDiagonallyDownLeft(chessboard);

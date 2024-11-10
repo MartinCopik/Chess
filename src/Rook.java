@@ -7,7 +7,7 @@ public class Rook extends ChessPiece {
     }
 
     @Override
-    public void chessPieceMovePossibilities(Chessboard chessboard) {
+    public void setChessPieceMovesMap(Chessboard chessboard) {
         rookMoveUP(chessboard);
         rookMoveDown(chessboard);
         rookMoveLeft(chessboard);

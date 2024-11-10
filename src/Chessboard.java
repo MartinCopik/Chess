@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Chessboard  {
 
-    Toolkit tk = Toolkit.getDefaultToolkit();
+    private final Toolkit tk = Toolkit.getDefaultToolkit();
     private final int widthFrame = ((int) tk.getScreenSize().getWidth());
     private final int heightFrame = ((int) tk.getScreenSize().getHeight());
 
@@ -61,7 +61,7 @@ public class Chessboard  {
 
         boardInitialization();
         addChessPiecesToList();
-        addChessPiecesToBoard();
+        setAllChessPiecesOnBoard();
         addEmptyPiecesToFrame();
 
         chessGame.add(chessboard);
@@ -125,9 +125,16 @@ public class Chessboard  {
         listOfPieces.add(blackPawn7);
     }
 
-    private void addChessPiecesToBoard(){
+    private void setAllChessPiecesOnBoard(){
         listOfPieces.forEach(chessPiece -> chessPiece.scaleImageOfPiece(widthFrame/16, heightFrame/16));
         listOfPieces.forEach(chessPiece -> arrayBoard[chessPiece.getRowPosition()][chessPiece.getColumnPosition()].setPieceOnSquare(chessPiece));
+        setAllChessPiecesMoveMap();
+    }
+    public void setAllChessPiecesMoveMap(){
+        for (ChessPiece chessPiece : listOfPieces) {
+            chessPiece.getChessPieceMovesMap().clear();
+            chessPiece.setChessPieceMovesMap(this);
+        }
     }
 
     private void addEmptyPiecesToFrame(){
