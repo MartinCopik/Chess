@@ -45,13 +45,14 @@ public class ChessSquare implements MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (pieceOnSquare != null){
+        if (pieceOnSquare != null){ //ivo: v if aj else mas .getSelectedPieceToMove() != null...co s tym vieme spravit?
             if (chessboard.getSelectedPieceToMove() != null){
                 isItClickedForMove();
                 chessboard.setSelectedPieceToMove(null);
                 chessboard.setColors();
             }else {
                 chessboard.setSelectedPieceToMove(pieceOnSquare);
+                //ivo: nie je toto duplicitne s riadkom 81? teda ked spravim mouseEntered tak uz je jedno ci kliknem alebo nie stale sa zavola showMovePossibilitiesOfPiece()
                 pieceOnSquare.showMovePossibilitiesOfPiece();
             }
         }else {

@@ -13,6 +13,8 @@ public class Chessboard  {
     private ArrayList<ChessPiece> listOfPieces = new ArrayList<>();
     private ChessPiece selectedPieceToMove;
 
+
+    //ivo: toto by sme mohli niekde preniest a potom v metode addChessPiecesToList() to budeme davkovat nejakym for cyklom napr. (pouzi google a inspiruj sa :) )
     private Rook whiteLeftRook = new Rook(Color.WHITE, "whiteRook.png", 7, 0);
     private Rook whiteRightRook = new Rook(Color.WHITE, "whiteRook.png", 7, 7);
     private Rook blackLeftRook = new Rook(Color.BLACK, "blackRook.png", 0, 0);
