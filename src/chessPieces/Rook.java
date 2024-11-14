@@ -1,3 +1,8 @@
+package chessPieces;
+
+import chessGame.Chessboard;
+import chessGame.ChessPieceMovement;
+
 import java.awt.*;
 
 public class Rook extends ChessPiece {
@@ -7,41 +12,40 @@ public class Rook extends ChessPiece {
     }
 
     @Override
-    public void setChessPieceMovesMap(Chessboard chessboard) {
+    public void setChessPieceMovementMap(Chessboard chessboard) {
         rookMoveUP(chessboard);
         rookMoveDown(chessboard);
         rookMoveLeft(chessboard);
         rookMoveRight(chessboard);
     }
 
-    public void rookMoveUP(Chessboard chessboard){
+    private void rookMoveUP(Chessboard chessboard){
         for (int row = getRowPosition()-1; row >= 0 ; row--){
-            if (Move.isMoveValid(row, getColumnPosition(), chessboard, this)) {
+            if (ChessPieceMovement.isMoveValid(this, row, getColumnPosition(), chessboard)) {
                 break;
             }
         }
     }
 
-
-    public void rookMoveDown (Chessboard chessboard){
+    private void rookMoveDown (Chessboard chessboard){
         for (int row = getRowPosition() + 1; row <= 7; row++) {
-            if (Move.isMoveValid(row, getColumnPosition(), chessboard, this)) {
+            if (ChessPieceMovement.isMoveValid(this, row, getColumnPosition(), chessboard)) {
                 break;
             }
         }
     }
 
-    public void rookMoveLeft (Chessboard chessboard){
+    private void rookMoveLeft (Chessboard chessboard){
         for (int colum = getColumnPosition() - 1; colum >= 0; colum--) {
-            if (Move.isMoveValid(getRowPosition(), colum, chessboard, this)) {
+            if (ChessPieceMovement.isMoveValid(this, getRowPosition(), colum, chessboard)) {
                 break;
             }
         }
     }
 
-    public void rookMoveRight (Chessboard chessboard){
+    private void rookMoveRight (Chessboard chessboard){
         for (int colum = getColumnPosition() + 1; colum <= 7; colum++) {
-            if (Move.isMoveValid(getRowPosition(), colum, chessboard, this)) {
+            if (ChessPieceMovement.isMoveValid(this, getRowPosition(), colum, chessboard)) {
                 break;
             }
         }

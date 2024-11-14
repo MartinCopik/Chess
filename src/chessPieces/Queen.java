@@ -1,3 +1,8 @@
+package chessPieces;
+
+import chessGame.Chessboard;
+import chessGame.ChessPieceMovement;
+
 import java.awt.*;
 
 public class Queen extends ChessPiece {
@@ -7,7 +12,7 @@ public class Queen extends ChessPiece {
     }
 
     @Override
-    public void setChessPieceMovesMap(Chessboard chessboard) {
+    public void setChessPieceMovementMap(Chessboard chessboard) {
         queenMoveUP(chessboard);
         queenMoveDown(chessboard);
         queenMoveLeft(chessboard);
@@ -20,28 +25,28 @@ public class Queen extends ChessPiece {
 
     private void queenMoveUP(Chessboard chessboard){
         for (int row = getRowPosition()-1; row >= 0 ; row--){
-            if (Move.isMoveValid(this, row, getColumnPosition(), chessboard)){
+            if (ChessPieceMovement.isMoveValid(this, row, getColumnPosition(), chessboard)){
                 break;
             }
         }
     }
     private void queenMoveDown(Chessboard chessboard){
         for (int row = getRowPosition()+1; row<= 7; row++){
-            if (Move.isMoveValid(this, row, getColumnPosition(), chessboard)){
+            if (ChessPieceMovement.isMoveValid(this, row, getColumnPosition(), chessboard)){
                 break;
             }
         }
     }
     private void queenMoveLeft(Chessboard chessboard){
         for (int colum = getColumnPosition()-1; colum>= 0; colum--){
-            if (Move.isMoveValid(this, getRowPosition(), colum, chessboard)){
+            if (ChessPieceMovement.isMoveValid(this, getRowPosition(), colum, chessboard)){
                 break;
             }
         }
     }
     private void queenMoveRight(Chessboard chessboard){
         for (int colum = getColumnPosition()+1; colum<= 7; colum++){
-            if (Move.isMoveValid(this, getRowPosition(), colum, chessboard)){
+            if (ChessPieceMovement.isMoveValid(this, getRowPosition(), colum, chessboard)){
                 break;
             }
         }
@@ -52,7 +57,7 @@ public class Queen extends ChessPiece {
         while (row >= 0 || colum >= 0){
             row--;
             colum--;
-            if (Move.isMoveValid(this, row, colum, chessboard)){
+            if (ChessPieceMovement.isMoveValid(this, row, colum, chessboard)){
                 break;
             }
         }
@@ -64,7 +69,7 @@ public class Queen extends ChessPiece {
         while (row >= 7 || colum >= 0){
             row++;
             colum--;
-            if (Move.isMoveValid(this, row, colum, chessboard)){
+            if (ChessPieceMovement.isMoveValid(this, row, colum, chessboard)){
                 break;
             }
         }
@@ -75,7 +80,7 @@ public class Queen extends ChessPiece {
         while (row >= 0 || colum <= 7){
             row--;
             colum++;
-            if (Move.isMoveValid(this, row, colum, chessboard)){
+            if (ChessPieceMovement.isMoveValid(this, row, colum, chessboard)){
                 break;
             }
         }
@@ -86,7 +91,7 @@ public class Queen extends ChessPiece {
         while (row <= 7 || colum <= 7){
             row++;
             colum++;
-            if (Move.isMoveValid(this, row, colum, chessboard)){
+            if (ChessPieceMovement.isMoveValid(this, row, colum, chessboard)){
                 break;
             }
         }

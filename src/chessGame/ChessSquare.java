@@ -1,3 +1,7 @@
+package chessGame;
+
+import chessPieces.ChessPiece;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -39,39 +43,32 @@ public class ChessSquare implements MouseListener{
         this.emptyPiecePanel.removeAll();
     }
 
+    /**
+     * calls the controlling method if the click for move was done correctly
+     */
     public void isItClickedForMove(){
-        Move.canPieceMakeThisMove(this, chessboard);
+        ChessPieceMovement.canPieceMakeThisMove(this, chessboard);
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (pieceOnSquare != null){ //ivo: v if aj else mas .getSelectedPieceToMove() != null...co s tym vieme spravit?
-            if (chessboard.getSelectedPieceToMove() != null){
-                isItClickedForMove();
-                chessboard.setSelectedPieceToMove(null);
-                chessboard.setColors();
-            }else {
-                chessboard.setSelectedPieceToMove(pieceOnSquare);
-                //ivo: nie je toto duplicitne s riadkom 81? teda ked spravim mouseEntered tak uz je jedno ci kliknem alebo nie stale sa zavola showMovePossibilitiesOfPiece()
-                pieceOnSquare.showMovePossibilitiesOfPiece();
-            }
-        }else {
-            if (chessboard.getSelectedPieceToMove() != null){
-                isItClickedForMove();
-            }
-            chessboard.setSelectedPieceToMove(null);
+        if (chessboard.getSelectedPieceToMove() != null){
+            isItClickedForMove();
             chessboard.setColors();
+            chessboard.setSelectedPieceToMove(null);
+        }else {
+            if (pieceOnSquare != null){
+                chessboard.setSelectedPieceToMove(pieceOnSquare);
+            }else chessboard.setSelectedPieceToMove(null);
         }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
     }
 
     @Override
@@ -86,20 +83,17 @@ public class ChessSquare implements MouseListener{
     @Override
     public void mouseExited(MouseEvent e) {
         if (chessboard.getSelectedPieceToMove() == null){
-                chessboard.setColors();
+            chessboard.setColors();
         }
     }
-
 
     public int getRowPosition() {
         return rowPosition;
     }
 
-
     public int getColumnPosition() {
         return columnPosition;
     }
-
 
     public ChessPiece getPieceOnSquare() {
         return pieceOnSquare;
