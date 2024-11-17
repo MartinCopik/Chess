@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class ChessPiecesPackage {
 
+    //ivo: myslim ze na toto pozname aj cykly nie? :)
     private final Rook whiteLeftRook = new Rook(Color.WHITE, "whiteRook.png", 7, 0);
     private final Rook whiteRightRook = new Rook(Color.WHITE, "whiteRook.png", 7, 7);
     private final Rook blackLeftRook = new Rook(Color.BLACK, "blackRook.png", 0, 0);
