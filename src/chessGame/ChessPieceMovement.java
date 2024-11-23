@@ -128,13 +128,15 @@ public class ChessPieceMovement {
      * @param newSquareSpot new square spot
      * @param chessboard
      */
-    public static void canPieceMakeThisMove(ChessSquare newSquareSpot, Chessboard chessboard){
+    public static boolean canPieceMakeThisMove(ChessSquare newSquareSpot, Chessboard chessboard){
         if (chessboard.getSelectedPieceToMove().getChessPieceMovementMap().containsKey(newSquareSpot)){
             if (newSquareSpot.getPieceOnSquare() != null){
                 makeDiscardMovePiece(newSquareSpot, newSquareSpot.getPieceOnSquare(), chessboard.getSelectedPieceToMove(), chessboard);
             }else {
                 makeCleanMove(newSquareSpot, chessboard.getSelectedPieceToMove(), chessboard);
             }
+            return true;
         }
+        return false;
     }
 }

@@ -16,6 +16,7 @@ public class Chessboard  {
     private final ChessSquare[][] arrayBoard = new ChessSquare[8][8];
     private ArrayList<ChessPiece> listOfPieces = new ArrayList<>();
     private ChessPiece selectedPieceToMove;
+    private GameManager gameManager = new GameManager(this);
 
     public Chessboard(){
 
@@ -123,5 +124,9 @@ public class Chessboard  {
 
     public void setSelectedPieceToMove(ChessPiece selectedPieceToMove) {
         this.selectedPieceToMove = selectedPieceToMove;
+    }
+
+    public GameManager getGameManager() {
+        return gameManager;
     }
 }
