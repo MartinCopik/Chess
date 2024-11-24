@@ -2,6 +2,7 @@ package chessPieces;
 
 import chessGame.Chessboard;
 import chessGame.ChessPieceMovement;
+import chessGame.PromotionWindow;
 
 import java.awt.*;
 
@@ -99,5 +100,15 @@ public class Pawn extends ChessPiece {
             return false;
         }
         return true;
+    }
+
+    /**
+     * start the process of pawn promotion, if pawn is located on 0 or 7 row
+     * @param chessboard
+     */
+    public void promotionOfPawn(Chessboard chessboard){
+        if (getRowPosition() == 0 || getRowPosition() == 7){
+            new PromotionWindow(this, chessboard);
+        }
     }
 }

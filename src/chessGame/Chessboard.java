@@ -12,6 +12,7 @@ public class Chessboard  {
     private final int widthFrame = ((int) tk.getScreenSize().getWidth());
     private final int heightFrame = ((int) tk.getScreenSize().getHeight());
 
+    private final JFrame chessGame;
     private final JPanel chessboard;
     private final ChessSquare[][] arrayBoard = new ChessSquare[8][8];
     private ArrayList<ChessPiece> listOfPieces = new ArrayList<>();
@@ -20,7 +21,7 @@ public class Chessboard  {
 
     public Chessboard(){
 
-        JFrame chessGame = new JFrame("Chess");
+        chessGame = new JFrame("Chess");
         chessGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         chessGame.setSize(getWidthFrame(), getHeightFrame());
         chessGame.setResizable(false);
@@ -108,6 +109,10 @@ public class Chessboard  {
 
     public int getHeightFrame() {
         return heightFrame;
+    }
+
+    public JFrame getChessGame() {
+        return chessGame;
     }
 
     public  ChessSquare[][] getArrayBoard() {

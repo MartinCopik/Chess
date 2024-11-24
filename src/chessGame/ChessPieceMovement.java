@@ -1,6 +1,7 @@
 package chessGame;
 
 import chessPieces.ChessPiece;
+import chessPieces.Pawn;
 
 public class ChessPieceMovement {
 
@@ -86,6 +87,10 @@ public class ChessPieceMovement {
         pieceToMove.setColumnPosition(newSquareSpot.getColumnPosition());
 
         pieceToMove.setPieceFirstMove(false);
+        if (pieceToMove instanceof Pawn){
+            ((Pawn) pieceToMove).promotionOfPawn(chessboard);
+            return;
+        }
         chessboard.setAllChessPiecesMovementMap();
     }
 
@@ -117,7 +122,7 @@ public class ChessPieceMovement {
      * @param pieceToMove piece to be moved on new square spot
      * @param chessboard
      */
-    private static void makeDiscardMovePiece(ChessSquare newSquareSpot, ChessPiece pieceToBeDiscarded, ChessPiece pieceToMove, Chessboard chessboard){
+    public static void makeDiscardMovePiece(ChessSquare newSquareSpot, ChessPiece pieceToBeDiscarded, ChessPiece pieceToMove, Chessboard chessboard){
         discardingThePiece(newSquareSpot, pieceToBeDiscarded, chessboard);
         movingThePiece(newSquareSpot, pieceToMove, chessboard);
     }
