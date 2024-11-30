@@ -88,6 +88,6 @@ public class PromotionWindow implements ActionListener {
     private void promotePiece(ChessPiece newPiece){
         newPiece.scaleImageOfPiece(pawnToBePromoted.getPieceLabel().getWidth(), pawnToBePromoted.getPieceLabel().getHeight());
         chessboard.getListOfPieces().add(newPiece);
-        ChessPieceMovement.makeDiscardMovePiece(chessboard.getArrayBoard()[pawnToBePromoted.getRowPosition()][pawnToBePromoted.getColumnPosition()], pawnToBePromoted, newPiece, chessboard);
+        ChessPieceMovement.makeTheMove(chessboard.getArrayBoard()[pawnToBePromoted.getRowPosition()][pawnToBePromoted.getColumnPosition()], newPiece, chessboard);
     }
 }

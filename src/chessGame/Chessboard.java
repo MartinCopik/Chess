@@ -18,6 +18,7 @@ public class Chessboard  {
     private ArrayList<ChessPiece> listOfPieces = new ArrayList<>();
     private ChessPiece selectedPieceToMove;
     private GameManager gameManager = new GameManager(this);
+    private ChessPiecesPackage chessPiecesPackage;
 
     public Chessboard(){
 
@@ -59,7 +60,7 @@ public class Chessboard  {
     }
 
     private void addChessPiecesToList(){
-        new ChessPiecesPackage(listOfPieces);
+        chessPiecesPackage = new  ChessPiecesPackage(listOfPieces);
     }
 
     /**
@@ -70,7 +71,7 @@ public class Chessboard  {
     private void setAllChessPiecesOnBoard(){
         listOfPieces.forEach(chessPiece -> chessPiece.scaleImageOfPiece(widthFrame/16, heightFrame/16));
         listOfPieces.forEach(chessPiece -> arrayBoard[chessPiece.getRowPosition()][chessPiece.getColumnPosition()].setPieceOnSquare(chessPiece));
-        setAllChessPiecesMovementMap();
+//        setAllChessPiecesMovementMap();
     }
 
     /**
@@ -133,5 +134,9 @@ public class Chessboard  {
 
     public GameManager getGameManager() {
         return gameManager;
+    }
+
+    public ChessPiecesPackage getChessPiecesPackage() {
+        return chessPiecesPackage;
     }
 }

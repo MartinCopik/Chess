@@ -86,6 +86,7 @@ public class Pawn extends ChessPiece {
         if (ChessPieceMovement.isOutOfBorder(rowToCheck, columnToCheck, chessboard)){
             return;
         }
+        getChessPieceMovementMap().put(chessboard.getArrayBoard()[rowToCheck][columnToCheck], this);
         if (ChessPieceMovement.positionIsTaken(rowToCheck, columnToCheck, chessboard) && ChessPieceMovement.pieceIsAttacking(this, rowToCheck, columnToCheck, chessboard)) {
             getChessPieceMovementMap().put(chessboard.getArrayBoard()[rowToCheck][columnToCheck], this);
         }
