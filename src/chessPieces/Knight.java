@@ -25,27 +25,27 @@ public class Knight extends ChessPiece {
     }
 
     private  void knightMoveUpShortLeft(Chessboard chessboard){
-        ChessPieceMovement.isMoveValid(this, getRowPosition()-1, getColumnPosition()-2, chessboard);
+        ChessPieceMovement.movePossibility(this, getRowPosition()-1, getColumnPosition()-2, chessboard);
     }
     private  void knightMoveUpShortRight(Chessboard chessboard){
-        ChessPieceMovement.isMoveValid(this, getRowPosition()-1, getColumnPosition()+2, chessboard);
+        ChessPieceMovement.movePossibility(this, getRowPosition()-1, getColumnPosition()+2, chessboard);
     }
     private  void knightMoveUpLongLeft(Chessboard chessboard){
-        ChessPieceMovement.isMoveValid(this, getRowPosition()-2, getColumnPosition()-1, chessboard);
+        ChessPieceMovement.movePossibility(this, getRowPosition()-2, getColumnPosition()-1, chessboard);
     }
     private  void knightMoveUpLongRight(Chessboard chessboard){
-        ChessPieceMovement.isMoveValid(this, getRowPosition()-2, getColumnPosition()+1, chessboard);
+        ChessPieceMovement.movePossibility(this, getRowPosition()-2, getColumnPosition()+1, chessboard);
     }
     private  void knightMoveDownShortLeft(Chessboard chessboard){
-        ChessPieceMovement.isMoveValid(this, getRowPosition()+1, getColumnPosition()-2, chessboard);
+        ChessPieceMovement.movePossibility(this, getRowPosition()+1, getColumnPosition()-2, chessboard);
     }
     private  void knightMoveDownShortRight(Chessboard chessboard){
-        ChessPieceMovement.isMoveValid(this, getRowPosition()+1, getColumnPosition()+2, chessboard);
+        ChessPieceMovement.movePossibility(this, getRowPosition()+1, getColumnPosition()+2, chessboard);
     }
     private  void knightMoveDownLongLeft(Chessboard chessboard){
-        ChessPieceMovement.isMoveValid(this, getRowPosition()+2, getColumnPosition()-1, chessboard);
+        ChessPieceMovement.movePossibility(this, getRowPosition()+2, getColumnPosition()-1, chessboard);
     }
     private  void knightMoveDownLongRight(Chessboard chessboard){
-        ChessPieceMovement.isMoveValid(this, getRowPosition()+2, getColumnPosition()+1, chessboard);
+        ChessPieceMovement.movePossibility(this, getRowPosition()+2, getColumnPosition()+1, chessboard);
     }
 }

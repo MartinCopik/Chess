@@ -57,24 +57,28 @@ public class ChessPieceMovement {
      * @param chessboard
      * @return returns if the chess piece may move further
      */
-    public static boolean isMoveValid(ChessPiece pieceToMakeMove, int rowToCheck, int columnToCheck, Chessboard chessboard){
+    public static boolean movePossibility(ChessPiece pieceToMakeMove, int rowToCheck, int columnToCheck, Chessboard chessboard){
         if (isOutOfBorder(rowToCheck, columnToCheck, chessboard)){
             return true;
         }
         if (positionIsTaken(rowToCheck, columnToCheck, chessboard)){
             if (pieceIsAttacking(pieceToMakeMove, rowToCheck, columnToCheck, chessboard)){
+                if (!chessboard.getGameManager().isValidationInProcess()){
+                    if (chessboard.getGameManager().moveValidation(pieceToMakeMove, chessboard.getArrayBoard()[rowToCheck][columnToCheck])){
+                        return true;
+                    }
+                }
                 pieceToMakeMove.getChessPieceMovementMap().put(chessboard.getArrayBoard()[rowToCheck][columnToCheck], pieceToMakeMove);
             }
             return true;
         }
         if (!positionIsTaken(rowToCheck, columnToCheck, chessboard)){
             if (!chessboard.getGameManager().isValidationInProcess()){
-                if (!chessboard.getGameManager().moveValidation(pieceToMakeMove, chessboard.getArrayBoard()[rowToCheck][columnToCheck])){
-                    pieceToMakeMove.getChessPieceMovementMap().put(chessboard.getArrayBoard()[rowToCheck][columnToCheck], pieceToMakeMove);
+                if (chessboard.getGameManager().moveValidation(pieceToMakeMove, chessboard.getArrayBoard()[rowToCheck][columnToCheck])){
+                    return false;
                 }
-            } else{
-                pieceToMakeMove.getChessPieceMovementMap().put(chessboard.getArrayBoard()[rowToCheck][columnToCheck], pieceToMakeMove);
             }
+            pieceToMakeMove.getChessPieceMovementMap().put(chessboard.getArrayBoard()[rowToCheck][columnToCheck], pieceToMakeMove);
             return false;
         }
         return false;
@@ -91,12 +95,6 @@ public class ChessPieceMovement {
         newSquareSpot.setPieceOnSquare(pieceToMove);
         pieceToMove.setRowPosition(newSquareSpot.getRowPosition());
         pieceToMove.setColumnPosition(newSquareSpot.getColumnPosition());
-
-        pieceToMove.setPieceFirstMove(false);
-//        pieceToMove.getChessPieceMovementMap().clear();
-        if (pieceToMove instanceof Pawn){
-            ((Pawn) pieceToMove).promotionOfPawn(chessboard);
-        }
     }
 
     /**
@@ -118,6 +116,9 @@ public class ChessPieceMovement {
     public static void makeTheMove(ChessSquare newSquareSpot, ChessPiece pieceToMove, Chessboard chessboard){
         discardingThePiece(newSquareSpot, chessboard);
         movingThePiece(newSquareSpot, pieceToMove, chessboard);
+        pieceToMove.setPieceFirstMove(false);
+        pawnMoves(pieceToMove, chessboard);
+
     }
 
     /**
@@ -132,5 +133,18 @@ public class ChessPieceMovement {
             return true;
         }
         return false;
+    }
+
+    /**
+     * starts process of the promotion of pawn
+     * @param chessPiece promoting pawn
+     * @param chessboard
+     */
+    private static void pawnMoves(ChessPiece chessPiece, Chessboard chessboard){
+        if (chessPiece instanceof Pawn){
+            if (chessPiece.getRowPosition() == 0 || chessPiece.getRowPosition() == 7){
+                new PromotionWindow(chessPiece, chessboard);
+            }
+        }
     }
 }

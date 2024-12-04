@@ -21,7 +21,7 @@ public class Rook extends ChessPiece {
 
     private void rookMoveUP(Chessboard chessboard){
         for (int row = getRowPosition()-1; row >= 0 ; row--){
-            if (ChessPieceMovement.isMoveValid(this, row, getColumnPosition(), chessboard)) {
+            if (ChessPieceMovement.movePossibility(this, row, getColumnPosition(), chessboard)) {
                 break;
             }
         }
@@ -29,7 +29,7 @@ public class Rook extends ChessPiece {
 
     private void rookMoveDown (Chessboard chessboard){
         for (int row = getRowPosition() + 1; row <= 7; row++) {
-            if (ChessPieceMovement.isMoveValid(this, row, getColumnPosition(), chessboard)) {
+            if (ChessPieceMovement.movePossibility(this, row, getColumnPosition(), chessboard)) {
                 break;
             }
         }
@@ -37,7 +37,7 @@ public class Rook extends ChessPiece {
 
     private void rookMoveLeft (Chessboard chessboard){
         for (int colum = getColumnPosition() - 1; colum >= 0; colum--) {
-            if (ChessPieceMovement.isMoveValid(this, getRowPosition(), colum, chessboard)) {
+            if (ChessPieceMovement.movePossibility(this, getRowPosition(), colum, chessboard)) {
                 break;
             }
         }
@@ -45,7 +45,7 @@ public class Rook extends ChessPiece {
 
     private void rookMoveRight (Chessboard chessboard){
         for (int colum = getColumnPosition() + 1; colum <= 7; colum++) {
-            if (ChessPieceMovement.isMoveValid(this, getRowPosition(), colum, chessboard)) {
+            if (ChessPieceMovement.movePossibility(this, getRowPosition(), colum, chessboard)) {
                 break;
             }
         }

@@ -30,13 +30,10 @@ public class ChessPiecesPackage {
                 listOfPieces.add(new Bishop(Color.BLACK, "blackBishop.png", 0, i));
             }else if (i == 3){
                 listOfPieces.add(new Queen(Color.WHITE, "whiteQueen.png", 7, i));
-                listOfPieces.add(new Queen(Color.BLACK, "blackQueen.png", 3, 2));
-//                listOfPieces.add(new Pawn(Color.BLACK, "blackPawn.png", 2, 2));
+                listOfPieces.add(new Queen(Color.BLACK, "blackQueen.png", 0, i));
             } else if (i == 4) {
-                listOfPieces.add(whiteKing = new King(Color.WHITE, "whiteKing.png", 4, i));
+                listOfPieces.add(whiteKing = new King(Color.WHITE, "whiteKing.png", 7, i));
                 listOfPieces.add(blackKing = new King(Color.BLACK, "blackKing.png", 0, i));
-//                listOfPieces.add(new King(Color.WHITE, "whiteKing.png", 7, i));
-//                listOfPieces.add(new King(Color.BLACK, "blackKing.png", 0, i));
             } else if (i == 5) {
                 listOfPieces.add(new Bishop(Color.WHITE, "whiteBishop.png", 7, i));
                 listOfPieces.add(new Bishop(Color.BLACK, "blackBishop.png", 0, i));

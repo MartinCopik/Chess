@@ -1,15 +1,17 @@
 package chessGame;
 
 import chessPieces.ChessPiece;
-import chessPieces.Queen;
 
 import java.awt.*;
 
+/**
+ * class take care of rotation of players, move validation, checks game status
+ */
 public class GameManager {
-
     private int moveCounter;
     private final Chessboard chessboard;
     private boolean validationInProcess;
+    private boolean gameCheck = false;
 
     public GameManager(Chessboard chessboard){
         this.chessboard = chessboard;
@@ -23,7 +25,6 @@ public class GameManager {
     public boolean alternationOfPlayers(ChessPiece chessPiece){
         if (moveCounter %2 == 0 && chessPiece.getChessPieceColor().equals(Color.WHITE)){
             setChessPieceMovementMap(chessPiece);
-            //validacia tahu
             return true;
         }else if (moveCounter %2 == 1 && chessPiece.getChessPieceColor().equals(Color.BLACK)){
             setChessPieceMovementMap(chessPiece);
@@ -40,6 +41,10 @@ public class GameManager {
         }
     }
 
+    /**
+     * set up possible movement of all chess pieces which poses opposite color of specified @param
+     * @param color color of defending chess piece
+     */
     public void setAttackingPiecesMovementMap(Color color){
         for (ChessPiece chessPiece : chessboard.getListOfPieces()) {
             if (color.equals(Color.WHITE)){
@@ -54,14 +59,21 @@ public class GameManager {
         }
     }
 
+    /**
+     * set up movement of single chess piece
+     * @param chessPiece chess piece setting up
+     */
     private void setChessPieceMovementMap(ChessPiece chessPiece){
         chessPiece.getChessPieceMovementMap().clear();
         chessPiece.setChessPieceMovementMap(chessboard);
     }
 
-    public boolean isKingAttacked(ChessPiece chessPiece){
+    /**
+     * look up if king of specified chess piece as param is in check
+     * @param chessPiece
+     */
+    public void isKingAttacked(ChessPiece chessPiece){
         ChessPiece checkedKing;
-        boolean check = false;
         if (chessPiece.getChessPieceColor().equals(chessboard.getChessPiecesPackage().getWhiteKing().getChessPieceColor())){
             checkedKing = chessboard.getChessPiecesPackage().getWhiteKing();
         }else {
@@ -70,43 +82,71 @@ public class GameManager {
         for (ChessPiece piece : chessboard.getListOfPieces()){
             if (!piece.getChessPieceColor().equals(checkedKing.getChessPieceColor())
                     && piece.getChessPieceMovementMap().containsKey(chessboard.getArrayBoard()[checkedKing.getRowPosition()][checkedKing.getColumnPosition()])){
-//                System.out.println(chessboard.getArrayBoard()[checkedKing.getRowPosition()][chessPiece.getColumnPosition()] +" " + checkedKing.getRowPosition() + " " + checkedKing.getColumnPosition());
-//                if (piece instanceof Queen){
-//                    System.out.println(piece.getRowPosition() + " " + piece.getColumnPosition());
-//                    System.out.println(piece.getChessPieceMovementMap().keySet());
-//                }
-//                System.out.println(piece + " " + piece.getChessPieceMovementMap().keySet());
-//                check =  piece.getChessPieceMovementMap().containsKey(chessboard.getArrayBoard()[checkedKing.getRowPosition()][checkedKing.getColumnPosition()]);
-                check = true;
-                System.out.println("from inner if/else " + check);
-                return true;
+                gameCheck = true;
+                return;
             }
         }
-        System.out.println("from outside " + check);
-//        return check;
-        return false;
+        gameCheck = false;
     }
 
-
+    /**
+     * confirms or denies the move of chess piece on specified chess square
+     * @param chessPiece piece making the move
+     * @param newSquareSpot chess square
+     * @return true if move is invalid cause of check / false if move is valid
+     */
     public boolean moveValidation(ChessPiece chessPiece, ChessSquare newSquareSpot){
         ChessPiece pieceOnSquare = newSquareSpot.getPieceOnSquare();
         int rowPosition = chessPiece.getRowPosition();
         int columnPosition = chessPiece.getColumnPosition();
-        ChessPieceMovement.makeTheMove(newSquareSpot, chessPiece, chessboard);
+        makeFakeMove(chessPiece, newSquareSpot);
         validationInProcess = true;
         setAttackingPiecesMovementMap(chessPiece.getChessPieceColor());
-//        isKingAttacked(chessPiece);
-        ChessPieceMovement.makeTheMove(chessboard.getArrayBoard()[rowPosition][columnPosition], chessPiece, chessboard);
-        newSquareSpot.setPieceOnSquare(pieceOnSquare);
+        isKingAttacked(chessPiece);
+        backToOriginalArrangement(chessPiece, newSquareSpot, rowPosition, columnPosition, pieceOnSquare);
         validationInProcess = false;
-        return isKingAttacked(chessPiece);
-        //nasetuj figurky opacnej farby
-        //otestuj ci v danom rozostaveni bude sach
-
-        //vrat true/false
-//        return false;
+        return gameCheck;
     }
 
+    /**
+     * make the specified move
+     * method is used during moveValidation process
+     * @param chessPiece piece making move
+     * @param chessSquare square spot
+     */
+    public void makeFakeMove(ChessPiece chessPiece, ChessSquare chessSquare){
+        chessboard.getArrayBoard()[chessPiece.getRowPosition()][chessPiece.getColumnPosition()].setPieceOnSquare(null);
+        chessboard.getListOfPieces().remove(chessSquare.getPieceOnSquare());
+        chessSquare.setPieceOnSquare(null);
+
+        chessSquare.setPieceOnSquare(chessPiece);
+        chessPiece.setRowPosition(chessSquare.getRowPosition());
+        chessPiece.setColumnPosition(chessSquare.getColumnPosition());
+    }
+
+    /**
+     * rearrange chess pieces to arrangement before start of move validation process
+     * @param chessPiece moving chess piece
+     * @param chessSquare square spot
+     * @param row original row position of chess piece
+     * @param column original column position of chess piece
+     * @param originalPiece chess piece which was on specified chess square
+     */
+    public void backToOriginalArrangement(ChessPiece chessPiece, ChessSquare chessSquare, int row, int column, ChessPiece originalPiece){
+        chessSquare.setPieceOnSquare(originalPiece);
+        if (originalPiece != null){
+            chessboard.getListOfPieces().add(originalPiece);
+        }
+
+        chessboard.getArrayBoard()[row][column].setPieceOnSquare(chessPiece);
+        chessPiece.setRowPosition(row);
+        chessPiece.setColumnPosition(column);
+    }
+
+    /**
+     * process of move validation
+     * @return true if some move is already in process of validation, false if none
+     */
     public boolean isValidationInProcess() {
         return validationInProcess;
     }
