@@ -88,9 +88,9 @@ public class ChessPieceMovement {
      * move the chess piece from one chessSquare on another
      * @param newSquareSpot new square spot
      * @param pieceToMove chess piece to move
-     * @param chessboard
+     * @param chessboard chessboard
      */
-    private static void movingThePiece(ChessSquare newSquareSpot, ChessPiece pieceToMove, Chessboard chessboard){
+    public static void movingThePiece(ChessSquare newSquareSpot, ChessPiece pieceToMove, Chessboard chessboard){
         chessboard.getArrayBoard()[pieceToMove.getRowPosition()][pieceToMove.getColumnPosition()].discardPieceFromSquare();
         newSquareSpot.setPieceOnSquare(pieceToMove);
         pieceToMove.setRowPosition(newSquareSpot.getRowPosition());
@@ -102,7 +102,7 @@ public class ChessPieceMovement {
      * @param newSquareSpot new square spot
      * @param chessboard
      */
-    private static void discardingThePiece(ChessSquare newSquareSpot, Chessboard chessboard){
+    public static void discardingThePiece(ChessSquare newSquareSpot, Chessboard chessboard){
         chessboard.getListOfPieces().remove(newSquareSpot.getPieceOnSquare());
         newSquareSpot.discardPieceFromSquare();
     }

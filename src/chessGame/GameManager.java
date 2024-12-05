@@ -70,7 +70,7 @@ public class GameManager {
 
     /**
      * look up if king of specified chess piece as param is in check
-     * @param chessPiece
+     * @param chessPiece piece which´s king is being checked
      */
     public void isKingAttacked(ChessPiece chessPiece){
         ChessPiece checkedKing;
@@ -115,13 +115,8 @@ public class GameManager {
      * @param chessSquare square spot
      */
     public void makeFakeMove(ChessPiece chessPiece, ChessSquare chessSquare){
-        chessboard.getArrayBoard()[chessPiece.getRowPosition()][chessPiece.getColumnPosition()].setPieceOnSquare(null);
-        chessboard.getListOfPieces().remove(chessSquare.getPieceOnSquare());
-        chessSquare.setPieceOnSquare(null);
-
-        chessSquare.setPieceOnSquare(chessPiece);
-        chessPiece.setRowPosition(chessSquare.getRowPosition());
-        chessPiece.setColumnPosition(chessSquare.getColumnPosition());
+        ChessPieceMovement.discardingThePiece(chessSquare, chessboard);
+        ChessPieceMovement.movingThePiece(chessSquare, chessPiece, chessboard);
     }
 
     /**
