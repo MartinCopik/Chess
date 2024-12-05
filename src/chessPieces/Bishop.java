@@ -25,7 +25,7 @@ public class Bishop extends ChessPiece {
         while (row >= 0 || colum >= 0){
             row--;
             colum--;
-            if (ChessPieceMovement.isMoveValid(this, row, colum, chessboard)){
+            if (ChessPieceMovement.movePossibility(this, row, colum, chessboard)){
                 break;
             }
         }
@@ -37,7 +37,7 @@ public class Bishop extends ChessPiece {
         while (row >= 7 || colum >= 0){
             row++;
             colum--;
-            if (ChessPieceMovement.isMoveValid(this, row, colum, chessboard)){
+            if (ChessPieceMovement.movePossibility(this, row, colum, chessboard)){
                 break;
             }
         }
@@ -48,7 +48,7 @@ public class Bishop extends ChessPiece {
         while (row >= 0 || colum <= 7){
             row--;
             colum++;
-            if (ChessPieceMovement.isMoveValid(this, row, colum, chessboard)){
+            if (ChessPieceMovement.movePossibility(this, row, colum, chessboard)){
                 break;
             }
         }
@@ -59,7 +59,7 @@ public class Bishop extends ChessPiece {
         while (row <= 7 || colum <= 7){
             row++;
             colum++;
-            if (ChessPieceMovement.isMoveValid(this, row, colum, chessboard)){
+            if (ChessPieceMovement.movePossibility(this, row, colum, chessboard)){
                 break;
             }
         }

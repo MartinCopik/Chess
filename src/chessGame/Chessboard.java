@@ -12,14 +12,17 @@ public class Chessboard  {
     private final int widthFrame = ((int) tk.getScreenSize().getWidth());
     private final int heightFrame = ((int) tk.getScreenSize().getHeight());
 
+    private final JFrame chessGame;
     private final JPanel chessboard;
     private final ChessSquare[][] arrayBoard = new ChessSquare[8][8];
     private ArrayList<ChessPiece> listOfPieces = new ArrayList<>();
     private ChessPiece selectedPieceToMove;
+    private GameManager gameManager = new GameManager(this);
+    private ChessPiecesPackage chessPiecesPackage;
 
     public Chessboard(){
 
-        JFrame chessGame = new JFrame("Chess");
+        chessGame = new JFrame("Chess");
         chessGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         chessGame.setSize(getWidthFrame(), getHeightFrame());
         chessGame.setResizable(false);
@@ -57,7 +60,7 @@ public class Chessboard  {
     }
 
     private void addChessPiecesToList(){
-        new ChessPiecesPackage(listOfPieces);
+        chessPiecesPackage = new  ChessPiecesPackage(listOfPieces);
     }
 
     /**
@@ -68,7 +71,7 @@ public class Chessboard  {
     private void setAllChessPiecesOnBoard(){
         listOfPieces.forEach(chessPiece -> chessPiece.scaleImageOfPiece(widthFrame/16, heightFrame/16));
         listOfPieces.forEach(chessPiece -> arrayBoard[chessPiece.getRowPosition()][chessPiece.getColumnPosition()].setPieceOnSquare(chessPiece));
-        setAllChessPiecesMovementMap();
+//        setAllChessPiecesMovementMap();
     }
 
     /**
@@ -109,6 +112,10 @@ public class Chessboard  {
         return heightFrame;
     }
 
+    public JFrame getChessGame() {
+        return chessGame;
+    }
+
     public  ChessSquare[][] getArrayBoard() {
         return arrayBoard;
     }
@@ -123,5 +130,13 @@ public class Chessboard  {
 
     public void setSelectedPieceToMove(ChessPiece selectedPieceToMove) {
         this.selectedPieceToMove = selectedPieceToMove;
+    }
+
+    public GameManager getGameManager() {
+        return gameManager;
+    }
+
+    public ChessPiecesPackage getChessPiecesPackage() {
+        return chessPiecesPackage;
     }
 }

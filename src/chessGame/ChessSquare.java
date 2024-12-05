@@ -43,21 +43,15 @@ public class ChessSquare implements MouseListener{
         this.emptyPiecePanel.removeAll();
     }
 
-    /**
-     * calls the controlling method if the click for move was done correctly
-     */
-    public void isItClickedForMove(){
-        ChessPieceMovement.canPieceMakeThisMove(this, chessboard);
-    }
 
     @Override
     public void mouseClicked(MouseEvent e) {
         if (chessboard.getSelectedPieceToMove() != null){
-            isItClickedForMove();
+            chessboard.getGameManager().isItClickedForMove(this);
             chessboard.setColors();
             chessboard.setSelectedPieceToMove(null);
         }else {
-            if (pieceOnSquare != null){
+            if (pieceOnSquare != null && chessboard.getGameManager().alternationOfPlayers(pieceOnSquare)){
                 chessboard.setSelectedPieceToMove(pieceOnSquare);
             }else chessboard.setSelectedPieceToMove(null);
         }
@@ -74,7 +68,7 @@ public class ChessSquare implements MouseListener{
     @Override
     public void mouseEntered(MouseEvent e) {
         if (chessboard.getSelectedPieceToMove() == null){
-            if (pieceOnSquare != null){
+            if (pieceOnSquare != null && chessboard.getGameManager().alternationOfPlayers(pieceOnSquare)){
                 pieceOnSquare.showMovePossibilitiesOfPiece();
             }
         }

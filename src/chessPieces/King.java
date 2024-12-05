@@ -24,30 +24,30 @@ public class King extends ChessPiece {
     }
 
     private void kingMoveUp(Chessboard chessboard){
-        ChessPieceMovement.isMoveValid(this, getRowPosition()-1, getColumnPosition(), chessboard);
+        ChessPieceMovement.movePossibility(this, getRowPosition()-1, getColumnPosition(), chessboard);
     }
 
     private void kingMoveDown(Chessboard chessboard){
-        ChessPieceMovement.isMoveValid(this, getRowPosition()+1, getColumnPosition(), chessboard);
+        ChessPieceMovement.movePossibility(this, getRowPosition()+1, getColumnPosition(), chessboard);
     }
     private void kingMoveLeft(Chessboard chessboard){
-        ChessPieceMovement.isMoveValid(this, getRowPosition(), getColumnPosition()-1, chessboard);
+        ChessPieceMovement.movePossibility(this, getRowPosition(), getColumnPosition()-1, chessboard);
     }
     private void kingMoveRight(Chessboard chessboard){
-        ChessPieceMovement.isMoveValid(this, getRowPosition(), getColumnPosition()+1, chessboard);
+        ChessPieceMovement.movePossibility(this, getRowPosition(), getColumnPosition()+1, chessboard);
     }
 
     private void kingMoveDiagonallyUpLeft(Chessboard chessboard){
-        ChessPieceMovement.isMoveValid(this, getRowPosition()-1, getColumnPosition()-1, chessboard);
+        ChessPieceMovement.movePossibility(this, getRowPosition()-1, getColumnPosition()-1, chessboard);
     }
 
     private void kingMoveDiagonallyUpRight(Chessboard chessboard){
-        ChessPieceMovement.isMoveValid(this, getRowPosition()-1, getColumnPosition()+1, chessboard);
+        ChessPieceMovement.movePossibility(this, getRowPosition()-1, getColumnPosition()+1, chessboard);
     }
     private void kingMoveDiagonallyDownLeft(Chessboard chessboard){
-        ChessPieceMovement.isMoveValid(this, getRowPosition()+1, getColumnPosition()-1, chessboard);
+        ChessPieceMovement.movePossibility(this, getRowPosition()+1, getColumnPosition()-1, chessboard);
     }
     private void kingMoveDiagonallyDownRight(Chessboard chessboard){
-        ChessPieceMovement.isMoveValid(this, getRowPosition()+1, getColumnPosition()+1, chessboard);
+        ChessPieceMovement.movePossibility(this, getRowPosition()+1, getColumnPosition()+1, chessboard);
     }
 }

@@ -1,6 +1,7 @@
 package chessGame;
 
 import chessPieces.ChessPiece;
+import chessPieces.Pawn;
 
 public class ChessPieceMovement {
 
@@ -56,17 +57,27 @@ public class ChessPieceMovement {
      * @param chessboard
      * @return returns if the chess piece may move further
      */
-    public static boolean isMoveValid(ChessPiece pieceToMakeMove, int rowToCheck, int columnToCheck, Chessboard chessboard){
+    public static boolean movePossibility(ChessPiece pieceToMakeMove, int rowToCheck, int columnToCheck, Chessboard chessboard){
         if (isOutOfBorder(rowToCheck, columnToCheck, chessboard)){
             return true;
         }
         if (positionIsTaken(rowToCheck, columnToCheck, chessboard)){
             if (pieceIsAttacking(pieceToMakeMove, rowToCheck, columnToCheck, chessboard)){
+                if (!chessboard.getGameManager().isValidationInProcess()){
+                    if (chessboard.getGameManager().moveValidation(pieceToMakeMove, chessboard.getArrayBoard()[rowToCheck][columnToCheck])){
+                        return true;
+                    }
+                }
                 pieceToMakeMove.getChessPieceMovementMap().put(chessboard.getArrayBoard()[rowToCheck][columnToCheck], pieceToMakeMove);
             }
             return true;
         }
         if (!positionIsTaken(rowToCheck, columnToCheck, chessboard)){
+            if (!chessboard.getGameManager().isValidationInProcess()){
+                if (chessboard.getGameManager().moveValidation(pieceToMakeMove, chessboard.getArrayBoard()[rowToCheck][columnToCheck])){
+                    return false;
+                }
+            }
             pieceToMakeMove.getChessPieceMovementMap().put(chessboard.getArrayBoard()[rowToCheck][columnToCheck], pieceToMakeMove);
             return false;
         }
@@ -74,52 +85,40 @@ public class ChessPieceMovement {
     }
 
     /**
-     * move the chess piece from one chessSquare to another
+     * move the chess piece from one chessSquare on another
      * @param newSquareSpot new square spot
      * @param pieceToMove chess piece to move
-     * @param chessboard
+     * @param chessboard chessboard
      */
-    private static void movingThePiece(ChessSquare newSquareSpot, ChessPiece pieceToMove, Chessboard chessboard){
+    public static void movingThePiece(ChessSquare newSquareSpot, ChessPiece pieceToMove, Chessboard chessboard){
         chessboard.getArrayBoard()[pieceToMove.getRowPosition()][pieceToMove.getColumnPosition()].discardPieceFromSquare();
         newSquareSpot.setPieceOnSquare(pieceToMove);
         pieceToMove.setRowPosition(newSquareSpot.getRowPosition());
         pieceToMove.setColumnPosition(newSquareSpot.getColumnPosition());
-
-        pieceToMove.setPieceFirstMove(false);
-        chessboard.setAllChessPiecesMovementMap();
     }
 
     /**
      * discards the chess piece from new square spot and from listOfPieces (the game)
      * @param newSquareSpot new square spot
-     * @param pieceToBeDiscarded chess piece to be discarded
      * @param chessboard
      */
-    private static void discardingThePiece(ChessSquare newSquareSpot, ChessPiece pieceToBeDiscarded, Chessboard chessboard){
+    public static void discardingThePiece(ChessSquare newSquareSpot, Chessboard chessboard){
+        chessboard.getListOfPieces().remove(newSquareSpot.getPieceOnSquare());
         newSquareSpot.discardPieceFromSquare();
-        chessboard.getListOfPieces().remove(pieceToBeDiscarded);
     }
 
     /**
-     * move the chess piece without any other piece to be discarded from the game
+     * move the chess piece, if necessary with discard process of the original one
      * @param newSquareSpot new square spot
-     * @param pieceToMove piece to be moved
-     * @param chessboard
-     */
-    private static void makeCleanMove(ChessSquare newSquareSpot, ChessPiece pieceToMove, Chessboard chessboard){
-        movingThePiece(newSquareSpot, pieceToMove, chessboard);
-    }
-
-    /**
-     * move the chess piece with discard process of the original one
-     * @param newSquareSpot new square spot where is original one
-     * @param pieceToBeDiscarded the original chess piece to be discarded
      * @param pieceToMove piece to be moved on new square spot
      * @param chessboard
      */
-    private static void makeDiscardMovePiece(ChessSquare newSquareSpot, ChessPiece pieceToBeDiscarded, ChessPiece pieceToMove, Chessboard chessboard){
-        discardingThePiece(newSquareSpot, pieceToBeDiscarded, chessboard);
+    public static void makeTheMove(ChessSquare newSquareSpot, ChessPiece pieceToMove, Chessboard chessboard){
+        discardingThePiece(newSquareSpot, chessboard);
         movingThePiece(newSquareSpot, pieceToMove, chessboard);
+        pieceToMove.setPieceFirstMove(false);
+        pawnMoves(pieceToMove, chessboard);
+
     }
 
     /**
@@ -128,12 +127,23 @@ public class ChessPieceMovement {
      * @param newSquareSpot new square spot
      * @param chessboard
      */
-    public static void canPieceMakeThisMove(ChessSquare newSquareSpot, Chessboard chessboard){
+    public static boolean canPieceMakeThisMove(ChessSquare newSquareSpot, Chessboard chessboard){
         if (chessboard.getSelectedPieceToMove().getChessPieceMovementMap().containsKey(newSquareSpot)){
-            if (newSquareSpot.getPieceOnSquare() != null){
-                makeDiscardMovePiece(newSquareSpot, newSquareSpot.getPieceOnSquare(), chessboard.getSelectedPieceToMove(), chessboard);
-            }else {
-                makeCleanMove(newSquareSpot, chessboard.getSelectedPieceToMove(), chessboard);
+                makeTheMove(newSquareSpot, chessboard.getSelectedPieceToMove(), chessboard);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * starts process of the promotion of pawn
+     * @param chessPiece promoting pawn
+     * @param chessboard
+     */
+    private static void pawnMoves(ChessPiece chessPiece, Chessboard chessboard){
+        if (chessPiece instanceof Pawn){
+            if (chessPiece.getRowPosition() == 0 || chessPiece.getRowPosition() == 7){
+                new PromotionWindow(chessPiece, chessboard);
             }
         }
     }
