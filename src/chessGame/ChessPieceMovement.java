@@ -1,6 +1,7 @@
 package chessGame;
 
 import chessPieces.ChessPiece;
+import chessPieces.King;
 import chessPieces.Pawn;
 
 public class ChessPieceMovement {
@@ -116,9 +117,11 @@ public class ChessPieceMovement {
     public static void makeTheMove(ChessSquare newSquareSpot, ChessPiece pieceToMove, Chessboard chessboard){
         discardingThePiece(newSquareSpot, chessboard);
         movingThePiece(newSquareSpot, pieceToMove, chessboard);
-        pieceToMove.setPieceFirstMove(false);
-        pawnMoves(pieceToMove, chessboard);
 
+        pawnMoves(pieceToMove, chessboard);
+        castlingMovement(newSquareSpot, pieceToMove, chessboard);
+
+        pieceToMove.setPieceFirstMove(false);
     }
 
     /**
@@ -145,6 +148,35 @@ public class ChessPieceMovement {
             if (chessPiece.getRowPosition() == 0 || chessPiece.getRowPosition() == 7){
                 new PromotionWindow(chessPiece, chessboard);
             }
+        }
+    }
+
+    /**
+     * make castling movement
+     * @param newSquareSpot
+     * @param chessPiece
+     * @param chessboard
+     */
+    private static void castlingMovement(ChessSquare newSquareSpot, ChessPiece chessPiece, Chessboard chessboard){
+        if (chessPiece instanceof King && chessPiece.getPieceFirstMove()){
+            makeCastlingMovement(newSquareSpot, chessPiece, chessboard, 6, 5, 7);
+            makeCastlingMovement(newSquareSpot, chessPiece, chessboard, 2, 3, 0);
+        }
+    }
+
+    /**
+     * checks if player clicked on right square to make castling, if so, makes the movement of right or left rook
+     * @param newSquareSpot square which was clicked on
+     * @param king specified king making castling
+     * @param chessboard chessboard
+     * @param columnClicked column needed to be clicked on
+     * @param columnRookNewPosition new column position of specified rook after done castling
+     * @param columnRookPosition present column position of specified rook
+     */
+    private static void makeCastlingMovement(ChessSquare newSquareSpot, ChessPiece king, Chessboard chessboard, int columnClicked, int columnRookNewPosition, int columnRookPosition){
+        if (newSquareSpot == chessboard.getArrayBoard()[king.getRowPosition()][columnClicked]){
+            movingThePiece(chessboard.getArrayBoard()[king.getRowPosition()][columnRookNewPosition],
+                    chessboard.getArrayBoard()[king.getRowPosition()][columnRookPosition].getPieceOnSquare(), chessboard);
         }
     }
 }

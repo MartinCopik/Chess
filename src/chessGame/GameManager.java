@@ -72,7 +72,7 @@ public class GameManager {
      * look up if king of specified chess piece as param is in check
      * @param chessPiece piece which´s king is being checked
      */
-    public void isKingAttacked(ChessPiece chessPiece){
+    public boolean isKingAttacked(ChessPiece chessPiece){
         ChessPiece checkedKing;
         if (chessPiece.getChessPieceColor().equals(chessboard.getChessPiecesPackage().getWhiteKing().getChessPieceColor())){
             checkedKing = chessboard.getChessPiecesPackage().getWhiteKing();
@@ -83,10 +83,11 @@ public class GameManager {
             if (!piece.getChessPieceColor().equals(checkedKing.getChessPieceColor())
                     && piece.getChessPieceMovementMap().containsKey(chessboard.getArrayBoard()[checkedKing.getRowPosition()][checkedKing.getColumnPosition()])){
                 gameCheck = true;
-                return;
+                return true;
             }
         }
         gameCheck = false;
+        return false;
     }
 
     /**
@@ -144,5 +145,13 @@ public class GameManager {
      */
     public boolean isValidationInProcess() {
         return validationInProcess;
+    }
+
+    public void setValidationInProcess(boolean validationInProcess) {
+        this.validationInProcess = validationInProcess;
+    }
+
+    public boolean isGameCheck() {
+        return gameCheck;
     }
 }
