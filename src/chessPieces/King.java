@@ -9,16 +9,16 @@ public class King extends ChessPiece {
     private ChessPiece smallCastlingRook;
     private ChessPiece bigCastlingRook;
 
-    public King(Color chessPieceColor, String iconPath, int rowPosition, int columnPosition, ChessPiece smallCastlingRook, ChessPiece bigCastlingRook ){
+    public King(Color chessPieceColor, String iconPath, int rowPosition, int columnPosition){
         super(chessPieceColor, iconPath, rowPosition, columnPosition);
-        this.smallCastlingRook = smallCastlingRook;
-        this.bigCastlingRook = bigCastlingRook;
+//        this.smallCastlingRook = smallCastlingRook;
+//        this.bigCastlingRook = bigCastlingRook;
     }
 
     @Override
     public void setChessPieceMovementMap(Chessboard chessboard) {
         if (!chessboard.getGameManager().isValidationInProcess()){
-            castling(chessboard);
+//            castling(chessboard);
         }
 
         kingMoveUp(chessboard);
@@ -63,18 +63,18 @@ public class King extends ChessPiece {
      * set up possible castling movement and saves it in movement map
      * @param chessboard
      */
-    private void castling(Chessboard chessboard){
-        if (this.getPieceFirstMove() && !isKingCheck(chessboard)) {
-            if (smallCastlingRook.getPieceFirstMove()){
-                    isSmallCastlingPossible(chessboard);
-            }
-            if (bigCastlingRook.getPieceFirstMove()){
-                if (!ChessPieceMovement.positionIsTaken(this.getRowPosition(), 1, chessboard)){
-                    isBigCastlingPossible(chessboard);
-                }
-            }
-        }
-    }
+//    private void castling(Chessboard chessboard){
+//        if (this.getPieceFirstMove() && !isKingCheck(chessboard)) {
+//            if (smallCastlingRook.getPieceFirstMove()){
+//                    isSmallCastlingPossible(chessboard);
+//            }
+//            if (bigCastlingRook.getPieceFirstMove()){
+//                if (!ChessPieceMovement.positionIsTaken(this.getRowPosition(), 1, chessboard)){
+//                    isBigCastlingPossible(chessboard);
+//                }
+//            }
+//        }
+//    }
 
     /**
      * checks if king is in check at the present time

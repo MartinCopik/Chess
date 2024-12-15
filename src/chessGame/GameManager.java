@@ -17,6 +17,10 @@ public class GameManager {
         this.chessboard = chessboard;
     }
 
+    private void checkPatStatus(ChessPiece chessPiece){
+
+    }
+
     /**
      * method is controlling the right rotation of the players
      * @param chessPiece checking its color
@@ -25,9 +29,11 @@ public class GameManager {
     public boolean alternationOfPlayers(ChessPiece chessPiece){
         if (moveCounter %2 == 0 && chessPiece.getChessPieceColor().equals(Color.WHITE)){
             setChessPieceMovementMap(chessPiece);
+            //cize tuna mam informaciu kolko pohybov moze urobit cierny
             return true;
         }else if (moveCounter %2 == 1 && chessPiece.getChessPieceColor().equals(Color.BLACK)){
             setChessPieceMovementMap(chessPiece);
+            //a tu kolko pohybov moze urobit biely 
             return true;
         }
         return false;
@@ -47,14 +53,8 @@ public class GameManager {
      */
     public void setAttackingPiecesMovementMap(Color color){
         for (ChessPiece chessPiece : chessboard.getListOfPieces()) {
-            if (color.equals(Color.WHITE)){
-                if (chessPiece.getChessPieceColor().equals(Color.BLACK)){
+            if (!color.equals(chessPiece.getChessPieceColor())){
                     setChessPieceMovementMap(chessPiece);
-                }
-            }else {
-                if (chessPiece.getChessPieceColor().equals(Color.WHITE)){
-                    setChessPieceMovementMap(chessPiece);
-                }
             }
         }
     }
