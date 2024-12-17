@@ -57,16 +57,14 @@ public class PromotionWindow implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == rookButton) {
             promotePiece(new Rook(pawnToBePromoted.getChessPieceColor(), colorToBePromoted()+"Rook.png", pawnToBePromoted.getRowPosition(), pawnToBePromoted.getColumnPosition()));
-        }
-        if (e.getSource() == knightButton) {
+        } else if (e.getSource() == knightButton) {
             promotePiece(new Knight(pawnToBePromoted.getChessPieceColor(), colorToBePromoted()+"Knight.png", pawnToBePromoted.getRowPosition(), pawnToBePromoted.getColumnPosition()));
-        }
-        if (e.getSource() == bishopButton) {
+        } else if (e.getSource() == bishopButton) {
             promotePiece(new Bishop(pawnToBePromoted.getChessPieceColor(), colorToBePromoted()+"Bishop.png", pawnToBePromoted.getRowPosition(), pawnToBePromoted.getColumnPosition()));
-        }
-        if (e.getSource() == queenButton) {
+        } else if (e.getSource() == queenButton) {
             promotePiece(new Queen(pawnToBePromoted.getChessPieceColor(), colorToBePromoted()+"Queen.png", pawnToBePromoted.getRowPosition(), pawnToBePromoted.getColumnPosition()));
         }
+        
         promotionWindow.dispose();
         chessboard.getChessGame().setVisible(true);
     }
