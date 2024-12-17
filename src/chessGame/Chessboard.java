@@ -71,17 +71,6 @@ public class Chessboard  {
     private void setAllChessPiecesOnBoard(){
         listOfPieces.forEach(chessPiece -> chessPiece.scaleImageOfPiece(widthFrame/16, heightFrame/16));
         listOfPieces.forEach(chessPiece -> arrayBoard[chessPiece.getRowPosition()][chessPiece.getColumnPosition()].setPieceOnSquare(chessPiece));
-//        setAllChessPiecesMovementMap();
-    }
-
-    /**
-     * set actual possible movement of each chess piece
-     */
-    public void setAllChessPiecesMovementMap(){
-        for (ChessPiece chessPiece : listOfPieces) {
-            chessPiece.getChessPieceMovementMap().clear();
-            chessPiece.setChessPieceMovementMap(this);
-        }
     }
 
     private void addEmptyPiecesToFrame(){

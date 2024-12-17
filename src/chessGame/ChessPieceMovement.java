@@ -4,6 +4,8 @@ import chessPieces.ChessPiece;
 import chessPieces.King;
 import chessPieces.Pawn;
 
+import java.util.ArrayList;
+
 public class ChessPieceMovement {
 
     /**
@@ -101,10 +103,13 @@ public class ChessPieceMovement {
     /**
      * discards the chess piece from new square spot and from listOfPieces (the game)
      * @param newSquareSpot new square spot
-     * @param chessboard
+     * @param list discards piece from specified list
      */
-    public static void discardingThePiece(ChessSquare newSquareSpot, Chessboard chessboard){
-        chessboard.getListOfPieces().remove(newSquareSpot.getPieceOnSquare());
+    public static void discardingThePiece(ChessSquare newSquareSpot, ArrayList<ChessPiece> list){
+        if (newSquareSpot.getPieceOnSquare() instanceof King){
+            return;
+        }
+        list.remove(newSquareSpot.getPieceOnSquare());
         newSquareSpot.discardPieceFromSquare();
     }
 
@@ -115,7 +120,7 @@ public class ChessPieceMovement {
      * @param chessboard
      */
     public static void makeTheMove(ChessSquare newSquareSpot, ChessPiece pieceToMove, Chessboard chessboard){
-        discardingThePiece(newSquareSpot, chessboard);
+        discardingThePiece(newSquareSpot, chessboard.getListOfPieces());
         movingThePiece(newSquareSpot, pieceToMove, chessboard);
 
         pawnMoves(pieceToMove, chessboard);
