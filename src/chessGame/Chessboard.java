@@ -18,7 +18,6 @@ public class Chessboard  {
     private ArrayList<ChessPiece> listOfPieces = new ArrayList<>();
     private ChessPiece selectedPieceToMove;
     private GameManager gameManager = new GameManager(this);
-    private ChessPiecesPackage chessPiecesPackage;
 
     public Chessboard(){
 
@@ -60,7 +59,7 @@ public class Chessboard  {
     }
 
     private void addChessPiecesToList(){
-        chessPiecesPackage = new  ChessPiecesPackage(listOfPieces);
+        ChessPiecesPackage.initializePieces(listOfPieces);
     }
 
     /**
@@ -123,9 +122,5 @@ public class Chessboard  {
 
     public GameManager getGameManager() {
         return gameManager;
-    }
-
-    public ChessPiecesPackage getChessPiecesPackage() {
-        return chessPiecesPackage;
     }
 }

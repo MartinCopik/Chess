@@ -26,11 +26,7 @@ public class GameManager {
      * @return true if chessPiece has the right color, returns false if not
      */
     public boolean alternationOfPlayers(ChessPiece chessPiece){
-        if (moveCounter %2 == 0 && chessPiece.getChessPieceColor().equals(Color.WHITE)){
-            outcome(chessPiece);
-            setChessPieceMovementMap(chessPiece);
-            return true;
-        }else if (moveCounter %2 == 1 && chessPiece.getChessPieceColor().equals(Color.BLACK)){
+        if (chessPiece.getChessPieceColor().equals(moveCounter % 2 == 0 ? Color.WHITE : Color.BLACK)){
             outcome(chessPiece);
             setChessPieceMovementMap(chessPiece);
             return true;
@@ -47,7 +43,7 @@ public class GameManager {
             new EndingScreen(chessboard, "END");
         }
         if (setAllPossibleMovement(piece)){
-            if (setActualKingStatus(piece)){
+            if (getActualKingStatus(piece)){
                 new EndingScreen(chessboard, "CHM");
             }else{
                 new EndingScreen(chessboard, "PAT");
@@ -78,7 +74,7 @@ public class GameManager {
      * @param piece chess piece defining which king need's to be checked
      * @return true if it is/false if it is not
      */
-    public boolean setActualKingStatus(ChessPiece piece){
+    public boolean getActualKingStatus(ChessPiece piece){
         chessboard.getGameManager().setValidationInProcess(true);
         chessboard.getGameManager().setAttackingPiecesMovementMap(piece.getChessPieceColor(), chessboard.getListOfPieces());
         chessboard.getGameManager().setValidationInProcess(false);
@@ -140,11 +136,8 @@ public class GameManager {
      */
     public boolean isKingAttacked(ChessPiece chessPiece, ArrayList<ChessPiece> list){
         ChessPiece checkedKing;
-        if (chessPiece.getChessPieceColor().equals(chessboard.getChessPiecesPackage().getWhiteKing().getChessPieceColor())){
-            checkedKing = chessboard.getChessPiecesPackage().getWhiteKing();
-        }else {
-            checkedKing = chessboard.getChessPiecesPackage().getBlackKing();
-        }
+        checkedKing = chessPiece.getChessPieceColor().equals(ChessPiecesPackage.getWhiteKing().getChessPieceColor())
+                ? checkedKing = ChessPiecesPackage.getWhiteKing() : ChessPiecesPackage.getBlackKing();
         for (ChessPiece piece : list){
             if (!piece.getChessPieceColor().equals(checkedKing.getChessPieceColor())
                     && piece.getChessPieceMovementMap().containsKey(chessboard.getArrayBoard()[checkedKing.getRowPosition()][checkedKing.getColumnPosition()])){

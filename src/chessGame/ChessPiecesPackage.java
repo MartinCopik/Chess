@@ -7,17 +7,17 @@ import java.util.ArrayList;
 
 public class ChessPiecesPackage {
 
-    private Rook leftWhiteRook;
-    private Rook rightWhiteRook;
-    private Rook leftBlackRook;
-    private Rook rightBlackRook;
+    private static Rook leftWhiteRook;
+    private static Rook rightWhiteRook;
+    private static Rook leftBlackRook;
+    private static Rook rightBlackRook;
 
-    private King whiteKing;
-    private King blackKing;
+    private static King whiteKing;
+    private static King blackKing;
 
 
 
-    public ChessPiecesPackage(ArrayList<ChessPiece> listOfPieces){
+    public static void initializePieces(ArrayList<ChessPiece> listOfPieces){
         initializePawns(listOfPieces);
 
         initializePiece(listOfPieces, leftWhiteRook = new Rook(Color.WHITE, "whiteRook.png", 7, 0));
@@ -42,22 +42,22 @@ public class ChessPiecesPackage {
         initializePiece(listOfPieces,new Queen(Color.BLACK, "BlackQueen.png", 0, 3));
     }
 
-    private void initializePawns(ArrayList<ChessPiece> listOfPieces){
+    private static void initializePawns(ArrayList<ChessPiece> listOfPieces){
         for (int i = 0; i < 8; i++) {
             initializePiece(listOfPieces, new Pawn(Color.WHITE, "whitePawn.png", 6, i));
             initializePiece(listOfPieces, new Pawn(Color.BLACK, "blackPawn.png", 1, i));
         }
     }
 
-    private void initializePiece(ArrayList<ChessPiece> list, ChessPiece chessPiece){
+    private static void initializePiece(ArrayList<ChessPiece> list, ChessPiece chessPiece){
         list.add(chessPiece);
     }
 
-    public King getWhiteKing() {
+    public static King getWhiteKing() {
         return whiteKing;
     }
 
-    public King getBlackKing() {
+    public static King getBlackKing() {
         return blackKing;
     }
 }

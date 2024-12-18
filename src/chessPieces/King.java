@@ -1,6 +1,5 @@
 package chessPieces;
 
-import chessGame.ChessPiecesPackage;
 import chessGame.Chessboard;
 import chessGame.ChessPieceMovement;
 
@@ -65,7 +64,7 @@ public class King extends ChessPiece {
      * @param chessboard
      */
     private void castling(Chessboard chessboard){
-        if (this.getPieceFirstMove() && !chessboard.getGameManager().setActualKingStatus(this)) {
+        if (this.getPieceFirstMove() && !chessboard.getGameManager().getActualKingStatus(this)) {
             if (smallCastlingRook.getPieceFirstMove()){
                     isSmallCastlingPossible(chessboard);
             }

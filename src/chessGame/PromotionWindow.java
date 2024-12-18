@@ -26,10 +26,10 @@ public class PromotionWindow implements ActionListener {
         this.chessboard.getChessGame().setVisible(false);
 
         promotionWindow = new JFrame();
-        rookButton = new JButton(new ImageIcon(colorToBePromoted()+"Rook.png"));
-        knightButton = new JButton(new ImageIcon(colorToBePromoted()+"Knight.png"));
-        bishopButton = new JButton(new ImageIcon(colorToBePromoted()+"Bishop.png"));
-        queenButton = new JButton(new ImageIcon(colorToBePromoted()+"Queen.png"));
+        rookButton = new JButton(new ImageIcon(setColorForImages()+"Rook.png"));
+        knightButton = new JButton(new ImageIcon(setColorForImages()+"Knight.png"));
+        bishopButton = new JButton(new ImageIcon(setColorForImages()+"Bishop.png"));
+        queenButton = new JButton(new ImageIcon(setColorForImages()+"Queen.png"));
 
         rookButton.setFocusable(false);
         knightButton.setFocusable(false);
@@ -56,13 +56,13 @@ public class PromotionWindow implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == rookButton) {
-            promotePiece(new Rook(pawnToBePromoted.getChessPieceColor(), colorToBePromoted()+"Rook.png", pawnToBePromoted.getRowPosition(), pawnToBePromoted.getColumnPosition()));
+            promotePiece(new Rook(pawnToBePromoted.getChessPieceColor(), setColorForImages()+"Rook.png", pawnToBePromoted.getRowPosition(), pawnToBePromoted.getColumnPosition()));
         } else if (e.getSource() == knightButton) {
-            promotePiece(new Knight(pawnToBePromoted.getChessPieceColor(), colorToBePromoted()+"Knight.png", pawnToBePromoted.getRowPosition(), pawnToBePromoted.getColumnPosition()));
+            promotePiece(new Knight(pawnToBePromoted.getChessPieceColor(), setColorForImages()+"Knight.png", pawnToBePromoted.getRowPosition(), pawnToBePromoted.getColumnPosition()));
         } else if (e.getSource() == bishopButton) {
-            promotePiece(new Bishop(pawnToBePromoted.getChessPieceColor(), colorToBePromoted()+"Bishop.png", pawnToBePromoted.getRowPosition(), pawnToBePromoted.getColumnPosition()));
+            promotePiece(new Bishop(pawnToBePromoted.getChessPieceColor(), setColorForImages()+"Bishop.png", pawnToBePromoted.getRowPosition(), pawnToBePromoted.getColumnPosition()));
         } else if (e.getSource() == queenButton) {
-            promotePiece(new Queen(pawnToBePromoted.getChessPieceColor(), colorToBePromoted()+"Queen.png", pawnToBePromoted.getRowPosition(), pawnToBePromoted.getColumnPosition()));
+            promotePiece(new Queen(pawnToBePromoted.getChessPieceColor(), setColorForImages()+"Queen.png", pawnToBePromoted.getRowPosition(), pawnToBePromoted.getColumnPosition()));
         }
         
         promotionWindow.dispose();
@@ -73,7 +73,7 @@ public class PromotionWindow implements ActionListener {
      * checks the promoting color
      * @return the promoting color
      */
-    private String colorToBePromoted(){
+    private String setColorForImages(){
         if (this.pawnToBePromoted.getChessPieceColor() == Color.BLACK){
             return "black";
         }else return "white";
