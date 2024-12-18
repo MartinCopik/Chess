@@ -123,8 +123,11 @@ public class ChessPieceMovement {
         discardingThePiece(newSquareSpot, chessboard.getListOfPieces());
         movingThePiece(newSquareSpot, pieceToMove, chessboard);
 
-        pawnMoves(pieceToMove, chessboard);
-        castlingMovement(newSquareSpot, pieceToMove, chessboard);
+        if (pieceToMove instanceof Pawn){
+            pawnMoves(pieceToMove, chessboard);
+        } else if (pieceToMove instanceof King) {
+            castlingMovement(newSquareSpot,pieceToMove, chessboard);
+        }
 
         pieceToMove.setPieceFirstMove(false);
     }
@@ -149,10 +152,8 @@ public class ChessPieceMovement {
      * @param chessboard
      */
     private static void pawnMoves(ChessPiece chessPiece, Chessboard chessboard){
-        if (chessPiece instanceof Pawn){
-            if (chessPiece.getRowPosition() == 0 || chessPiece.getRowPosition() == 7){
-                new PromotionWindow(chessPiece, chessboard);
-            }
+        if (chessPiece.getRowPosition() == 0 || chessPiece.getRowPosition() == 7){
+            new PromotionWindow(chessPiece, chessboard);
         }
     }
 
@@ -163,7 +164,7 @@ public class ChessPieceMovement {
      * @param chessboard
      */
     private static void castlingMovement(ChessSquare newSquareSpot, ChessPiece chessPiece, Chessboard chessboard){
-        if (chessPiece instanceof King && chessPiece.getPieceFirstMove()){
+        if (chessPiece.getPieceFirstMove()){
             makeCastlingMovement(newSquareSpot, chessPiece, chessboard, 6, 5, 7);
             makeCastlingMovement(newSquareSpot, chessPiece, chessboard, 2, 3, 0);
         }
