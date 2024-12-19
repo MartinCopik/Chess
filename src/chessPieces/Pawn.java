@@ -2,7 +2,6 @@ package chessPieces;
 
 import chessGame.Chessboard;
 import chessGame.ChessPieceMovement;
-import chessGame.PromotionWindow;
 
 import java.awt.*;
 
@@ -89,7 +88,7 @@ public class Pawn extends ChessPiece {
         if (ChessPieceMovement.positionIsTaken(rowToCheck, columnToCheck, chessboard)
                 && ChessPieceMovement.pieceIsAttacking(this, rowToCheck, columnToCheck, chessboard)) {
             if (!chessboard.getGameManager().isValidationInProcess()){
-                if (chessboard.getGameManager().moveValidation(this, chessboard.getArrayBoard()[rowToCheck][columnToCheck])){
+                if (chessboard.getGameManager().invalidMove(this, chessboard.getArrayBoard()[rowToCheck][columnToCheck])){
                     return;
                 }
             }
@@ -103,7 +102,7 @@ public class Pawn extends ChessPiece {
         }
         if (!ChessPieceMovement.positionIsTaken(rowToCheck, columnToCheck, chessboard)){
             if (!chessboard.getGameManager().isValidationInProcess()){
-                if (chessboard.getGameManager().moveValidation(this, chessboard.getArrayBoard()[rowToCheck][columnToCheck])){
+                if (chessboard.getGameManager().invalidMove(this, chessboard.getArrayBoard()[rowToCheck][columnToCheck])){
                     return false;
                 }
             }

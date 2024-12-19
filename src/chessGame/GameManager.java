@@ -155,7 +155,7 @@ public class GameManager {
      * @param newSquareSpot chess square
      * @return true if move is invalid cause of check / false if move is valid
      */
-    public boolean moveValidation(ChessPiece chessPiece, ChessSquare newSquareSpot){
+    public boolean invalidMove(ChessPiece chessPiece, ChessSquare newSquareSpot){
         ArrayList<ChessPiece> list = new ArrayList<>(chessboard.getListOfPieces());
         ChessPiece pieceOnSquare = newSquareSpot.getPieceOnSquare();
         int rowPosition = chessPiece.getRowPosition();
