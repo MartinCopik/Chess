@@ -18,7 +18,7 @@ public class ChessPiecesPackage {
 
 
     public static void initializePieces(ArrayList<ChessPiece> listOfPieces){
-//        initializePawns(listOfPieces);
+        initializePawns(listOfPieces);
 
         initializePiece(listOfPieces, leftWhiteRook = new Rook(Color.WHITE, "whiteRook.png", 7, 0));
         initializePiece(listOfPieces, rightWhiteRook = new Rook(Color.WHITE, "whiteRook.png", 7, 7));
