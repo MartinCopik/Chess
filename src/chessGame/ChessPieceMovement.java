@@ -128,8 +128,6 @@ public class ChessPieceMovement {
         } else if (pieceToMove instanceof King) {
             castlingMovement(newSquareSpot,pieceToMove, chessboard);
         }
-
-        pieceToMove.setPieceFirstMove(false);
     }
 
     /**
@@ -141,6 +139,7 @@ public class ChessPieceMovement {
     public static boolean canPieceMakeThisMove(ChessSquare newSquareSpot, Chessboard chessboard){
         if (chessboard.getSelectedPieceToMove().getChessPieceMovementMap().containsKey(newSquareSpot)){
                 makeTheMove(newSquareSpot, chessboard.getSelectedPieceToMove(), chessboard);
+                chessboard.getSelectedPieceToMove().setPieceFirstMove(false);
             return true;
         }
         return false;
