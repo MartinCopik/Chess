@@ -17,9 +17,10 @@ public class Chessboard  {
     private final ChessSquare[][] arrayBoard = new ChessSquare[8][8];
     private ArrayList<ChessPiece> listOfPieces = new ArrayList<>();
     private ChessPiece selectedPieceToMove;
-    private GameManager gameManager = new GameManager(this);
+    private GameManager gameManager;
 
     public Chessboard(){
+        gameManager = new GameManager(this);
 
         chessGame = new JFrame("Chess");
         chessGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -41,8 +41,7 @@ public class GameManager {
     private void outcome(ChessPiece piece){
         if (impossibleEnding()){
             new EndingScreen(chessboard, "END");
-        }
-        if (setAllPossibleMovement(piece)){
+        } else if (setAllPossibleMovement(piece)){
             if (getActualKingStatus(piece)){
                 new EndingScreen(chessboard, "CHM");
             }else{
@@ -98,14 +97,15 @@ public class GameManager {
             return true;
         } else if (chessboard.getListOfPieces().size() == 3) {
             for (ChessPiece piece : chessboard.getListOfPieces()){
-                if (piece instanceof Bishop){
-                    return true;
-                } else if (piece instanceof Knight) {
+                if (isThisKnightOrBishop(piece)){
                     return true;
                 }
             }
         }
         return false;
+    }
+    private boolean isThisKnightOrBishop(ChessPiece piece){
+        return piece instanceof Knight || piece instanceof Bishop;
     }
 
     /**
@@ -137,7 +137,7 @@ public class GameManager {
     public boolean isKingAttacked(ChessPiece chessPiece, ArrayList<ChessPiece> list){
         ChessPiece checkedKing;
         checkedKing = chessPiece.getChessPieceColor().equals(ChessPiecesPackage.getWhiteKing().getChessPieceColor())
-                ? checkedKing = ChessPiecesPackage.getWhiteKing() : ChessPiecesPackage.getBlackKing();
+                ? ChessPiecesPackage.getWhiteKing() : ChessPiecesPackage.getBlackKing();
         for (ChessPiece piece : list){
             if (!piece.getChessPieceColor().equals(checkedKing.getChessPieceColor())
                     && piece.getChessPieceMovementMap().containsKey(chessboard.getArrayBoard()[checkedKing.getRowPosition()][checkedKing.getColumnPosition()])){
@@ -155,7 +155,7 @@ public class GameManager {
      * @param newSquareSpot chess square
      * @return true if move is invalid cause of check / false if move is valid
      */
-    public boolean moveValidation(ChessPiece chessPiece, ChessSquare newSquareSpot){
+    public boolean invalidMove(ChessPiece chessPiece, ChessSquare newSquareSpot){
         ArrayList<ChessPiece> list = new ArrayList<>(chessboard.getListOfPieces());
         ChessPiece pieceOnSquare = newSquareSpot.getPieceOnSquare();
         int rowPosition = chessPiece.getRowPosition();

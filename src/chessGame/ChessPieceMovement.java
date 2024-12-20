@@ -63,21 +63,19 @@ public class ChessPieceMovement {
     public static boolean movePossibility(ChessPiece pieceToMakeMove, int rowToCheck, int columnToCheck, Chessboard chessboard){
         if (isOutOfBorder(rowToCheck, columnToCheck, chessboard)){
             return true;
-        }
-        if (positionIsTaken(rowToCheck, columnToCheck, chessboard)){
+        }else if (positionIsTaken(rowToCheck, columnToCheck, chessboard)){
             if (pieceIsAttacking(pieceToMakeMove, rowToCheck, columnToCheck, chessboard)){
                 if (!chessboard.getGameManager().isValidationInProcess()){
-                    if (chessboard.getGameManager().moveValidation(pieceToMakeMove, chessboard.getArrayBoard()[rowToCheck][columnToCheck])){
+                    if (chessboard.getGameManager().invalidMove(pieceToMakeMove, chessboard.getArrayBoard()[rowToCheck][columnToCheck])){
                         return true;
                     }
                 }
                 pieceToMakeMove.getChessPieceMovementMap().put(chessboard.getArrayBoard()[rowToCheck][columnToCheck], pieceToMakeMove);
             }
             return true;
-        }
-        if (!positionIsTaken(rowToCheck, columnToCheck, chessboard)){
+        }else if (!positionIsTaken(rowToCheck, columnToCheck, chessboard)){
             if (!chessboard.getGameManager().isValidationInProcess()){
-                if (chessboard.getGameManager().moveValidation(pieceToMakeMove, chessboard.getArrayBoard()[rowToCheck][columnToCheck])){
+                if (chessboard.getGameManager().invalidMove(pieceToMakeMove, chessboard.getArrayBoard()[rowToCheck][columnToCheck])){
                     return false;
                 }
             }
@@ -128,8 +126,6 @@ public class ChessPieceMovement {
         } else if (pieceToMove instanceof King) {
             castlingMovement(newSquareSpot,pieceToMove, chessboard);
         }
-
-        pieceToMove.setPieceFirstMove(false);
     }
 
     /**
@@ -141,6 +137,7 @@ public class ChessPieceMovement {
     public static boolean canPieceMakeThisMove(ChessSquare newSquareSpot, Chessboard chessboard){
         if (chessboard.getSelectedPieceToMove().getChessPieceMovementMap().containsKey(newSquareSpot)){
                 makeTheMove(newSquareSpot, chessboard.getSelectedPieceToMove(), chessboard);
+                chessboard.getSelectedPieceToMove().setPieceFirstMove(false);
             return true;
         }
         return false;
