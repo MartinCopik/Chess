@@ -19,12 +19,12 @@ public class Pawn extends ChessPiece {
 
     private void checkColorOfPawn(Chessboard chessboard){
         if (getChessPieceColor().equals(Color.BLACK)){
-            blackPawnMoves(getPieceFirstMove(), chessboard);
-        }else whitePawnMoves(getPieceFirstMove(), chessboard);
+            blackPawnMoves(chessboard);
+        }else whitePawnMoves(chessboard);
     }
 
-    private void blackPawnMoves(Boolean pieceFirstMove, Chessboard chessboard){
-        pawnMoveDown(pieceFirstMove, chessboard);
+    private void blackPawnMoves(Chessboard chessboard){
+        pawnMoveDown(chessboard);
         blackPawnAttacks(chessboard);
     }
 
@@ -41,19 +41,19 @@ public class Pawn extends ChessPiece {
         possibleAttackMove(chessboard,getRowPosition()+1, getColumnPosition()+1);
     }
 
-    private void pawnMoveDown(boolean pieceFirstMove, Chessboard chessboard){
+    private void pawnMoveDown(Chessboard chessboard){
         for (int row = getRowPosition()+1; row <= getRowPosition()+2; row++){
-            if (isMoveValid(chessboard, row, getColumnPosition())){
-                break;
-            }
-            if (!pieceFirstMove){
+            if (possibleBasicMove(chessboard, row, getColumnPosition())){
                 break;
             }
         }
     }
+    private boolean possibleBasicMove(Chessboard chessboard, int row, int column){
+        return isMoveValid(chessboard, row, column) || !getPieceFirstMove();
+    }
 
-    private void whitePawnMoves(Boolean pieceFirstMove, Chessboard chessboard){
-        pawnMoveUp(pieceFirstMove, chessboard);
+    private void whitePawnMoves(Chessboard chessboard){
+        pawnMoveUp(chessboard);
         whitePawnAttacks(chessboard);
     }
 
@@ -62,12 +62,9 @@ public class Pawn extends ChessPiece {
         pawnMoveDiagonallyUpRight(chessboard);
     }
 
-    private void pawnMoveUp(boolean pieceFirstMove, Chessboard chessboard){
+    private void pawnMoveUp(Chessboard chessboard){
         for (int row = getRowPosition()-1; row >= getRowPosition()-2; row--){
-            if (isMoveValid(chessboard, row, getColumnPosition())){
-                break;
-            }
-            if (!pieceFirstMove){
+            if (possibleBasicMove(chessboard, row, getColumnPosition())){
                 break;
             }
         }
@@ -83,9 +80,7 @@ public class Pawn extends ChessPiece {
 
     private void possibleAttackMove( Chessboard chessboard, int rowToCheck, int columnToCheck) {
         if (ChessPieceMovement.isOutOfBorder(rowToCheck, columnToCheck, chessboard)){
-            return;
-        }
-        if (ChessPieceMovement.positionIsTaken(rowToCheck, columnToCheck, chessboard)
+        }else if (ChessPieceMovement.positionIsTaken(rowToCheck, columnToCheck, chessboard)
                 && ChessPieceMovement.pieceIsAttacking(this, rowToCheck, columnToCheck, chessboard)) {
             if (!chessboard.getGameManager().isValidationInProcess()){
                 if (chessboard.getGameManager().invalidMove(this, chessboard.getArrayBoard()[rowToCheck][columnToCheck])){
@@ -99,8 +94,7 @@ public class Pawn extends ChessPiece {
     private boolean isMoveValid(Chessboard chessboard, int rowToCheck, int columnToCheck) {
         if (ChessPieceMovement.isOutOfBorder(rowToCheck, columnToCheck, chessboard)){
             return true;
-        }
-        if (!ChessPieceMovement.positionIsTaken(rowToCheck, columnToCheck, chessboard)){
+        }else if (!ChessPieceMovement.positionIsTaken(rowToCheck, columnToCheck, chessboard)){
             if (!chessboard.getGameManager().isValidationInProcess()){
                 if (chessboard.getGameManager().invalidMove(this, chessboard.getArrayBoard()[rowToCheck][columnToCheck])){
                     return false;
