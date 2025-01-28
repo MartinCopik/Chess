@@ -2,10 +2,12 @@ package chessPieces;
 
 import chessGame.Chessboard;
 import chessGame.ChessPieceMovement;
+import chessPieces.MobilityOfPieces.DiagonalMobility;
+import chessPieces.MobilityOfPieces.StraightMobility;
 
 import java.awt.*;
 
-public class King extends ChessPiece {
+public class King extends ChessPiece implements StraightMobility, DiagonalMobility {
     private ChessPiece smallCastlingRook;
     private ChessPiece bigCastlingRook;
 
@@ -21,41 +23,46 @@ public class King extends ChessPiece {
             castling(chessboard);
         }
 
-        kingMoveUp(chessboard);
-        kingMoveDown(chessboard);
-        kingMoveLeft(chessboard);
-        kingMoveRight(chessboard);
-        kingMoveDiagonallyUpLeft(chessboard);
-        kingMoveDiagonallyUpRight(chessboard);
-        kingMoveDiagonallyDownLeft(chessboard);
-        kingMoveDiagonallyDownRight(chessboard);
+        moveUP(chessboard, this);
+        moveDown(chessboard, this);
+        moveLeft(chessboard, this);
+        moveRight(chessboard, this);
+        moveDiagonallyUpLeft(chessboard, this);
+        moveDiagonallyUpRight(chessboard, this);
+        moveDiagonallyDownLeft(chessboard, this);
+        moveDiagonallyDownRight(chessboard, this);
     }
 
-    private void kingMoveUp(Chessboard chessboard){
+    @Override
+    public void moveUP(Chessboard chessboard, ChessPiece piece) {
         ChessPieceMovement.movePossibility(this, getRowPosition()-1, getColumnPosition(), chessboard);
     }
-
-    private void kingMoveDown(Chessboard chessboard){
+    @Override
+    public void moveDown(Chessboard chessboard, ChessPiece piece){
         ChessPieceMovement.movePossibility(this, getRowPosition()+1, getColumnPosition(), chessboard);
     }
-    private void kingMoveLeft(Chessboard chessboard){
+    @Override
+    public void moveLeft(Chessboard chessboard, ChessPiece piece){
         ChessPieceMovement.movePossibility(this, getRowPosition(), getColumnPosition()-1, chessboard);
     }
-    private void kingMoveRight(Chessboard chessboard){
+    @Override
+    public void moveRight(Chessboard chessboard, ChessPiece piece){
         ChessPieceMovement.movePossibility(this, getRowPosition(), getColumnPosition()+1, chessboard);
     }
-
-    private void kingMoveDiagonallyUpLeft(Chessboard chessboard){
+    @Override
+    public void moveDiagonallyUpLeft(Chessboard chessboard, ChessPiece piece){
         ChessPieceMovement.movePossibility(this, getRowPosition()-1, getColumnPosition()-1, chessboard);
     }
-
-    private void kingMoveDiagonallyUpRight(Chessboard chessboard){
+    @Override
+    public void moveDiagonallyUpRight(Chessboard chessboard, ChessPiece piece){
         ChessPieceMovement.movePossibility(this, getRowPosition()-1, getColumnPosition()+1, chessboard);
     }
-    private void kingMoveDiagonallyDownLeft(Chessboard chessboard){
+    @Override
+    public void moveDiagonallyDownLeft(Chessboard chessboard, ChessPiece piece){
         ChessPieceMovement.movePossibility(this, getRowPosition()+1, getColumnPosition()-1, chessboard);
     }
-    private void kingMoveDiagonallyDownRight(Chessboard chessboard){
+    @Override
+    public void moveDiagonallyDownRight(Chessboard chessboard, ChessPiece piece){
         ChessPieceMovement.movePossibility(this, getRowPosition()+1, getColumnPosition()+1, chessboard);
     }
 

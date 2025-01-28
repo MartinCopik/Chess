@@ -1,11 +1,11 @@
 package chessPieces;
 
 import chessGame.Chessboard;
-import chessGame.ChessPieceMovement;
+import chessPieces.MobilityOfPieces.StraightMobility;
 
 import java.awt.*;
 
-public class Rook extends ChessPiece {
+public class Rook extends ChessPiece implements StraightMobility {
 
     public Rook(Color chessPieceColor, String iconPath, int rowPosition, int columnPosition){
         super(chessPieceColor, iconPath, rowPosition, columnPosition);
@@ -13,42 +13,9 @@ public class Rook extends ChessPiece {
 
     @Override
     public void setChessPieceMovementMap(Chessboard chessboard) {
-        rookMoveUP(chessboard);
-        rookMoveDown(chessboard);
-        rookMoveLeft(chessboard);
-        rookMoveRight(chessboard);
+        moveUP(chessboard, this);
+        moveDown(chessboard, this);
+        moveLeft(chessboard, this);
+        moveRight(chessboard, this);
     }
-
-    private void rookMoveUP(Chessboard chessboard){
-        for (int row = getRowPosition()-1; row >= 0 ; row--){
-            if (ChessPieceMovement.movePossibility(this, row, getColumnPosition(), chessboard)) {
-                break;
-            }
-        }
-    }
-
-    private void rookMoveDown (Chessboard chessboard){
-        for (int row = getRowPosition() + 1; row <= 7; row++) {
-            if (ChessPieceMovement.movePossibility(this, row, getColumnPosition(), chessboard)) {
-                break;
-            }
-        }
-    }
-
-    private void rookMoveLeft (Chessboard chessboard){
-        for (int colum = getColumnPosition() - 1; colum >= 0; colum--) {
-            if (ChessPieceMovement.movePossibility(this, getRowPosition(), colum, chessboard)) {
-                break;
-            }
-        }
-    }
-
-    private void rookMoveRight (Chessboard chessboard){
-        for (int colum = getColumnPosition() + 1; colum <= 7; colum++) {
-            if (ChessPieceMovement.movePossibility(this, getRowPosition(), colum, chessboard)) {
-                break;
-            }
-        }
-    }
-
 }

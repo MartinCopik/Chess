@@ -28,7 +28,7 @@ public class Chessboard  {
         chessGame.setResizable(false);
 
         chessboard = new JPanel();
-        chessboard.setLayout(new GridLayout(8,8));
+        chessboard.setLayout(new GridLayout(arrayBoard.length,arrayBoard.length));
 
         boardInitialization();
         addChessPiecesToList();
