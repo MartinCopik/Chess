@@ -1,8 +1,6 @@
 package chessPieces;
 
 import chessGame.Chessboard;
-import chessGame.ChessPieceMovement;
-
 import java.awt.*;
 
 public class Knight extends ChessPiece {
@@ -14,38 +12,14 @@ public class Knight extends ChessPiece {
 
     @Override
     public void setChessPieceMovementMap(Chessboard chessboard) {
-        knightMoveUpShortLeft(chessboard);
-        knightMoveUpShortRight(chessboard);
-        knightMoveUpLongLeft(chessboard);
-        knightMoveUpLongRight(chessboard);
-        knightMoveDownShortLeft(chessboard);
-        knightMoveDownShortRight(chessboard);
-        knightMoveDownLongLeft(chessboard);
-        knightMoveDownLongRight(chessboard);
-    }
+        EChessPiecesMovement.KNIGHT.knightMoveUpShortLeft(chessboard, this);
+        EChessPiecesMovement.KNIGHT.knightMoveUpShortRight(chessboard, this);
+        EChessPiecesMovement.KNIGHT.knightMoveUpLongLeft(chessboard, this);
+        EChessPiecesMovement.KNIGHT.knightMoveUpLongRight(chessboard, this);
 
-    private  void knightMoveUpShortLeft(Chessboard chessboard){
-        ChessPieceMovement.movePossibility(this, getRowPosition()-1, getColumnPosition()-2, chessboard);
-    }
-    private  void knightMoveUpShortRight(Chessboard chessboard){
-        ChessPieceMovement.movePossibility(this, getRowPosition()-1, getColumnPosition()+2, chessboard);
-    }
-    private  void knightMoveUpLongLeft(Chessboard chessboard){
-        ChessPieceMovement.movePossibility(this, getRowPosition()-2, getColumnPosition()-1, chessboard);
-    }
-    private  void knightMoveUpLongRight(Chessboard chessboard){
-        ChessPieceMovement.movePossibility(this, getRowPosition()-2, getColumnPosition()+1, chessboard);
-    }
-    private  void knightMoveDownShortLeft(Chessboard chessboard){
-        ChessPieceMovement.movePossibility(this, getRowPosition()+1, getColumnPosition()-2, chessboard);
-    }
-    private  void knightMoveDownShortRight(Chessboard chessboard){
-        ChessPieceMovement.movePossibility(this, getRowPosition()+1, getColumnPosition()+2, chessboard);
-    }
-    private  void knightMoveDownLongLeft(Chessboard chessboard){
-        ChessPieceMovement.movePossibility(this, getRowPosition()+2, getColumnPosition()-1, chessboard);
-    }
-    private  void knightMoveDownLongRight(Chessboard chessboard){
-        ChessPieceMovement.movePossibility(this, getRowPosition()+2, getColumnPosition()+1, chessboard);
+        EChessPiecesMovement.KNIGHT.knightMoveDownShortLeft(chessboard, this);
+        EChessPiecesMovement.KNIGHT.knightMoveDownShortRight(chessboard, this);
+        EChessPiecesMovement.KNIGHT.knightMoveDownLongLeft(chessboard, this);
+        EChessPiecesMovement.KNIGHT.knightMoveDownLongRight(chessboard, this);
     }
 }

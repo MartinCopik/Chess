@@ -1,8 +1,6 @@
 package chessPieces;
 
 import chessGame.Chessboard;
-import chessGame.ChessPieceMovement;
-
 import java.awt.*;
 
 public class Queen extends ChessPiece {
@@ -13,87 +11,14 @@ public class Queen extends ChessPiece {
 
     @Override
     public void setChessPieceMovementMap(Chessboard chessboard) {
-        queenMoveUP(chessboard);
-        queenMoveDown(chessboard);
-        queenMoveLeft(chessboard);
-        queenMoveRight(chessboard);
-        queenMoveDiagonallyUpLeft(chessboard);
-        queenMoveDiagonallyUpRight(chessboard);
-        queenMoveDiagonallyDownLeft(chessboard);
-        queenMoveDiagonallyDownRight(chessboard);
-    }
+        EChessPiecesMovement.QUEEN.moveUp(chessboard, this);
+        EChessPiecesMovement.QUEEN.moveDown(chessboard, this);
+        EChessPiecesMovement.QUEEN.moveLeft(chessboard, this);
+        EChessPiecesMovement.QUEEN.moveRight(chessboard, this);
 
-    private void queenMoveUP(Chessboard chessboard){
-        for (int row = getRowPosition()-1; row >= 0 ; row--){
-            if (ChessPieceMovement.movePossibility(this, row, getColumnPosition(), chessboard)){
-                break;
-            }
-        }
-    }
-    private void queenMoveDown(Chessboard chessboard){
-        for (int row = getRowPosition()+1; row<= 7; row++){
-            if (ChessPieceMovement.movePossibility(this, row, getColumnPosition(), chessboard)){
-                break;
-            }
-        }
-    }
-    private void queenMoveLeft(Chessboard chessboard){
-        for (int colum = getColumnPosition()-1; colum>= 0; colum--){
-            if (ChessPieceMovement.movePossibility(this, getRowPosition(), colum, chessboard)){
-                break;
-            }
-        }
-    }
-    private void queenMoveRight(Chessboard chessboard){
-        for (int colum = getColumnPosition()+1; colum<= 7; colum++){
-            if (ChessPieceMovement.movePossibility(this, getRowPosition(), colum, chessboard)){
-                break;
-            }
-        }
-    }
-    private void queenMoveDiagonallyUpLeft(Chessboard chessboard){
-        int row = getRowPosition();
-        int colum = getColumnPosition();
-        while (row >= 0 || colum >= 0){
-            row--;
-            colum--;
-            if (ChessPieceMovement.movePossibility(this, row, colum, chessboard)){
-                break;
-            }
-        }
-    }
-
-    private void queenMoveDiagonallyDownLeft(Chessboard chessboard){
-        int row = getRowPosition();
-        int colum = getColumnPosition();
-        while (row >= 7 || colum >= 0){
-            row++;
-            colum--;
-            if (ChessPieceMovement.movePossibility(this, row, colum, chessboard)){
-                break;
-            }
-        }
-    }
-    private void queenMoveDiagonallyUpRight(Chessboard chessboard){
-        int row = getRowPosition();
-        int colum = getColumnPosition();
-        while (row >= 0 || colum <= 7){
-            row--;
-            colum++;
-            if (ChessPieceMovement.movePossibility(this, row, colum, chessboard)){
-                break;
-            }
-        }
-    }
-    private void queenMoveDiagonallyDownRight(Chessboard chessboard){
-        int row = getRowPosition();
-        int colum = getColumnPosition();
-        while (row <= 7 || colum <= 7){
-            row++;
-            colum++;
-            if (ChessPieceMovement.movePossibility(this, row, colum, chessboard)){
-                break;
-            }
-        }
+        EChessPiecesMovement.QUEEN.moveDiagonallyUpLeft(chessboard, this);
+        EChessPiecesMovement.QUEEN.moveDiagonallyUpRight(chessboard, this);
+        EChessPiecesMovement.QUEEN.moveDiagonallyDownLeft(chessboard, this);
+        EChessPiecesMovement.QUEEN.moveDiagonallyDownRight(chessboard, this);
     }
 }

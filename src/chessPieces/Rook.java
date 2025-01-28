@@ -13,42 +13,9 @@ public class Rook extends ChessPiece {
 
     @Override
     public void setChessPieceMovementMap(Chessboard chessboard) {
-        rookMoveUP(chessboard);
-        rookMoveDown(chessboard);
-        rookMoveLeft(chessboard);
-        rookMoveRight(chessboard);
+        EChessPiecesMovement.ROOK.moveUp(chessboard, this);
+        EChessPiecesMovement.ROOK.moveDown(chessboard, this);
+        EChessPiecesMovement.ROOK.moveLeft(chessboard, this);
+        EChessPiecesMovement.ROOK.moveRight(chessboard, this);
     }
-
-    private void rookMoveUP(Chessboard chessboard){
-        for (int row = getRowPosition()-1; row >= 0 ; row--){
-            if (ChessPieceMovement.movePossibility(this, row, getColumnPosition(), chessboard)) {
-                break;
-            }
-        }
-    }
-
-    private void rookMoveDown (Chessboard chessboard){
-        for (int row = getRowPosition() + 1; row <= 7; row++) {
-            if (ChessPieceMovement.movePossibility(this, row, getColumnPosition(), chessboard)) {
-                break;
-            }
-        }
-    }
-
-    private void rookMoveLeft (Chessboard chessboard){
-        for (int colum = getColumnPosition() - 1; colum >= 0; colum--) {
-            if (ChessPieceMovement.movePossibility(this, getRowPosition(), colum, chessboard)) {
-                break;
-            }
-        }
-    }
-
-    private void rookMoveRight (Chessboard chessboard){
-        for (int colum = getColumnPosition() + 1; colum <= 7; colum++) {
-            if (ChessPieceMovement.movePossibility(this, getRowPosition(), colum, chessboard)) {
-                break;
-            }
-        }
-    }
-
 }

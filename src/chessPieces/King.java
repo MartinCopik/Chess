@@ -21,44 +21,16 @@ public class King extends ChessPiece {
             castling(chessboard);
         }
 
-        kingMoveUp(chessboard);
-        kingMoveDown(chessboard);
-        kingMoveLeft(chessboard);
-        kingMoveRight(chessboard);
-        kingMoveDiagonallyUpLeft(chessboard);
-        kingMoveDiagonallyUpRight(chessboard);
-        kingMoveDiagonallyDownLeft(chessboard);
-        kingMoveDiagonallyDownRight(chessboard);
-    }
+        EChessPiecesMovement.KING.moveUp(chessboard, this);
+        EChessPiecesMovement.KING.moveDown(chessboard, this);
+        EChessPiecesMovement.KING.moveLeft(chessboard, this);
+        EChessPiecesMovement.KING.moveRight(chessboard, this);
 
-    private void kingMoveUp(Chessboard chessboard){
-        ChessPieceMovement.movePossibility(this, getRowPosition()-1, getColumnPosition(), chessboard);
+        EChessPiecesMovement.KING.moveDiagonallyUpLeft(chessboard, this);
+        EChessPiecesMovement.KING.moveDiagonallyUpRight(chessboard, this);
+        EChessPiecesMovement.KING.moveDiagonallyDownLeft(chessboard, this);
+        EChessPiecesMovement.KING.moveDiagonallyDownRight(chessboard, this);
     }
-
-    private void kingMoveDown(Chessboard chessboard){
-        ChessPieceMovement.movePossibility(this, getRowPosition()+1, getColumnPosition(), chessboard);
-    }
-    private void kingMoveLeft(Chessboard chessboard){
-        ChessPieceMovement.movePossibility(this, getRowPosition(), getColumnPosition()-1, chessboard);
-    }
-    private void kingMoveRight(Chessboard chessboard){
-        ChessPieceMovement.movePossibility(this, getRowPosition(), getColumnPosition()+1, chessboard);
-    }
-
-    private void kingMoveDiagonallyUpLeft(Chessboard chessboard){
-        ChessPieceMovement.movePossibility(this, getRowPosition()-1, getColumnPosition()-1, chessboard);
-    }
-
-    private void kingMoveDiagonallyUpRight(Chessboard chessboard){
-        ChessPieceMovement.movePossibility(this, getRowPosition()-1, getColumnPosition()+1, chessboard);
-    }
-    private void kingMoveDiagonallyDownLeft(Chessboard chessboard){
-        ChessPieceMovement.movePossibility(this, getRowPosition()+1, getColumnPosition()-1, chessboard);
-    }
-    private void kingMoveDiagonallyDownRight(Chessboard chessboard){
-        ChessPieceMovement.movePossibility(this, getRowPosition()+1, getColumnPosition()+1, chessboard);
-    }
-
     /**
      * set up possible castling movement and saves it in movement map
      * @param chessboard
