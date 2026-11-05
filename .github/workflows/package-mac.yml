@@ -1,0 +1,86 @@
+name: Package Chess for Mac
+on:
+  push:
+    branches: ['codex/macos-package-*']
+permissions:
+  contents: read
+jobs:
+  package:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-15
+            arch: arm64
+          - runner: macos-15-intel
+            arch: x64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '22.0.2+9'
+          architecture: ${{ matrix.arch }}
+      - name: Build Chess.app with its Java runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p input/lib output/Chess
+          cp Chess.jar input/
+          driver=sqlite-jdbc-3.54.1.0.jar
+          curl --fail --location --retry 3 --silent --show-error "https://repo.maven.apache.org/maven2/org/xerial/sqlite-jdbc/3.54.1.0/$driver" -o "input/lib/$driver"
+          echo "f8dce420a6016278497f4f0560f65602b9db858de141b541cf91a4644ebe4639  input/lib/$driver" | shasum -a 256 -c -
+          echo "4551377913ed2f6a7c7c35387767225f79fca21649e23c890d77583ffd46c3c7  input/Chess.jar" | shasum -a 256 -c -
+          jpackage --type app-image --name Chess --input input --dest output/Chess \
+            --main-jar Chess.jar --main-class chessGame.MainClass --mac-package-identifier sk.mpj.chess \
+            --add-modules java.desktop,java.sql --java-options '-Dchess.dataDir=$APPDIR/../../../data'
+          app=output/Chess/Chess.app
+          target=${{ matrix.arch }}
+          test "$target" = arm64 || target=x86_64
+          lipo -verify_arch "$target" "$app/Contents/MacOS/Chess"
+          lipo -verify_arch "$target" "$app/Contents/runtime/Contents/Home/lib/server/libjvm.dylib"
+          cmp Chess.jar "$app/Contents/app/Chess.jar"
+          cmp "input/lib/$driver" "$app/Contents/app/lib/$driver"
+          test ! -e "$app/Contents/app/README.md" && test ! -e output/Chess/README.md
+      - name: Start the actual application twice on macOS
+        shell: bash
+        run: |
+          set -euo pipefail
+          testdir="$RUNNER_TEMP/Chess smoke test"
+          mkdir -p "$testdir" "$RUNNER_TEMP/unrelated"
+          ditto output/Chess "$testdir/Chess"
+          cd "$RUNNER_TEMP/unrelated"
+          db="$testdir/Chess/data/chess.db"
+          for n in 1 2; do
+            log="$RUNNER_TEMP/chess-launch-$n.log"
+            env -u JAVA_HOME PATH=/usr/bin:/bin "$testdir/Chess/Chess.app/Contents/MacOS/Chess" >"$log" 2>&1 &
+            pid=$!
+            trap 'kill "$pid" 2>/dev/null || true' EXIT
+            ready=false
+            for i in {1..40}; do
+              kill -0 "$pid" || { cat "$log"; exit 1; }
+              if [[ -f "$db" ]] && [[ "$(sqlite3 -readonly "$db" 'select count(*) from games;' 2>/dev/null)" = 1 ]] && "$JAVA_HOME/bin/jcmd" "$pid" Thread.print 2>/dev/null | grep -F 'AWT-EventQueue' >/dev/null; then
+                ready=true; break
+              fi
+              sleep 1
+            done
+            $ready || { cat "$log"; exit 1; }
+            if grep -E 'Exception|Error:' "$log"; then exit 1; fi
+            test "$(sqlite3 -readonly "$db" 'select id,status from games;')" = '1|IN_PROGRESS'
+            test "$(sqlite3 -readonly "$db" 'select count(*) from players;')" = 2
+            kill "$pid"; wait "$pid" || true
+            trap - EXIT
+          done
+          test ! -e data/chess.db
+      - name: Archive the clean app bundle
+        run: ditto -c -k --keepParent output/Chess Chess-macOS-${{ matrix.arch }}.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Chess-macOS-${{ matrix.arch }}
+          path: Chess-macOS-${{ matrix.arch }}.zip
+          compression-level: 0
+          retention-days: 7
