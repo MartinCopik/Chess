@@ -2,12 +2,12 @@ package chessPieces;
 
 import chessGame.Chessboard;
 import chessGame.ChessPieceMovement;
-
-import java.awt.*;
+import chessGame.PieceType;
+import chessGame.PieceColor;
 
 public class Rook extends ChessPiece {
 
-    public Rook(Color chessPieceColor, String iconPath, int rowPosition, int columnPosition){
+    public Rook(PieceColor chessPieceColor, String iconPath, int rowPosition, int columnPosition){
         super(chessPieceColor, iconPath, rowPosition, columnPosition);
     }
 
@@ -17,6 +17,11 @@ public class Rook extends ChessPiece {
         rookMoveDown(chessboard);
         rookMoveLeft(chessboard);
         rookMoveRight(chessboard);
+    }
+
+    @Override
+    public PieceType getPieceType() {
+        return PieceType.ROOK;
     }
 
     private void rookMoveUP(Chessboard chessboard){

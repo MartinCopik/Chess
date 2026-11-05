@@ -1,9 +1,13 @@
-package chessGame;
+package chessGame.screens;
 
+import chessGame.ChessPieceMovement;
+import chessGame.Chessboard;
+import chessGame.PieceImages;
+import chessGame.PieceColor;
 import chessPieces.*;
 
 import javax.swing.*;
-import java.awt.*;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,6 +16,7 @@ import java.awt.event.ActionListener;
  */
 public class PromotionWindow implements ActionListener {
 
+    private ChessPiece selectedPiece;
     private JFrame promotionWindow;
     private JButton rookButton;
     private JButton knightButton;
@@ -26,10 +31,11 @@ public class PromotionWindow implements ActionListener {
         this.chessboard.getChessGame().setVisible(false);
 
         promotionWindow = new JFrame();
-        rookButton = new JButton(new ImageIcon(colorToBePromoted()+"Rook.png"));
-        knightButton = new JButton(new ImageIcon(colorToBePromoted()+"Knight.png"));
-        bishopButton = new JButton(new ImageIcon(colorToBePromoted()+"Bishop.png"));
-        queenButton = new JButton(new ImageIcon(colorToBePromoted()+"Queen.png"));
+        promotionWindow.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        rookButton = new JButton(PieceImages.load(colorToBePromoted()+"Rook.png"));
+        knightButton = new JButton(PieceImages.load(colorToBePromoted()+"Knight.png"));
+        bishopButton = new JButton(PieceImages.load(colorToBePromoted()+"Bishop.png"));
+        queenButton = new JButton(PieceImages.load(colorToBePromoted()+"Queen.png"));
 
         rookButton.setFocusable(false);
         knightButton.setFocusable(false);
@@ -56,19 +62,21 @@ public class PromotionWindow implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == rookButton) {
-            promotePiece(new Rook(pawnToBePromoted.getChessPieceColor(), colorToBePromoted()+"Rook.png", pawnToBePromoted.getRowPosition(), pawnToBePromoted.getColumnPosition()));
+            selectedPiece = promotePiece(new Rook(pawnToBePromoted.getChessPieceColor(), colorToBePromoted()+"Rook.png", pawnToBePromoted.getRowPosition(), pawnToBePromoted.getColumnPosition()));
         }
         if (e.getSource() == knightButton) {
-            promotePiece(new Knight(pawnToBePromoted.getChessPieceColor(), colorToBePromoted()+"Knight.png", pawnToBePromoted.getRowPosition(), pawnToBePromoted.getColumnPosition()));
+            selectedPiece = promotePiece(new Knight(pawnToBePromoted.getChessPieceColor(), colorToBePromoted()+"Knight.png", pawnToBePromoted.getRowPosition(), pawnToBePromoted.getColumnPosition()));
         }
         if (e.getSource() == bishopButton) {
-            promotePiece(new Bishop(pawnToBePromoted.getChessPieceColor(), colorToBePromoted()+"Bishop.png", pawnToBePromoted.getRowPosition(), pawnToBePromoted.getColumnPosition()));
+            selectedPiece = promotePiece(new Bishop(pawnToBePromoted.getChessPieceColor(), colorToBePromoted()+"Bishop.png", pawnToBePromoted.getRowPosition(), pawnToBePromoted.getColumnPosition()));
         }
         if (e.getSource() == queenButton) {
-            promotePiece(new Queen(pawnToBePromoted.getChessPieceColor(), colorToBePromoted()+"Queen.png", pawnToBePromoted.getRowPosition(), pawnToBePromoted.getColumnPosition()));
+            selectedPiece = promotePiece(new Queen(pawnToBePromoted.getChessPieceColor(), colorToBePromoted()+"Queen.png", pawnToBePromoted.getRowPosition(), pawnToBePromoted.getColumnPosition()));
         }
+
         promotionWindow.dispose();
         chessboard.getChessGame().setVisible(true);
+        chessboard.getGameManager().completePromotion(selectedPiece.getPieceType());
     }
 
     /**
@@ -76,7 +84,7 @@ public class PromotionWindow implements ActionListener {
      * @return the promoting color
      */
     private String colorToBePromoted(){
-        if (this.pawnToBePromoted.getChessPieceColor() == Color.BLACK){
+        if (this.pawnToBePromoted.getChessPieceColor() == PieceColor.BLACK){
             return "black";
         }else return "white";
     }
@@ -85,9 +93,10 @@ public class PromotionWindow implements ActionListener {
      * promote the pawn, set up the new chessPiece and discards the pawn from the game
      * @param newPiece
      */
-    private void promotePiece(ChessPiece newPiece){
-        newPiece.scaleImageOfPiece(pawnToBePromoted.getPieceLabel().getWidth(), pawnToBePromoted.getPieceLabel().getHeight());
+    private ChessPiece promotePiece(ChessPiece newPiece){
+        chessboard.scalePieceImage(newPiece);
         chessboard.getListOfPieces().add(newPiece);
         ChessPieceMovement.makeTheMove(chessboard.getArrayBoard()[pawnToBePromoted.getRowPosition()][pawnToBePromoted.getColumnPosition()], newPiece, chessboard);
+        return newPiece;
     }
 }

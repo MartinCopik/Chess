@@ -14,13 +14,27 @@ public class Chessboard  {
 
     private final JFrame chessGame;
     private final JPanel chessboard;
+
     private final ChessSquare[][] arrayBoard = new ChessSquare[8][8];
     private ArrayList<ChessPiece> listOfPieces = new ArrayList<>();
+
     private ChessPiece selectedPieceToMove;
     private GameManager gameManager = new GameManager(this);
     private ChessPiecesPackage chessPiecesPackage;
 
-    public Chessboard(){
+    private JPanel historyControls;
+    private final JButton backButton = new JButton("Back");
+    private final JButton forwardButton = new JButton("Forward");
+    private final JButton newGameButton = new JButton("New game");
+    private final JButton savedGamesButton = new JButton("Saved games");
+    private final JLabel historyStatus = new JLabel();
+    private boolean gameActionsConfigured;
+
+    public Chessboard() {
+        this(true);
+    }
+
+    public Chessboard(boolean visible){
 
         chessGame = new JFrame("Chess");
         chessGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -35,8 +49,58 @@ public class Chessboard  {
         setAllChessPiecesOnBoard();
         addEmptyPiecesToFrame();
 
-        chessGame.add(chessboard);
-        chessGame.setVisible(true);
+        historyControls = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        historyControls.add(newGameButton);
+        historyControls.add(savedGamesButton);
+        backButton.addActionListener(event -> gameManager.undoMove());
+        forwardButton.addActionListener(event -> gameManager.redoMove());
+        historyControls.add(backButton);
+        historyControls.add(forwardButton);
+        historyControls.add(historyStatus);
+
+        chessGame.add(historyControls, BorderLayout.NORTH);
+        chessGame.add(chessboard, BorderLayout.CENTER);
+        updateHistoryControls();
+        chessGame.setVisible(visible);
+    }
+
+    public void updateHistoryControls() {
+        boolean canSwitch = gameActionsConfigured && !gameManager.getPromotionPending();
+        newGameButton.setEnabled(canSwitch);
+        savedGamesButton.setEnabled(canSwitch);
+        backButton.setEnabled(gameManager.canUndo());
+        forwardButton.setEnabled(gameManager.canRedo());
+        String status;
+        if (gameManager.getPromotionPending()) {
+            status = "Choose a promotion piece";
+        } else if (gameManager.isGameOver()) {
+            status = "Game over";
+        } else {
+            status = (gameManager.getCurrentPlayerColor() == PieceColor.WHITE ? "White" : "Black") + " to move";
+        }
+        historyStatus.setText("Move " + gameManager.getHistoryPosition() + "/"
+                + gameManager.getMoveHistory().size() + " | " + status);
+    }
+
+    public void refreshBoard() {
+        setColors();
+        chessboard.revalidate();
+        chessboard.repaint();
+    }
+
+    public void configureGameActions(Runnable newGame, Runnable savedGames) {
+        if (gameActionsConfigured) {
+            throw new IllegalStateException("Game actions are already configured.");
+        }
+        newGameButton.addActionListener(event -> newGame.run());
+        savedGamesButton.addActionListener(event -> savedGames.run());
+        gameActionsConfigured = true;
+        updateHistoryControls();
+    }
+
+    public void dispose() {
+        gameManager.closeResultWindow();
+        chessGame.dispose();
     }
 
     private void boardInitialization(){
@@ -69,8 +133,12 @@ public class Chessboard  {
      * set movement map for all chess pieces
      */
     private void setAllChessPiecesOnBoard(){
-        listOfPieces.forEach(chessPiece -> chessPiece.scaleImageOfPiece(widthFrame/16, heightFrame/16));
+        listOfPieces.forEach(this::scalePieceImage);
         listOfPieces.forEach(chessPiece -> arrayBoard[chessPiece.getRowPosition()][chessPiece.getColumnPosition()].setPieceOnSquare(chessPiece));
+    }
+
+    public void scalePieceImage(ChessPiece piece) {
+        piece.scaleImageOfPiece(widthFrame / 16, heightFrame / 16);
     }
 
     private void addEmptyPiecesToFrame(){

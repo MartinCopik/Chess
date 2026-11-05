@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: chessGame.MainClass
+Class-Path: lib/sqlite-jdbc-3.54.1.0.jar
+

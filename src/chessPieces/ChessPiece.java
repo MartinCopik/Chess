@@ -2,6 +2,9 @@ package chessPieces;
 
 import chessGame.ChessSquare;
 import chessGame.Chessboard;
+import chessGame.PieceColor;
+import chessGame.PieceImages;
+import chessGame.PieceType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +12,7 @@ import java.util.HashMap;
 
 public abstract class ChessPiece {
 
-    private Color chessPieceColor;
+    private final PieceColor chessPieceColor;
     private ImageIcon pieceImageIcon;
     private JLabel pieceLabel;
     private int rowPosition;
@@ -17,13 +20,15 @@ public abstract class ChessPiece {
     private boolean pieceFirstMove = true;
     private HashMap<ChessSquare, ChessPiece> chessPieceMovementMap = new HashMap<>();
 
-     public ChessPiece(Color chessPieceColor, String iconPath, int rowPosition, int columnPosition){
+     public ChessPiece(PieceColor chessPieceColor, String iconPath, int rowPosition, int columnPosition){
         this.chessPieceColor = chessPieceColor;
-        this.pieceImageIcon = new ImageIcon(iconPath);
+        this.pieceImageIcon = PieceImages.load(iconPath);
         this.pieceLabel = new JLabel();
         this.rowPosition = rowPosition;
         this.columnPosition = columnPosition;
     }
+
+
 
     /**
      * scale the image of specified chess piece
@@ -52,7 +57,9 @@ public abstract class ChessPiece {
      */
     public abstract void setChessPieceMovementMap(Chessboard chessboard);
 
-    public Color getChessPieceColor() {
+    public abstract PieceType getPieceType();
+
+    public PieceColor getChessPieceColor() {
         return chessPieceColor;
     }
 

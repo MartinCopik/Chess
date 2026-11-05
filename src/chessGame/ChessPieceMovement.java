@@ -1,5 +1,6 @@
 package chessGame;
 
+import chessGame.screens.PromotionWindow;
 import chessPieces.ChessPiece;
 import chessPieces.King;
 import chessPieces.Pawn;
@@ -151,6 +152,7 @@ public class ChessPieceMovement {
     private static void pawnMoves(ChessPiece chessPiece, Chessboard chessboard){
         if (chessPiece instanceof Pawn){
             if (chessPiece.getRowPosition() == 0 || chessPiece.getRowPosition() == 7){
+                chessboard.getGameManager().setPromotionPending(true);
                 new PromotionWindow(chessPiece, chessboard);
             }
         }
@@ -180,8 +182,14 @@ public class ChessPieceMovement {
      */
     private static void makeCastlingMovement(ChessSquare newSquareSpot, ChessPiece king, Chessboard chessboard, int columnClicked, int columnRookNewPosition, int columnRookPosition){
         if (newSquareSpot == chessboard.getArrayBoard()[king.getRowPosition()][columnClicked]){
+
+            ChessPiece rook = chessboard.getArrayBoard()[king.getRowPosition()][columnRookPosition].getPieceOnSquare();
+
             movingThePiece(chessboard.getArrayBoard()[king.getRowPosition()][columnRookNewPosition],
-                    chessboard.getArrayBoard()[king.getRowPosition()][columnRookPosition].getPieceOnSquare(), chessboard);
+                    rook,
+                    chessboard
+            );
+            rook.setPieceFirstMove(false);
         }
     }
 }

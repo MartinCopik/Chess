@@ -2,14 +2,13 @@ package chessPieces;
 
 import chessGame.Chessboard;
 import chessGame.ChessPieceMovement;
-import chessGame.PromotionWindow;
-
-import java.awt.*;
+import chessGame.PieceType;
+import chessGame.PieceColor;
 
 public class Pawn extends ChessPiece {
 
 
-    public Pawn(Color chessPieceColor, String iconPath, int rowPosition, int columnPosition){
+    public Pawn(PieceColor chessPieceColor, String iconPath, int rowPosition, int columnPosition){
         super(chessPieceColor, iconPath, rowPosition, columnPosition);
     }
 
@@ -18,8 +17,13 @@ public class Pawn extends ChessPiece {
         checkColorOfPawn(chessboard);
     }
 
+    @Override
+    public PieceType getPieceType() {
+        return PieceType.PAWN;
+    }
+
     private void checkColorOfPawn(Chessboard chessboard){
-        if (getChessPieceColor().equals(Color.BLACK)){
+        if (getChessPieceColor() == PieceColor.BLACK){
             blackPawnMoves(getPieceFirstMove(), chessboard);
         }else whitePawnMoves(getPieceFirstMove(), chessboard);
     }
