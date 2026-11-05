@@ -2,13 +2,13 @@ package chessPieces;
 
 import chessGame.Chessboard;
 import chessGame.ChessPieceMovement;
-
-import java.awt.*;
+import chessGame.PieceType;
+import chessGame.PieceColor;
 
 public class Knight extends ChessPiece {
 
 
-    public Knight(Color chessPieceColor, String iconPath, int rowPosition, int columnPosition){
+    public Knight(PieceColor chessPieceColor, String iconPath, int rowPosition, int columnPosition){
         super(chessPieceColor, iconPath, rowPosition, columnPosition);
     }
 
@@ -22,6 +22,11 @@ public class Knight extends ChessPiece {
         knightMoveDownShortRight(chessboard);
         knightMoveDownLongLeft(chessboard);
         knightMoveDownLongRight(chessboard);
+    }
+
+    @Override
+    public PieceType getPieceType() {
+        return PieceType.KNIGHT;
     }
 
     private  void knightMoveUpShortLeft(Chessboard chessboard){

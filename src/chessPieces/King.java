@@ -2,17 +2,12 @@ package chessPieces;
 
 import chessGame.Chessboard;
 import chessGame.ChessPieceMovement;
-
-import java.awt.*;
+import chessGame.PieceType;
+import chessGame.PieceColor;
 
 public class King extends ChessPiece {
-    private ChessPiece smallCastlingRook;
-    private ChessPiece bigCastlingRook;
-
-    public King(Color chessPieceColor, String iconPath, int rowPosition, int columnPosition, ChessPiece smallCastlingRook, ChessPiece bigCastlingRook){
+    public King(PieceColor chessPieceColor, String iconPath, int rowPosition, int columnPosition){
         super(chessPieceColor, iconPath, rowPosition, columnPosition);
-        this.smallCastlingRook = smallCastlingRook;
-        this.bigCastlingRook = bigCastlingRook;
     }
 
     @Override
@@ -29,6 +24,11 @@ public class King extends ChessPiece {
         kingMoveDiagonallyUpRight(chessboard);
         kingMoveDiagonallyDownLeft(chessboard);
         kingMoveDiagonallyDownRight(chessboard);
+    }
+
+    @Override
+    public PieceType getPieceType() {
+        return PieceType.KING;
     }
 
     private void kingMoveUp(Chessboard chessboard){
@@ -64,16 +64,25 @@ public class King extends ChessPiece {
      * @param chessboard
      */
     private void castling(Chessboard chessboard){
-        if (this.getPieceFirstMove() && !chessboard.getGameManager().getActualKingStatus(this)) {
-            if (smallCastlingRook.getPieceFirstMove()){
+        int homeRow = getChessPieceColor() == PieceColor.WHITE ? 7 : 0;
+        if (getPieceFirstMove() && getRowPosition() == homeRow && getColumnPosition() == 4
+                && !chessboard.getGameManager().setActualKingStatus(this)) {
+            if (hasCastlingRook(chessboard, 7)){
                     isSmallCastlingPossible(chessboard);
             }
-            if (bigCastlingRook.getPieceFirstMove()){
+            if (hasCastlingRook(chessboard, 0)){
                 if (!ChessPieceMovement.positionIsTaken(this.getRowPosition(), 1, chessboard)){
                     isBigCastlingPossible(chessboard);
                 }
             }
         }
+    }
+
+    private boolean hasCastlingRook(Chessboard chessboard, int column) {
+        ChessPiece rook = chessboard.getArrayBoard()[getRowPosition()][column].getPieceOnSquare();
+        // A promoted rook has firstMove=false; restored original rooks keep their saved flag.
+        return rook instanceof Rook && rook.getChessPieceColor() == getChessPieceColor()
+                && rook.getPieceFirstMove();
     }
 
     private void isSmallCastlingPossible(Chessboard chessboard){
@@ -98,10 +107,12 @@ public class King extends ChessPiece {
      * @return true if game is in check or specified position is taken
      */
     private boolean checkCastlingMovement(int column, Chessboard chessboard){
-        ChessPieceMovement.movePossibility(this, getRowPosition(), column, chessboard);
-        if (chessboard.getGameManager().isGameCheck() || ChessPieceMovement.positionIsTaken(this.getRowPosition(),column, chessboard)){
+        if(ChessPieceMovement.positionIsTaken(
+                getRowPosition(),column, chessboard )){
             return true;
         }
-        return false;
+
+        ChessPieceMovement.movePossibility(this, getRowPosition(), column, chessboard);
+        return chessboard.getGameManager().isGameCheck();
     }
 }

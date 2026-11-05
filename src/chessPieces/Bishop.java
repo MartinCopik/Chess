@@ -2,12 +2,12 @@ package chessPieces;
 
 import chessGame.Chessboard;
 import chessGame.ChessPieceMovement;
-
-import java.awt.*;
+import chessGame.PieceType;
+import chessGame.PieceColor;
 
 public class Bishop extends ChessPiece {
 
-    public Bishop(Color chessPieceColor, String iconPath, int rowPosition, int columnPosition){
+    public Bishop(PieceColor chessPieceColor, String iconPath, int rowPosition, int columnPosition){
         super(chessPieceColor, iconPath, rowPosition, columnPosition);
     }
 
@@ -17,6 +17,11 @@ public class Bishop extends ChessPiece {
         bishopMoveDiagonallyUpRight(chessboard);
         bishopMoveDiagonallyDownLeft(chessboard);
         bishopMoveDiagonallyDownRight(chessboard);
+    }
+
+    @Override
+    public PieceType getPieceType() {
+        return PieceType.BISHOP;
     }
 
     private void bishopMoveDiagonallyUpLeft(Chessboard chessboard){

@@ -2,12 +2,12 @@ package chessPieces;
 
 import chessGame.Chessboard;
 import chessGame.ChessPieceMovement;
-
-import java.awt.*;
+import chessGame.PieceType;
+import chessGame.PieceColor;
 
 public class Queen extends ChessPiece {
 
-    public Queen(Color chessPieceColor, String iconPath, int rowPosition, int columnPosition){
+    public Queen(PieceColor chessPieceColor, String iconPath, int rowPosition, int columnPosition){
         super(chessPieceColor, iconPath, rowPosition, columnPosition);
     }
 
@@ -21,6 +21,11 @@ public class Queen extends ChessPiece {
         queenMoveDiagonallyUpRight(chessboard);
         queenMoveDiagonallyDownLeft(chessboard);
         queenMoveDiagonallyDownRight(chessboard);
+    }
+
+    @Override
+    public PieceType getPieceType() {
+        return PieceType.QUEEN;
     }
 
     private void queenMoveUP(Chessboard chessboard){
