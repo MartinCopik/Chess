@@ -41,8 +41,8 @@ jobs:
           app=output/Chess/Chess.app
           target=${{ matrix.arch }}
           test "$target" = arm64 || target=x86_64
-          lipo -verify_arch "$target" "$app/Contents/MacOS/Chess"
-          lipo -verify_arch "$target" "$app/Contents/runtime/Contents/Home/lib/server/libjvm.dylib"
+          lipo "$app/Contents/MacOS/Chess" -verify_arch "$target"
+          lipo "$app/Contents/runtime/Contents/Home/lib/server/libjvm.dylib" -verify_arch "$target"
           cmp Chess.jar "$app/Contents/app/Chess.jar"
           cmp "input/lib/$driver" "$app/Contents/app/lib/$driver"
           test ! -e "$app/Contents/app/README.md" && test ! -e output/Chess/README.md
